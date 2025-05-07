@@ -67,7 +67,7 @@ jobs:
           #zip -q -x ".git/*" -x  ".github/*" -r sourceCode-${{ env.commitS }}.zip .
           tar -cJf sourceCode-${{ env.commitS }}.tar.xz --exclude=.git --exclude=.github *
 
-      - name: Set versionCode and versionName
+      - name: 设置版本号
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
@@ -145,7 +145,7 @@ jobs:
             mv "$file" "apk/$new_base"
           done
           mv sourceCode-${{ env.commitS }}.* apk/
-      - name: Release Note
+      - name: 创建发布说明内容
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
@@ -158,7 +158,7 @@ jobs:
             git log --pretty=format:%B ${{ env.commitS }}...${lastCommit:0:7} |sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' |cat -n |sort -k2,2 -k1,1n |uniq -f1 |sort -k1,1n |cut -f2- >> apk/${{ matrix.repoName }}-Release.log
           fi
           echo -e '\n```' >> apk/${{ matrix.repoName }}-Release.log
-      - name: Build Upgrade log
+      - name: 创建升级日志
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
@@ -170,7 +170,7 @@ jobs:
           else
             git log --pretty=format:%B ${{ env.commitS }}...${lastCommit:0:7} |sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' |cat -n |sort -k2,2 -k1,1n |uniq -f1 |sort -k1,1n |cut -f2- > apk/${{ matrix.repoName }}.log
           fi
-      - name: Build Upgrade content
+      - name: 创建升级内容
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
