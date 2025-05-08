@@ -34,15 +34,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-#      - name: Check New Commit
-#        run: |
-#          upStream=https://github.com/${{ matrix.userName }}/${{ matrix.repoName }}
-#          echo "upStream=$upStream" >> $GITHUB_ENV
-#          commit=$(curl -sL $upStream/commits/${{ matrix.branchName }} |grep -o "/${{ matrix.userName }}/${{ matrix.repoName }}/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
-#          if ! grep -q "$commit" README.md || [ "${{ inputs.rebuild }}" == "true" ]; then
-#            echo "commit=$commit" >> $GITHUB_ENV
-#            echo "commitS=${commit:0:7}" >> $GITHUB_ENV
-#         fi
       - name: Check New Commit
         run: |
           upStream="https://github.com/${{  matrix.userName }}/${{ matrix.repoName }}"

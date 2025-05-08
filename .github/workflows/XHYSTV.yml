@@ -54,6 +54,7 @@ jobs:
             echo "commit=$commit" >> $GITHUB_ENV
             echo "commitS=${commit:0:7}" >> $GITHUB_ENV
           fi
+
       - name: Checkout Source Code
         if: ${{ env.commit }}
         run: |
@@ -61,6 +62,7 @@ jobs:
           cd XHYSosc
           git checkout ${{ env.commit }}
           echo "tag=$(git log --date=format:'%y%m%d' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
+
       - name: Extra Modify
         if: ${{ env.commit }}
         working-directory: XHYSosc
@@ -99,6 +101,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install lxml ujson pyquery requests jsonpath cachetools pycryptodome beautifulsoup4
+
       - name: Modify pyramid——build.gradle
         if: ${{ env.commit }}
         working-directory: XHYSosc
@@ -106,6 +109,7 @@ jobs:
           # 替换Windows路径为系统Python路径
           # sed -i "s|buildPython(\"D:/Programs/Python/Python38/python.exe\")|buildPython(\"/usr/bin/python3\")|g" pyramid/build.gradle
           sed -i '/buildPython("D:\/Programs\/Python\/Python38\/python.exe")/d' pyramid/build.gradle
+
       - name: Setup Python local.properties
         if: ${{ env.commit }}
         working-directory: XHYSosc
@@ -125,15 +129,18 @@ jobs:
           sed -i '$a\RELEASE_KEY_ALIAS=TVBoxOSC'            ./gradle.properties
           sed -i '$a\RELEASE_STORE_PASSWORD=xh8621989'       ./gradle.properties
           sed -i '$a\RELEASE_KEY_PASSWORD=xh8621989'         ./gradle.properties
+
       - name: Setup Gradle
         if: ${{ env.commit }}
         uses: gradle/gradle-build-action@v2
+
       - name: Build With Gradle
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
           chmod +x gradlew
           ./gradlew assemblerelease --build-cache --parallel --daemon --warning-mode all
+
       - name: Prepare App
         if: ${{ env.commit }}
         working-directory: XHYSosc
@@ -146,6 +153,7 @@ jobs:
           for file in `find ~ -name "*python*.apk" -print`; do
             mv "$file" apk/${{ matrix.repoName }}-python.apk
           done
+
       - name: Release Note
         if: ${{ env.commit }}
         working-directory: XHYSosc
@@ -158,6 +166,7 @@ jobs:
           else
             git log --pretty=format:%B ${{ env.commitS }}...${lastCommit:0:7} |sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' |cat -n |sort -k2,2 -k1,1n |uniq -f1 |sort -k1,1n |cut -f2- >> apk/${{ matrix.userName }}-Release.log
           fi
+
       - name: Build Upgrade log
         if: ${{ env.commit }}
         working-directory: XHYSosc
@@ -170,6 +179,7 @@ jobs:
           else
             git log --pretty=format:%B ${{ env.commitS }}...${lastCommit:0:7} |sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' |cat -n |sort -k2,2 -k1,1n |uniq -f1 |sort -k1,1n |cut -f2- > apk/${{ matrix.repoName }}.log
           fi
+
       - name: Upload App To Artifact
         uses: actions/upload-artifact@v4
         if: ${{ env.commit }}
@@ -177,10 +187,12 @@ jobs:
           name: ${{ matrix.userName }}-${{ matrix.repoName }}
           path: |
             XHYSosc/apk/*
+
       - name: Whether Or Not to Publish
         if: ${{ inputs.donotpublish && env.commit }}
         run: |
           echo "commit=" >> $GITHUB_ENV
+
       - name: Build Upgrade content
         if: ${{ env.commit }}
         working-directory: XHYSosc
@@ -192,6 +204,7 @@ jobs:
           echo "ApkSize=$(ls -l --block-size=K apk/${{ matrix.repoName }}-java.apk | awk '{ print $5 }'|grep -o '[0-9]\+')" >> $GITHUB_ENV
           echo "pythonApkMd5=$(md5sum apk/${{ matrix.repoName }}-python.apk | awk '{ print $1 }')" >> $GITHUB_ENV
           echo "pythonApkSize=$(ls -l --block-size=K apk/${{ matrix.repoName }}-python.apk | awk '{ print $5 }'|grep -o '[0-9]\+')" >> $GITHUB_ENV
+
       - name: Release and Upload Assets
         uses: ncipollo/release-action@v1
         if: ${{ env.commit }}
@@ -204,6 +217,7 @@ jobs:
           artifacts: |
             XHYSosc/apk/*.apk
             XHYSosc/sourceCode-${{ env.commitS }}.*
+
       - name: Push to master
         if: ${{ env.commit }}
         run: |
