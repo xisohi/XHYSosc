@@ -1,6 +1,6 @@
 {
-  "code": "385",
-  "name": "3.8.5",
-  "desc": "1: 修复已知bug\n2: # Conflicts:\n3: #	app/src/main/java/com/fongmi/android/tv/api/config/VodConfig.java\n4: Update quickjs\n5: Clean code\n6: Update build.gradle\n7: Fix bug\n8: Fix m3u parser\n9: Fix bug\n10: Revert logo\n11: Update icon\n12: Update build.gradle\n13: Support 9978 too\n14: Add getPort for js\n",
+  "code": "386",
+  "name": "3.8.6",
+  "desc": "1: Update build.gradle\n2: 内置\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/lkys/{name}"
 }
