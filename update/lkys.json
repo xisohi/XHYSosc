@@ -1,6 +1,6 @@
 {
-  "code": "385",
-  "name": "3.8.5",
-  "desc": "1: Update App.java\n2: up\n",
+  "code": "386",
+  "name": "3.8.6",
+  "desc": "1: Update build.gradle\n2: Update VodConfig.java\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/lkys/{name}"
 }
