@@ -31,7 +31,7 @@ This repo relies on the following third-party projects:
 ![Build](https://shields.io/github/actions/workflow/status/xisohi/XHYSosc/XHlive.yml?branch=master&logo=github&label=XHlive)
 ![Build](https://shields.io/github/actions/workflow/status/xisohi/XHYSosc/XHlive-kitkat.yml?branch=master&logo=github&label=XHlive-kitkat)
 ![Build](https://shields.io/github/actions/workflow/status/xisohi/XHYSosc/fongmi.yml?branch=master&logo=github&label=XHTV-FM)
-![Build](https://shields.io/github/actions/workflow/status/xisohi/XHYSosc/ghys.yml?branch=master&logo=github&label=XHTV-ghys)
+![Build](https://shields.io/github/actions/workflow/status/xisohi/XHYSosc/ghys.yml?branch=master&logo=github&label=GHYS)
 
 
 - [xisohi/XHYSosc](https://github.com/xisohi/XHYSosc)
