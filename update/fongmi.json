@@ -1,6 +1,6 @@
 {
-  "code": "384",
-  "name": "3.8.4",
-  "desc": "1: Update build.gradle\n2: Fix bug\n3: # Conflicts:\n4: #	app/src/main/java/com/fongmi/android/tv/api/config/VodConfig.java\n5: Fix m3u parser\n6: Clean code\n7: Fix bug\n",
+  "code": "385",
+  "name": "3.8.5",
+  "desc": "1: Update quickjs\n2: Clean code\n3: Update build.gradle\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
