@@ -1,6 +1,6 @@
 {
   "code": "385",
   "name": "3.8.5",
-  "desc": "1: Update ConfigDialog.java\n2: 测试直播地址是否显示\n3: 隐藏壁纸地址\n",
+  "desc": "1: 壁纸\n2: Update Config.java\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/lkys/{name}"
 }
