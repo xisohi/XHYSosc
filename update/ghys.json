@@ -1,6 +1,6 @@
 {
   "code": "264",
   "name": "2.6.4",
-  "desc": "1: 调整源地址\n",
+  "desc": "1: 修复已知BUG\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/ghys/{name}"
 }
