@@ -1,6 +1,6 @@
 {
   "code": "264",
   "name": "2.6.4",
-  "desc": "1: 修复已知BUG\n",
+  "desc": "1: Update AndroidManifest.xml\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/ghys/{name}"
 }
