@@ -1,6 +1,6 @@
 {
-  "code": "387",
-  "name": "3.8.7",
-  "desc": "1: Update build.gradle\n2: Update VodConfig.java\n",
+  "code": "388",
+  "name": "3.8.8",
+  "desc": "1: Update build.gradle\n2: 设置内置源\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/lkys/{name}"
 }
