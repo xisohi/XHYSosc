@@ -1,6 +1,6 @@
 {
-  "code": "385",
-  "name": "3.8.5",
-  "desc": "1: Update quickjs\n2: Clean code\n3: Update build.gradle\n",
+  "code": "388",
+  "name": "3.8.8",
+  "desc": "1: Fix opening and ending bug\n2: Clean res\n3: Update build.gradle\n4: Optimize epg parser\n5: Fix bug\n6: Support pause for live\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
