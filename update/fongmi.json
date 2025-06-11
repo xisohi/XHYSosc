@@ -1,6 +1,6 @@
 {
-  "code": "391",
-  "name": "3.9.1",
-  "desc": "1: # Conflicts:\n2: #	app/src/main/java/com/fongmi/android/tv/player/exo/TrackNameProvider.java\n3: Update build.gradle\n4: Use requirements.txt\n5: Adjust history day\n6: Add refresh\n7: Optimize live ui\n8: Fix op ed bug\n9: Fix track lang\n10: Add prefer aac switch\n11: Fix track codec\n",
+  "code": "399",
+  "name": "3.9.9",
+  "desc": "1: Update build.gradle\n2: Add flip limit\n3: Add anim when flip up down\n4: Add flip for vod\n5: Fix bug\n6: Clean code\n7: Adjust epg cache time\n8: Adjust live epg logic\n9: Adjust epg refresh time\n10: Support proxy for core\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
