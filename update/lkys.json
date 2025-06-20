@@ -1,6 +1,6 @@
 {
-  "code": "399",
-  "name": "3.9.9",
-  "desc": "1: Update build.gradle\n2: Add flip limit\n3: Add anim when flip up down\n4: Add flip for vod\n5: Fix bug\n6: Clean code\n7: Fix build\n8: Adjust epg cache time\n9: Adjust live epg logic\n10: Adjust epg refresh time\n11: Fix bug\n12: Support proxy for core\n13: Use requirements.txt\n14: Adjust history day\n15: Add refresh\n16: Optimize live ui\n17: Fix op ed bug\n18: Fix track lang\n19: Add prefer aac switch\n20: Fix track codec\n21: Fix opening and ending bug\n22: Clean res\n23: Optimize epg parser\n24: Fix bug\n25: Support pause for live\n",
+  "code": "403",
+  "name": "4.0.3",
+  "desc": "1: Update build.gradle\n2: Fix bug\n3: Clean code\n4: Add scale anim\n5: Support epg api second\n6: Support scale video\n7: Adjust fling distance check\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/lkys/{name}"
 }
