@@ -1,6 +1,6 @@
 {
-  "code": "399",
-  "name": "3.9.9",
-  "desc": "1: Update build.gradle\n2: Add flip limit\n3: Add anim when flip up down\n4: Add flip for vod\n5: Fix bug\n6: Clean code\n7: Adjust epg cache time\n8: Adjust live epg logic\n9: Adjust epg refresh time\n10: Support proxy for core\n",
+  "code": "404",
+  "name": "4.0.4",
+  "desc": "1: 修复已知BUG\n2: # Conflicts:\n3: #	app/src/main/java/com/fongmi/android/tv/player/exo/ExoUtil.java\n4: Update build.gradle\n5: Add video prefer setting\n6: Fix bug\n7: Clean code\n8: Add scale anim\n9: Support epg api second\n10: Support scale video\n11: Adjust fling distance check\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
