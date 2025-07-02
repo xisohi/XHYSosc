@@ -1,6 +1,6 @@
 {
-  "code": "404",
-  "name": "4.0.4",
-  "desc": "1: 修复已知BUG\n2: # Conflicts:\n3: #	app/src/main/java/com/fongmi/android/tv/player/exo/ExoUtil.java\n4: Update build.gradle\n5: Add video prefer setting\n6: Fix bug\n7: Clean code\n8: Add scale anim\n9: Support epg api second\n10: Support scale video\n11: Adjust fling distance check\n",
+  "code": "405",
+  "name": "4.0.5",
+  "desc": "1: # Conflicts:\n2: #	app/build.gradle\n3: Update sdk to 36\n4: Update room\n5: Fix bug\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
