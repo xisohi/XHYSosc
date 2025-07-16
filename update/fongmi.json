@@ -1,6 +1,6 @@
 {
   "code": "405",
   "name": "4.0.5",
-  "desc": "1: # Conflicts:\n2: #	app/build.gradle\n3: Update sdk to 36\n4: Update room\n5: Fix bug\n",
+  "desc": "1: Bypass duration = -1 video for yt\n2: Update Trans.java\n3: Update library\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
