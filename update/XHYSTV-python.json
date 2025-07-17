@@ -6,7 +6,7 @@
   "VersionName": "250513",
   "UploadTime": "2025-05-13 19:43:57",
   "ModifyContent": "1: 修正一处去广告的bug\n2: 修正部分源历史记录图片不显示的问题;\n3: fix style;\n4: fix style;fix 嗅探;\n5: 修正doh未生效的问题;\n6: 快进快退更激进;\n7: fix bug;\n8: 音轨记忆;\n9: 修正自动切换播放器失效;\n",
-  "DownloadUrl": "http://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/XHYSTV/XHYSTV-python.apk",
+  "DownloadUrl": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/XHYSTV/XHYSTV-python.apk",
   "ApkSize": 31223,
   "ApkMd5": "65b14fd59f12aa987374b0ceb6844aa7"
 }
