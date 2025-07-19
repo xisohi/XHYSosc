@@ -2,11 +2,11 @@
   "Code": 0,
   "Msg": "新春快乐",
   "UpdateStatus": 3,//1、默认更新2、强制更新3、使用系统弹窗提示
-  "VersionCode": 250707,
-  "VersionName": "250707",
-  "UploadTime": "2025-07-07 13:54:40",
+  "VersionCode": 250719,
+  "VersionName": "250719",
+  "UploadTime": "2025-07-19 22:06:39",
   "ModifyContent": "",
   "DownloadUrl": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/XHYS/XHYS-armeabi-generic-python.apk",
-  "ApkSize": 40044,
-  "ApkMd5": "8e65a5a28207a3239803dfdf837138b4"
+  "ApkSize": 40049,
+  "ApkMd5": "e0e044a72e500afbacaa9879380529bd"
 }
