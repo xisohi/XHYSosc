@@ -99,7 +99,7 @@ jobs:
         working-directory: XHYSosc
         run: echo "" > local.properties
 
-      - name: Release Apk Sign
+      - name: 设置APK签名
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
@@ -122,7 +122,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         if: ${{ env.commit }}
 
-      - name: Build With Gradle
+      - name: 构建APP
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
@@ -185,7 +185,7 @@ jobs:
           echo "ApkMd5=$(md5sum apk/${{ matrix.repoName }}-armeabi-generic-python.apk | awk '{ print $1 }')" >> $GITHUB_ENV
           echo "ApkSize=$(ls -l --block-size=K apk/${{ matrix.repoName }}-armeabi-generic-python.apk | awk '{ print $5 }'|grep -o '[0-9]\+')" >> $GITHUB_ENV
 
-      - name: Upload App To Artifact
+      - name: 上传应用到Artifact
         uses: actions/upload-artifact@v4
         if: ${{ env.commit }}
         with:
@@ -198,7 +198,7 @@ jobs:
         run: |
           echo "commit=" >> $GITHUB_ENV
 
-      - name: Release and Upload Assets
+      - name: 发布并上传资源
         uses: ncipollo/release-action@v1
         if: ${{ env.commit }}
         with:
@@ -211,7 +211,7 @@ jobs:
             XHYSosc/apk/*.apk
             XHYSosc/apk/sourceCode-${{ env.commitS }}.*
 
-      - name: Push to master
+      - name: 推送到master分支
         if: ${{ env.commit }}
         run: |
           rm -rf XHYSosc
