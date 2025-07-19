@@ -30,7 +30,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Check New Commit
+      - name: 检查新提交
         run: |
           upStream="https://github.com/${{  matrix.userName }}/${{ matrix.repoName }}"
           echo "upStream=$upStream" >> $GITHUB_ENV
@@ -43,7 +43,7 @@ jobs:
             echo "commit=$commit" >> $GITHUB_ENV
             echo "commitS=${commit:0:7}" >> $GITHUB_ENV
           fi
-      - name: Checkout Source Code
+      - name: Checkout 源代码
         if: ${{ env.commit }}
         run: |
           git clone ${{ env.upStream }} XHYSosc
@@ -74,13 +74,13 @@ jobs:
           # 设置 versionCode
           sed -i 's/versionCode [0-9]*/versionCode ${{ env.tag }}/g' app/build.gradle
 
-      - name: Setup Python
+      - name: 设置Python版本
         if: ${{ env.commit }}
         uses: actions/setup-python@v5
         with:
           python-version: '3.8'
 
-      - name: Install Python dependencies
+      - name: 安装Python依赖项
         if: ${{ env.commit }}
         run: |
           python -m pip install --upgrade pip
