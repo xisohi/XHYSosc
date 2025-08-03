@@ -1,6 +1,6 @@
 {
-  "code": "405",
-  "name": "4.0.5",
-  "desc": "1: Bypass duration = -1 video for yt\n2: Update Trans.java\n3: Update library\n",
+  "code": "407",
+  "name": "4.0.7",
+  "desc": "1: Update proguard-rules.pro\n2: Update build.gradle\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
