@@ -1,6 +1,6 @@
 {
-  "code": "403",
-  "name": "4.0.3",
-  "desc": "1: Update build.gradle\n2: Fix bug\n3: Clean code\n4: Add scale anim\n5: Support epg api second\n6: Support scale video\n7: Adjust fling distance check\n",
+  "code": "407",
+  "name": "4.0.7",
+  "desc": "1: Update build.gradle\n2: Fix bug\n3: Update readme\n4: Update proxy system\n5: Update desc\n6: Clean code\n7: Update gradle\n8: Clean keepScreenOn\n9: Remove test\n10: Test scrubbingMode\n11: Update proguard-rules.pro\n12: Update build.gradle\n13: Bypass duration = -1 video for yt\n14: Update Trans.java\n15: Update library\n16: Update sdk to 36\n17: Update room\n18: Update build.gradle\n19: Add video prefer setting\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/lkys/{name}"
 }
