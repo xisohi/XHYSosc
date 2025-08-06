@@ -1,6 +1,6 @@
 {
   "code": "407",
   "name": "4.0.7",
-  "desc": "1: Update proguard-rules.pro\n2: Update build.gradle\n",
+  "desc": "1: # Conflicts:\n2: #	build.gradle\n3: Fix bug\n4: Update readme\n5: Update proxy system\n6: Update desc\n7: Clean code\n8: Update gradle\n9: Clean keepScreenOn\n10: Remove test\n11: Test scrubbingMode\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
