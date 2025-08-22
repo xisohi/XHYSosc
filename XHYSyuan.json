@@ -262,7 +262,7 @@
 			"type": 0,
 			"url": "https://chinaiptv.pages.dev/TV/live.txt",
 			"playerType": 1,
-			"ua": "okhttp/3.15",
+			"ua": "okHttp/Mod-1.1.0",
 			"epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
 			"logo": "https://chinaiptv.pages.dev/logo/{name}.png"
 		}
