@@ -1,6 +1,6 @@
 {
-  "code": "407",
-  "name": "4.0.7",
-  "desc": "1: Clean\n2: Fix memory leak\n3: Add sniffer limit\n4: Update build.gradle\n5: Optimize scroll\n",
+  "code": "416",
+  "name": "4.1.6",
+  "desc": "1: err\n2: Update VodConfig.java\n3: Update build.gradle\n4: # Conflicts:\n5: #	app/build.gradle\n6: #	app/src/main/java/com/fongmi/android/tv/api/config/VodConfig.java\n7: Fix hot\n8: Fix bug\n9: Update\n10: Fix proxy bug\n11: Fix crash\n12: Update build.gradle\n13: Clean\n14: Update ImgUtil.java\n15: Add error cache\n16: Update build.gradle\n17: Clean image load\n18: Revert\n19: Fix bug\n20: Update glide\n21: Update build.gradle\n22: Clean\n23: Remove tag\n24: Prevent crash loop\n25: Remove retry\n26: Update ui\n27: Update activity_home.xml\n28: Add proxy sort\n29: Update proxy demo\n30: Update build.gradle\n31: Update proxy hosts\n32: Revert text size\n33: Update build.gradle\n34: Fix crash\n35: Fix bug\n36: Support youtube desc\n37: Update ui\n38: Optimize history progress\n39: Support marquee for site\n40: Add site name\n41: Clean image\n42: Fix tv ui\n43: Fix build\n44: Update build.gradle\n45: Fix bug\n46: Clean\n47: Update LiveParser.java\n48: Update build.gradle\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
