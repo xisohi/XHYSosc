@@ -104,7 +104,6 @@ TVBS新闻台,http://50.7.238.114:8278/tvbs_n/playlist.m3u8?tid=MECE323377403233
 中天新闻台,http://66.165.240.154:8080/live/ztylt01/hls.m3u8
 TVBS,http://66.165.240.154:8080/live/tytvbsyz1/hls.m3u8
 台视新闻台,http://66.165.240.154:8080/live/tyxltsxw3/hls.m3u8
-民视新闻台,http://38.64.72.148/hls/modn/list/4012/playlist.m3u8
 台视新闻台,http://38.64.72.148/hls/modn/list/4013/chunklist0.m3u8
 台视新闻台,http://38.64.72.148/hls/modn/list/4013/chunklist1.m3u8
 中天新闻台,http://livetv.skycf.eu.org:80/live.m3u8?c=7
