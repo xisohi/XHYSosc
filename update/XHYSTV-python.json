@@ -2,11 +2,11 @@
   "Code": 0,
   "Msg": "新春快乐",
   "UpdateStatus": 3,//1、默认更新2、强制更新3、使用系统弹窗提示
-  "VersionCode": 250719,
-  "VersionName": "250719",
-  "UploadTime": "2025-07-19 22:42:04",
-  "ModifyContent": "1: 关于中添加app名称\n",
+  "VersionCode": 250910,
+  "VersionName": "250910",
+  "UploadTime": "2025-09-10 16:27:19",
+  "ModifyContent": "1: Update ApiConfig.java\n",
   "DownloadUrl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/XHYSTV/XHYSTV-python.apk",
-  "ApkSize": 31226,
-  "ApkMd5": "b721c7871e71a1a630e8bbbb8db5ab9c"
+  "ApkSize": 31123,
+  "ApkMd5": "a6e4ce65684f00e94cfbdfe31e159378"
 }
