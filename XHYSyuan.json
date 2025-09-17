@@ -43,7 +43,6 @@
 		{"key": "hipy_耐看","name": "耐看","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/耐看.js","searchable": 1,"quickSearch": 0,"filterable": 1},
 		{"key": "hipy_蚂蚁影视","name": "蚂蚁影视","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/蚂蚁影视.js","searchable": 1,"quickSearch": 0,"filterable": 1},
 		{"key": "hipy_蛋蛋赞","name": "蛋蛋赞","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/蛋蛋赞.js","searchable": 1,"quickSearch": 0,"filterable": 1},
-		{"key": "hipy_被窝电影","name": "被窝电影","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/被窝电影.js","searchable": 1,"quickSearch": 0,"filterable": 1},
 		{"key": "hipy_西屋影视","name": "西屋影视","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/西屋影视.js","searchable": 1,"quickSearch": 0,"filterable": 1},
 		{"key": "hipy_酷客影视","name": "酷客影视","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/酷客影视.js","searchable": 1,"quickSearch": 0,"filterable": 1},
 		{"key": "hipy_飘花影院","name": "飘花影院","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/飘花影院.js","searchable": 1,"quickSearch": 0,"filterable": 1},
@@ -162,15 +161,6 @@
 		{"key": "hipy_KTV歌厅[听]","name": "KTV歌厅[听]","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/KTV歌厅[听].js","searchable": 1,"quickSearch": 0,"filterable": 1},
 		{"key": "hipy_啊哈DJ[听]","name": "啊哈DJ[听]","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/啊哈DJ[听].js","searchable": 1,"quickSearch": 0,"filterable": 1},
 		{"key": "hipy_世纪DJ音乐网[听]","name": "世纪DJ音乐网[听]","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/世纪DJ音乐网[听].js","searchable": 1,"quickSearch": 0,"filterable": 1},
-		{"key": "hipy_酷我听书[听]","name": "酷我听书[听]","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/酷我听书[听].js","searchable": 1,"quickSearch": 0,"filterable": 1},
-		{"key": "hipy_7猫小说[书]","name": "7猫小说[书]","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/7猫小说[书].js","searchable": 1,"quickSearch": 0,"filterable": 1},
-		{"key": "hipy_丫丫电子书[书]","name": "丫丫电子书[书]","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/丫丫电子书[书].js","searchable": 1,"quickSearch": 0,"filterable": 1},
-		{"key": "hipy_我看书斋[书]","name": "我看书斋[书]","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/我看书斋[书].js","searchable": 1,"quickSearch": 0,"filterable": 1},
-		{"key": "hipy_笔趣阁[书]","name": "笔趣阁[书]","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/笔趣阁[书].js","searchable": 1,"quickSearch": 0,"filterable": 1},
-		{"key": "hipy_顶点小说[书]","name": "顶点小说[书]","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/顶点小说[书].js","searchable": 1,"quickSearch": 0,"filterable": 1},
-		{"key": "hipy_顶点小说2[书]","name": "顶点小说2[书]","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/顶点小说2[书].js","searchable": 1,"quickSearch": 0,"filterable": 1},
-		{"key": "hipy_飞翔鸟[书]","name": "飞翔鸟[书]","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/飞翔鸟[书].js","searchable": 1,"quickSearch": 0,"filterable": 1},
-
 		{"key": "drpy_js_小品网","name": "小品网","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"http://drpy.lcjly.cn/js/小品网.js","searchable": 2,"quickSearch": 0,"filterable": 1}
 	],
     "parses": [
