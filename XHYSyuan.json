@@ -228,7 +228,7 @@
 		{
 			"name": "live",
 			"type": 0,
-			"url": "https://chinaiptv.pages.dev/TV/live.txt",
+			"url": "https://xhys.lcjly.cn/live.txt",
 			"playerType": 1,
 			"ua": "okHttp/Mod-1.1.0",
 			"epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
