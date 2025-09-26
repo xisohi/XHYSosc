@@ -27,7 +27,7 @@ jobs:
         include:
           - userName: xisohi
             repoName: XHTV
-            branchName: okkitkat
+            branchName: kitkat
 
     steps:
       - name: Checkout

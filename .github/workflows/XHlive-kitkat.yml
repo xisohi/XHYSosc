@@ -56,7 +56,7 @@ jobs:
           git checkout ${{ env.commit }}
           git fetch --unshallow || true
           echo "tag=$(git log --date=format:'%y%m%d' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
-      
+
       - name: Compress Source Code
         if: ${{ env.commit }}
         working-directory: XHYSosc
