@@ -56,23 +56,7 @@ jobs:
           git checkout ${{ env.commit }}
           git fetch --unshallow || true
           echo "tag=$(git log --date=format:'%y%m%d' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
-      - name: Debug Log Info
-        if: ${{ env.commit }}
-        working-directory: XHYSosc
-        run: |
-          echo "====== Debug: commit variables ======"
-          echo "commit=${{ env.commit }}"
-          echo "commitS=${{ env.commitS }}"
-          echo "====== Debug: lastCommit extraction ======"
-          lastCommit=$(grep "${{ matrix.userName }}\/${{ matrix.repoName }}\/tree\/${{ matrix.branchName }}" ${{ github.workspace }}/README.md | grep -o '[a-z0-9]\{40\}')
-          echo "lastCommit=$lastCommit"
-          echo "====== Debug: git log command ======"
-          echo "Command: git log --pretty=format:'%s' \"$lastCommit..${{ env.commit }}\""
-          echo "====== Debug: git log output (三点范围) ======"
-          git log --pretty=format:"%s" "${{ env.commit }}...$lastCommit"          
-          echo "====== Debug: git log (reverse) ======"
-          git log --pretty=format:"%s" "${{ env.commit }}..$lastCommit"
-
+      
       - name: Compress Source Code
         if: ${{ env.commit }}
         working-directory: XHYSosc
