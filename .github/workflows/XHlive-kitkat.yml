@@ -64,7 +64,7 @@ jobs:
           echo "commit=${{ env.commit }}"
           echo "commitS=${{ env.commitS }}"
           echo "====== Debug: lastCommit extraction ======"
-          lastCommit=$(grep -oE '[a-f0-9]{40}' ${{ github.workspace }}/README.md | head -n1)
+          lastCommit=$(grep "${{ matrix.userName }}\/${{ matrix.repoName }}\/tree\/${{ matrix.branchName }}" ${{ github.workspace }}/README.md | grep -o '[a-z0-9]\{40\}')
           echo "lastCommit=$lastCommit"
           echo "====== Debug: git log command ======"
           echo "Command: git log --pretty=format:'%s' \"$lastCommit..${{ env.commit }}\""
