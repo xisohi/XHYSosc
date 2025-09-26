@@ -43,6 +43,7 @@ jobs:
             echo "Failed to get commit from API"
             exit 1
           fi
+          echo "API returned commit: $commit"  # ← 加这句
           if [ -z "$commit" ] || ! grep -q "$commit" README.md; then
             echo "commit=$commit" >> $GITHUB_ENV
             echo "commitS=${commit:0:7}" >> $GITHUB_ENV
