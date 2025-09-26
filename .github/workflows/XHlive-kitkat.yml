@@ -126,25 +126,30 @@ jobs:
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
-          lastCommit=$(grep "${{ matrix.userName }}\/${{ matrix.repoName }}\/tree\/${{ matrix.branchName }}" ${{ github.workspace }}/README.md |grep -o '[a-z0-9]\{40\}')
-          export LESSCHARSET=utf-8
+          lastCommit=$(grep -oE '[a-f0-9]{40}' ${{ github.workspace }}/README.md | head -n1)
           echo -e "Credit: [${{ matrix.userName }}/${{ matrix.repoName }}/${{ matrix.branchName }}](${{ env.upStream }})\nCommit: ${{ env.commit }}\nChangelog:" > apk/${{ matrix.userName }}-Release.log
-          if [ "${{ env.commit }}" == "${lastCommit}" ]; then
-            git log --pretty=format:%B ${{ env.commitS }} -1 |sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' |cat -n |sort -k2,2 -k1,1n |uniq -f1 |sort -k1,1n |cut -f2- >> apk/${{ matrix.userName }}-Release.log
+          if [ "${{ env.commit }}" = "$lastCommit" ]; then
+            git log --pretty=format:"%s" -1 >> apk/${{ matrix.userName }}-Release.log
           else
-            git log --pretty=format:%B ${{ env.commitS }}...${lastCommit:0:7} |sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' |cat -n |sort -k2,2 -k1,1n |uniq -f1 |sort -k1,1n |cut -f2- >> apk/${{ matrix.userName }}-Release.log
+            git log --pretty=format:"%s" "$lastCommit..${{ env.commit }}" \
+              | sed '/^$/d' \
+              | sort -u \
+              >> apk/${{ matrix.userName }}-Release.log
           fi
+
       - name: Build Upgrade log
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
-          lastCommit=$(grep "${{ matrix.userName }}\/${{ matrix.repoName }}\/tree\/${{ matrix.branchName }}" ${{ github.workspace }}/README.md |grep -o '[a-z0-9]\{40\}')
-          export LESSCHARSET=utf-8
-          echo -e "Credit: [${{ matrix.userName }}/${{ matrix.repoName }}/${{ matrix.branchName }}](${{ env.upStream }})\nCommit: ${{ env.commit }}\nChangelog:" > apk/${{ matrix.branchName }}.log
-          if [ "${{ env.commit }}" == "${lastCommit}" ]; then
-            git log --pretty=format:%B ${{ env.commitS }} -1 |sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' |cat -n |sort -k2,2 -k1,1n |uniq -f1 |sort -k1,1n |cut -f2- > apk/${{ matrix.branchName }}.log
+          lastCommit=$(grep -oE '[a-f0-9]{40}' ${{ github.workspace }}/README.md | head -n1)
+          echo -e "Credit: [${{ matrix.branchName }}](${{ env.upStream }})\nCommit: ${{ env.commit }}\nChangelog:" > apk/${{ matrix.branchName }}.log
+          if [ "${{ env.commit }}" = "$lastCommit" ]; then
+            git log --pretty=format:"%s" -1 > apk/${{ matrix.branchName }}.log
           else
-            git log --pretty=format:%B ${{ env.commitS }}...${lastCommit:0:7} |sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' |cat -n |sort -k2,2 -k1,1n |uniq -f1 |sort -k1,1n |cut -f2- > apk/${{ matrix.branchName }}.log
+            git log --pretty=format:"%s" "$lastCommit..${{ env.commit }}" \
+              | sed '/^$/d' \
+              | sort -u \
+              > apk/${{ matrix.branchName }}.log
           fi
 
       - name: Release and Upload Assets
