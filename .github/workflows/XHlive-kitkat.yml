@@ -51,12 +51,11 @@ jobs:
       - name: Checkout Source Code # 检出源代码
         if: ${{ env.commit }}
         run: |
-          git clone ${{ env.upStream }} XHYSosc
+          git clone --branch ${{ matrix.branchName }} --single-branch ${{ env.upStream }} XHYSosc
           cd XHYSosc
           git checkout ${{ env.commit }}
-          git fetch --unshallow || true  # ← 加这句
+          git fetch --unshallow || true
           echo "tag=$(git log --date=format:'%y%m%d' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
-
       - name: Debug Log Info
         if: ${{ env.commit }}
         working-directory: XHYSosc
