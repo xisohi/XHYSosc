@@ -1,6 +1,6 @@
 {
-  "code": "436",
-  "name": "4.3.6",
-  "desc": "1: Update build.gradle\n2: Clean\n3: Fix crash\n4: Clean code\n5: Fix bug\n6: Fix vod name\n7: Optimize episode width\n8: Fix bug\n9: Optimize search ui\n10: Clean ui\n11: Fix crash\n12: Fix bug\n13: Fix seek view font\n14: Update gradle\n15: Fix\n16: bug\n17: Update build.gradle\n18: Fix bug\n19: Fix icon size\n20: Fix bug\n21: Make adblock is default open\n22: Optimize video wall\n23: Clean\n24: Optimize wallpaper\n25: Update player icon ripple\n26: Update error string\n27: Update build.gradle\n28: Add error msg provider\n",
+  "code": "439",
+  "name": "4.3.9",
+  "desc": "1: Update build.gradle\n2: Revert\n3: Fix channel width bug\n4: Fix bug\n5: Fix search bug\n6: Optimize search result span count\n7: Fix bug\n8: Fix space\n9: Fix bug\n10: Clean\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
