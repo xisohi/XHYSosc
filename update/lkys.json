@@ -1,6 +1,6 @@
 {
-  "code": "436",
-  "name": "4.3.6",
-  "desc": "1: 修复已知BUG\n2: # Conflicts:\n3: #	app/src/main/res/mipmap-hdpi/ic_launcher.webp\n4: #	app/src/main/res/mipmap-mdpi/ic_launcher.webp\n5: #	app/src/main/res/mipmap-xhdpi/ic_launcher.webp\n6: #	app/src/main/res/mipmap-xxhdpi/ic_launcher.webp\n7: #	app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp\n8: Update build.gradle\n9: Clean\n10: Fix crash\n11: Clean code\n12: Fix bug\n13: Fix vod name\n14: Optimize episode width\n15: Fix bug\n16: Optimize search ui\n17: Clean ui\n18: Fix crash\n19: Fix bug\n20: Fix seek view font\n21: Update gradle\n22: Fix\n23: bug\n24: Update build.gradle\n25: Fix bug\n26: Fix icon size\n27: Fix bug\n28: Make adblock is default open\n29: Optimize video wall\n30: Clean\n31: Optimize wallpaper\n32: Update player icon ripple\n33: Update error string\n34: Update build.gradle\n35: Add error msg provider\n36: Fix desc\n37: Revert shadow\n38: Add adblock setting\n39: Fix bug\n40: Remove shadow\n41: Update more icon\n42: Clean ui\n",
+  "code": "437",
+  "name": "4.3.7",
+  "desc": "1: Update build.gradle\n2: Revert\n3: Optimize search result span count\n4: Fix bug\n5: Fix space\n6: Fix bug\n7: Clean\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/lkys/{name}"
 }
