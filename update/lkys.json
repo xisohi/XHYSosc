@@ -1,6 +1,6 @@
 {
-  "code": "437",
-  "name": "4.3.7",
-  "desc": "1: Update build.gradle\n2: Revert\n3: Optimize search result span count\n4: Fix bug\n5: Fix space\n6: Fix bug\n7: Clean\n",
+  "code": "440",
+  "name": "4.4.0",
+  "desc": "1: Remove x86\n2: Update build.gradle\n3: Optimize zhuin\n4: Optimize recyclerview\n5: Revert\n6: Fix channel width bug\n7: Fix bug\n8: Fix search bug\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/lkys/{name}"
 }
