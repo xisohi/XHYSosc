@@ -1,6 +1,6 @@
 {
-  "code": "439",
-  "name": "4.3.9",
-  "desc": "1: Update build.gradle\n2: Revert\n3: Fix channel width bug\n4: Fix bug\n5: Fix search bug\n6: Optimize search result span count\n7: Fix bug\n8: Fix space\n9: Fix bug\n10: Clean\n",
+  "code": "441",
+  "name": "4.4.1",
+  "desc": "1: Update build.gradle\n2: Fix pip bug\n3: Remove x86\n4: Optimize zhuin\n5: Optimize recyclerview\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
