@@ -1,6 +1,6 @@
 {
-  "code": "441",
-  "name": "4.4.1",
-  "desc": "1: Update build.gradle\n2: Fix pip bug\n3: Remove x86\n4: Optimize zhuin\n5: Optimize recyclerview\n",
+  "code": "445",
+  "name": "4.4.5",
+  "desc": "1: LOGO\n2: # Conflicts:\n3: #	app/build.gradle\n4: Clean\n5: Revert\n6: Update build.gradle\n7: Optimize track select\n8: Optimize gif wall\n9: Fix danmaku npe\n10: Fix img\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
