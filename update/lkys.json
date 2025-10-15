@@ -1,6 +1,6 @@
 {
-  "code": "440",
-  "name": "4.4.0",
-  "desc": "1: Remove x86\n2: Update build.gradle\n3: Optimize zhuin\n4: Optimize recyclerview\n5: Revert\n6: Fix channel width bug\n7: Fix bug\n8: Fix search bug\n",
+  "code": "449",
+  "name": "4.4.9",
+  "desc": "1: logo\n2: Update ic_logo.png\n3: # Conflicts:\n4: #	app/src/main/res/mipmap-hdpi/ic_launcher.webp\n5: #	app/src/main/res/mipmap-mdpi/ic_launcher.webp\n6: #	app/src/main/res/mipmap-xhdpi/ic_launcher.webp\n7: #	app/src/main/res/mipmap-xxhdpi/ic_launcher.webp\n8: #	app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp\n9: Update build.gradle\n10: Clean code\n11: Update app icon\n12: Optimize video wall\n13: Fix icon\n14: Update build.gradle\n15: Optimize wallpaper load\n16: Clean\n17: Optimize large wallpaper\n18: Fix bug\n19: Optimize glide\n20: Add wall history\n21: Revert\n22: Optimize track select\n23: Optimize gif wall\n24: Fix danmaku npe\n25: Fix img\n26: Fix pip bug\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/lkys/{name}"
 }
