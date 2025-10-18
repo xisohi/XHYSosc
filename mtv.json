@@ -10,6 +10,7 @@
   ],
   "sites":[
     {"key": "hipy_29片库[密]","name": "29片库","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/29片库[密].js","searchable": 1,"quickSearch": 0,"filterable": 1},
+    {"key": "hipy_草榴社区[密]","name": "草榴社区","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/草榴社区[密].js","searchable": 1,"quickSearch": 0,"filterable": 1},
     {"key": "hipy_七度空间[密]","name": "七度空间","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/七度空间[密].js","searchable": 1,"quickSearch": 0,"filterable": 1},
     {"key": "hipy_36直播[密]","name": "36直播[密]","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/36直播[密].js","searchable": 1,"quickSearch": 0,"filterable": 1},
     {"key": "Pornhub[密]","name": "Pornhub[密]","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/Pornhub[密].js","searchable": 1,"quickSearch": 0,"filterable": 1},
