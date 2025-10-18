@@ -2,11 +2,11 @@
   "Code": 0,
   "Msg": "新春快乐",
   "UpdateStatus": 3,//1、默认更新2、强制更新3、使用系统弹窗提示
-  "VersionCode": 250910,
-  "VersionName": "250910",
-  "UploadTime": "2025-09-10 16:27:19",
-  "ModifyContent": "1: 老师节快乐\n2: Update ApiConfig.java\n",
+  "VersionCode": 251017,
+  "VersionName": "251017",
+  "UploadTime": "2025-10-17 20:27:47",
+  "ModifyContent": "1: 修正type0直播不能走jar代理的bug\n2: 修正部分本地jar代理直播失败的bug\n3: 修一个t4 ext参数相关的bug;更改一处盒子/手机的判断条件\n",
   "DownloadUrl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/XHYSTV/XHYSTV-java.apk",
-  "ApkSize": 19642,
-  "ApkMd5": "858263130b027d5a1748291c990fd7ea"
+  "ApkSize": 19643,
+  "ApkMd5": "1f8c6cd10f788b4d1785d515e3034f6f"
 }
