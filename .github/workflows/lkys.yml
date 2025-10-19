@@ -85,8 +85,8 @@ jobs:
           # 设置 versionCode
           sed -i 's/versionCode [0-9]*/versionCode ${{ env.tag }}/g' app/build.gradle
           # 设置 versionName
-          sed -i "s/versionName '[^']*'/versionName '${{ env.tag }}'/g" app/build.gradle
-          
+          sed -i "s/versionName [\"'][^\"']*[\"']/versionName '${{ env.tag }}'/g" app/build.gradle
+
       - name: Release Apk Sign
         if: ${{ env.commit }}
         working-directory: XHYSosc
