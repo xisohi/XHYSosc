@@ -1,7 +1,7 @@
 {
-  "version_code": 251029,
-  "version_name": "251029",
-  "ModifyContent": "1: Update UpdateManager.kt\n2: 修复已知BUG\n3: 填加更新日志\n",
+  "version_code": 251019,
+  "version_name": "251019",
+  "ModifyContent": "1: Update UpdateManager.kt\n",
   "apk_name": "XHlive.apk",
   "apk_url": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/XHlive/XHlive.apk"
 }
