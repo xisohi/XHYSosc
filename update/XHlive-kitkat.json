@@ -1,7 +1,7 @@
 {
   "version_code": 251020,
   "version_name": "251020",
-  "ModifyContent": "1: 修改包名\n2: 请重新下载安装包\n3: 独立py和java打包版本\n",
+  "ModifyContent": "1: Update MyTVApplication.kt\n",
   "apk_name": "XHlive-kitkat.apk",
   "apk_url": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/XHlive-kitkat/XHlive-kitkat.apk"
 }
