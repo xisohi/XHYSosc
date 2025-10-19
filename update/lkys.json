@@ -1,6 +1,6 @@
 {
   "code": "449",
   "name": "4.4.9",
-  "desc": "1: 修改背景图获取方式\n2: 更换手机背景图\n",
+  "desc": "1: Update BaseActivity.java\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/lkys/{name}"
 }
