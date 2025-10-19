@@ -53,7 +53,7 @@ jobs:
           git clone ${{ env.upStream }} XHYSosc
           cd XHYSosc
           git checkout ${{ env.commit }}
-          echo "tag=$(git log --date=format:'%y%m%d%H%M' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
+          echo "tag=$(git log --date=format:'%y%m%d' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
 
       - name: Extra Modify
         if: ${{ env.commit }}
@@ -70,14 +70,17 @@ jobs:
           #zip -q -x ".git/*" -x  ".github/*" -r source-${{ env.commitS }}.zip .
           tar -cJf source-${{ env.commitS }}.tar.xz --exclude=.git --exclude=.github *
 
-      - name: Option For Test
+      - name: Set versionCode and versionName
         if: ${{ inputs.testOption }}
         working-directory: XHYSosc
         run: |
           #添加arm64支持，不支持ijk解码
           sed -i "/armeabi-v7a[\'\"]$/s#\$#, 'arm64-v8a'#" app/build.gradle
           sed -i "/armeabi-v7a[\'\"]$/s#\$#, 'arm64-v8a'#" player/build.gradle
-
+          # 设置 versionCode
+          sed -i 's/versionCode [0-9]*/versionCode ${{ env.tag }}/g' app/build.gradle
+          # 设置 versionName
+          sed -i "s/versionName '[^']*'/versionName '${{ env.tag }}'/g" app/build.gradle
       - name: Release Apk Sign
         if: ${{ env.commit }}
         working-directory: XHYSosc
