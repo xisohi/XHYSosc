@@ -176,7 +176,7 @@ jobs:
           sed -i "/${{ matrix.userName }}\/${{ matrix.repoName }}\/tree\/${{ matrix.branchName }}/s#Updated: [a-zA-Z0-9]*#Updated: ${{ env.commit }}#" README.md
           sed -i 's/"version_code": [a-zA-Z0-9]*/"version_code": ${{ env.VersionCode }}/' update/${{ matrix.repoName }}-${{ matrix.branchName }}.json
           sed -i 's/"version_name": "[^"]*"/"version_name": "${{ env.versionName }}"/' update/${{ matrix.repoName }}-${{ matrix.branchName }}.json
-          sed -i 's|"ModifyContent": ".*"|"ModifyContent": "${{ env.ModifyContent }}"|g' update/${{ matrix.repoName }}.json
+          sed -i 's|"ModifyContent": ".*"|"ModifyContent": "${{ env.ModifyContent }}"|g' update/${{ matrix.repoName }}-${{ matrix.branchName }}.json
           git add --all
           git commit -m "${{ env.commit }}"
           git push -u -f origin master
