@@ -171,8 +171,7 @@ jobs:
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git remote set-url --add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
           git pull --rebase
-          sed -i "/${{ matrix.userName }}\/${{ matrix.repoName }}/s#Updated: [a-zA-Z0-9]*#Updated: ${{ env.commit }}#" README.md
-          sed -i 's/"version_code": [a-zA-Z0-9]*/"version_code": ${{ env.VersionCode }}/' update/${{ matrix.repoName }}.json
+          sed -i "/- \[${{ matrix.userName }}\/${{ matrix.repoName }}\]/s#Updated: [a-zA-Z0-9]*#Updated: ${{ env.commit }}#" README.md          sed -i 's/"version_code": [a-zA-Z0-9]*/"version_code": ${{ env.VersionCode }}/' update/${{ matrix.repoName }}.json
           sed -i 's/"version_name": "[^"]*"/"version_name": "${{ env.versionName }}"/' update/${{ matrix.repoName }}.json
           sed -i 's|"ModifyContent": ".*"|"ModifyContent": "${{ env.ModifyContent }}"|g' update/${{ matrix.repoName }}.json
           git add --all
