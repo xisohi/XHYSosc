@@ -1,6 +1,6 @@
 {
-  "code": "251023",
-  "name": "251023",
-  "desc": "1: Update settings.gradle\n2: Update Github.java\n3: # Conflicts:\n4: #	app/src/leanback/java/com/fongmi/android/tv/Updater.java\n5: #	app/src/main/java/com/fongmi/android/tv/utils/Github.java\n6: #	app/src/mobile/java/com/fongmi/android/tv/Updater.java\n7: Update build.gradle\n8: Remove cookie jar\n9: Support hide live\n10: Update proguard-rules.pro\n11: Fix proguard\n12: Update gradle\n13: Update okhttp\n14: Update build.gradle\n15: Add glide clear\n16: Clean code\n17: Remove decode memory\n18: Optimize ui\n19: Use fontFeatureSettings\n20: Fix traffic\n21: Fix bug\n22: Fix crash\n23: Remove bold and shadow\n24: Fix bug\n25: Optimize history save\n26: Fix build\n27: Optimize history\n28: Revert\n29: Update\n30: Optimize session artwork\n31: Fix line bug\n32: Use palette\n33: Update to 16kb\n34: Fix bug\n35: Update path\n36: Update github path\n37: Clean update code\n38: Fix vod long click bug\n39: Fix name width\n40: Update build.gradle\n41: Optimize collect\n",
+  "code": "251024",
+  "name": "251024",
+  "desc": "1: Update Updater.java\n2: Update settings.gradle\n3: up\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/lkys/{name}"
 }
