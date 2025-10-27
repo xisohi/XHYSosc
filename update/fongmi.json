@@ -1,6 +1,6 @@
 {
-  "code": "461",
-  "name": "4.6.1",
-  "desc": "1: Fix dialog height\n2: Update build.gradle\n3: Add swipe refresh for tv\n4: Support live can switch config\n5: Fix save bug\n6: Fix history bug\n",
+  "code": "463",
+  "name": "4.6.3",
+  "desc": "1: logo\n2: 更换LOGO\n3: Update build.gradle\n4: Clean code\n5: Optimize live\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
