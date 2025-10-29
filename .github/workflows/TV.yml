@@ -1,4 +1,4 @@
-name: Sort TV Channels
+name: Live streaming source
 
 on:
   schedule:
