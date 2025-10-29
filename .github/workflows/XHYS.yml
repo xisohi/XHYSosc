@@ -2,7 +2,7 @@ name: XHYS
 # 代码来自https://github.com/o0HalfLife0o/TVBoxOSC
 on:
   schedule:
-    - cron: 0 7 * * *
+    - cron: 0 9 * * *
   workflow_dispatch:
     inputs:
       rebuild:
