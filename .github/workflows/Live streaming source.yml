@@ -2,7 +2,7 @@ name: Live streaming source
 
 on:
   schedule:
-    - cron: "0 6 * * *"  # 每天早上8点执行
+    - cron: "0 4 * * *"  # 每天早上8点执行
   workflow_dispatch:  # 也可以手动触发
 
 jobs:
