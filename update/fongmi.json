@@ -1,6 +1,6 @@
 {
-  "code": "465",
-  "name": "4.6.5",
-  "desc": "1: Optimize search site width\n2: Update AndroidManifest.xml\n3: Update build.gradle\n4: Fix lock orient for live\n5: Update TVBus.java\n6: Optimize ui config\n7: Clean code\n8: Optimize BottomSheetDialog window\n9: Fix height bug\n10: Fix bug\n11: Fix proxy bug\n12: Optimize live progress\n13: Fix live enter bug\n14: Remove exoplayer log\n15: Update build.gradle\n16: Add ripple for type\n17: Fix thunder\n18: Fix bug\n",
+  "code": "466",
+  "name": "4.6.6",
+  "desc": "1: Fix bug\n2: Optimize\n3: Clean code\n4: Fix lock bug\n5: Fix bug\n6: Fix config save bug\n7: Fix leanback style\n8: Downgrade okhttp\n9: Remove auto play when resume\n10: Fix live drm parse\n11: Optimize media3 okhttp\n12: Update build.gradle\n13: Fix crash\n14: Clean import\n15: Support new drm param\n16: Optimize search thread\n17: Adjust collect width\n18: Fix bug\n19: Fix logo crash\n20: Revert permission\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
