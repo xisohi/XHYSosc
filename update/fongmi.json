@@ -1,6 +1,6 @@
 {
-  "code": "466",
-  "name": "4.6.6",
-  "desc": "1: Fix bug\n2: Optimize\n3: Clean code\n4: Fix lock bug\n5: Fix bug\n6: Fix config save bug\n7: Fix leanback style\n8: Downgrade okhttp\n9: Remove auto play when resume\n10: Fix live drm parse\n11: Optimize media3 okhttp\n12: Update build.gradle\n13: Fix crash\n14: Clean import\n15: Support new drm param\n16: Optimize search thread\n17: Adjust collect width\n18: Fix bug\n19: Fix logo crash\n20: Revert permission\n",
+  "code": "471",
+  "name": "4.7.1",
+  "desc": "1: # Conflicts:\n2: #	app/build.gradle\n3: #	app/src/main/java/com/fongmi/android/tv/api/config/VodConfig.java\n4: Update build.gradle\n5: Fix\n6: Fix bug\n7: Clean code\n8: Optimize suggest word\n9: Update okhttp\n10: Update build.gradle\n11: Optimize code\n12: Fix build\n13: Fix bug\n14: Optimize onFling\n15: Update gradle\n16: Update\n17: Optimize xmltv parse\n18: Clean log\n19: Clean code\n20: Adjust thread count\n21: Remove auto play\n22: Remove cache\n23: Optimize ux\n24: Use cache for image\n25: Optimize searchContent\n26: Optimize live config load\n27: Clean import\n28: Optimize vod config load\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
