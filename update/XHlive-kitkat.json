@@ -1,7 +1,7 @@
 {
-  "version_code": 250201101,
-  "version_name": "251020",
-  "ModifyContent": "1: 软件更名为光辉影视\n2: 修复已知BUG\n3: 劳动节快乐\n",
+  "version_code": 251103,
+  "version_name": "251103",
+  "ModifyContent": "1: Update channels.txt\n2: 修复已知BUG\n3: Update Makefile\n",
   "apk_name": "XHlive-kitkat.apk",
   "apk_url": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/XHlive-kitkat/XHlive-kitkat.apk"
 }
