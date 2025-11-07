@@ -1,7 +1,7 @@
 {
-  "version_code": 251020,
-  "version_name": "251020",
-  "ModifyContent": "1: Update channels.txt\n2: 修复已知BUG\n3: 填加更新日志\n",
+  "version_code": 251103,
+  "version_name": "251103",
+  "ModifyContent": "1: Update sources.txt\n",
   "apk_name": "XHlive.apk",
   "apk_url": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/XHlive/XHlive.apk"
 }
