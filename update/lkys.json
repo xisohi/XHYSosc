@@ -1,6 +1,6 @@
 {
-  "code": "251026",
-  "name": "251026",
-  "desc": "1: 修复logo\n",
+  "code": "251107",
+  "name": "251107",
+  "desc": "1: Update WallConfig.java\n2: Update LiveConfig.java\n3: Update VodConfig.java\n4: Update Config.java\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/lkys/{name}"
 }
