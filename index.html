@@ -127,27 +127,84 @@
     </tr>
     </tbody>
 </table>
-<h3>🏄‍♀️使用说明：</h3>
+<!-- 🏄‍♀️使用说明 -->
+<h3>🏄‍♀️使用说明</h3>
 <table>
+    <thead>
+    <tr>
+        <th>步骤</th>
+        <th>操作要点</th>
+        <th>示例 / 快捷入口</th>
+    </tr>
+    </thead>
     <tbody>
-    XHYS.apk(星辉影视）支持安卓6.0以上手机、电视、盒子
-    更换IPTV直播源方法：
-    1、复制IPTV直播源地址https://chinaiptv.pages.dev/省份全拼/运营商(unicom/mobile/telecom).txt（如：https://chinaiptv.pages.dev/anhui/unicom.txt）；
+    <!-- 步骤 1 -->
+    <tr>
+        <td>① 获取直播源</td>
+        <td>按「省份全拼 + 运营商」规则复制地址<br>
+            支持 31 省，三网（unicom / mobile / telecom）</td>
+        <td>
+            <code>https://chinaiptv.pages.dev/<b>省份全拼</b>/<b>运营商</b>.txt</code><br>
+            例：<a href="https://chinaiptv.pages.dev/anhui/unicom.txt" target="_blank">安徽联通</a> |
+            <a href="https://chinaiptv.pages.dev/guangdong/telecom.txt" target="_blank">广东电信</a>
+        </td>
+    </tr>
 
-    2、如图操作：
+    <!-- 步骤 2 -->
+    <tr>
+        <td>② 导入星辉影视</td>
+        <td>打开 XHYS.apk → 设置 → 直播源管理 → 粘贴地址 → 确定</td>
+        <td>
+            图示：<br>
+            <img src="https://raw.githubusercontent.com/xisohi/xhysOSC/master/image/step_import.jpg"
+                 alt="导入示意图" style="max-width:320px;border-radius:6px;">
+        </td>
+    </tr>
 
-    未标题-1
+    <!-- 步骤 3 -->
+    <tr>
+        <td>③ 选运营商</td>
+        <td>直播界面 → 按菜单键 → 选择对应运营商（联通/移动/电信）</td>
+        <td>切换后<strong>重启播放器</strong>生效</td>
+    </tr>
 
-    3、直播时选择对应的运营商（移动、联通、电信）；
-
-    4、确认电视（盒子）有（无）线直连光猫。
-
-    配置文件：
-    备用1： https://tvboxosc.pages.dev/json/XHYSyuan.json
-    备用2： https://agit.ai/Yoursmile7/TVBox/raw/branch/master/XC.json
-    备用3：
-    换源方法：复制配置文件——>设置——>配置地址——>输入数据源地址——>粘贴——>确定
+    <!-- 步骤 4 -->
+    <tr>
+        <td>④ 网络环境</td>
+        <td>确保「播放设备 ↔ 光猫」同一网段<br>
+            建议有线连接，避免 Wi-Fi 组播丢包</td>
+        <td>光猫指示灯：Power 常亮、PON 常亮、LAN 闪烁</td>
+    </tr>
     </tbody>
+</table>
+
+<!-- 配置文件区 -->
+<h4>📡 配置文件（一键换源）</h4>
+<table>
+    <thead>
+    <tr>
+        <th>编号</th>
+        <th>配置文件地址（右键复制）</th>
+        <th>备注</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr><td>备用1</td>
+        <td><code>https://xhys.xisohi.dpdns.org/XHYSyuan.json</code></td>
+        <td>主节点，每日 03:00 自动更新</td></tr>
+    <tr><td>备用2</td>
+        <td><code>https://hipy.xisohi.dpdns.org/hipy.json</code></td>
+        <td>HIPY 接口，含回看</td></tr>
+    <tr><td>备用3</td>
+        <td><code>https://ghproxy.net/https://raw.githubusercontent.com/xisohi/XHYSosc/master/json/XHYSyuan.json</code></td>
+        <td>GitHub 镜像，防失联</td></tr>
+    </tbody>
+</table>
+
+<p style="margin-top:12px;">
+    <strong>换源路径：</strong><br>
+    设置 → 配置地址 → 粘贴上方任一地址 → 确定 → 重启应用
+</p>
 </table>
 
 <div class="disclaimer">
