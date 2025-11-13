@@ -141,19 +141,19 @@
     <!-- 步骤 1 -->
     <tr>
         <td>① 获取直播源</td>
-        <td>按「省份全拼 + 运营商」规则复制地址<br>
-            支持 31 省，三网（unicom / mobile / telecom）</td>
+        <td>按「通信模式+省份全拼 + 运营商」规则复制地址<br>
+            通信模式（Unicast单播/Multicast组播），支持 31 省，三网（unicom / mobile / telecom）</td>
         <td>
-            <code>https://chinaiptv.pages.dev/<b>省份全拼</b>/<b>运营商</b>.txt</code><br>
-            例：<a href="https://chinaiptv.pages.dev/anhui/unicom.txt" target="_blank">安徽联通</a> |
-            <a href="https://chinaiptv.pages.dev/guangdong/telecom.txt" target="_blank">广东电信</a>
+            <code>https://chinaiptv.pages.dev/<b>通信模式</b>/<b>省份全拼</b>/<b>运营商</b>.txt</code><br>
+            例：<a href="https://chinaiptv.pages.dev/Unicast/anhui/unicom.txt" target="_blank">安徽联通单播</a> |
+            <a href="https://chinaiptv.pages.dev/Multicast/guangdong/telecom.txt" target="_blank">广东电信组播</a>
         </td>
     </tr>
 
     <!-- 步骤 2 -->
     <tr>
         <td>② 导入星辉影视</td>
-        <td>打开 XHYS.apk → 设置 → 直播源管理 → 粘贴地址 → 确定</td>
+        <td>打开 APP → 设置 → 直播源管理 → 粘贴地址 → 确定</td>
         <td>
             图示：<br>
             <img src="https://raw.githubusercontent.com/xisohi/xhysOSC/master/image/step_import.jpg"
@@ -162,13 +162,6 @@
     </tr>
 
     <!-- 步骤 3 -->
-    <tr>
-        <td>③ 选运营商</td>
-        <td>直播界面 → 按菜单键 → 选择对应运营商（联通/移动/电信）</td>
-        <td>切换后<strong>重启播放器</strong>生效</td>
-    </tr>
-
-    <!-- 步骤 4 -->
     <tr>
         <td>④ 网络环境</td>
         <td>确保「播放设备 ↔ 光猫」同一网段<br>
@@ -181,13 +174,6 @@
 <!-- 配置文件区 -->
 <h4>📡 配置文件（一键换源）</h4>
 <table>
-    <thead>
-    <tr>
-        <th>编号</th>
-        <th>配置文件地址（右键复制）</th>
-        <th>备注</th>
-    </tr>
-    </thead>
     <tbody>
     <tr><td>备用1</td>
         <td><code>https://xhys.xisohi.dpdns.org/XHYSyuan.json</code></td>
