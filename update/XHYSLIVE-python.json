@@ -4,9 +4,9 @@
   "UpdateStatus": 3,//1、默认更新2、强制更新3、使用系统弹窗提示
   "VersionCode": 251120,
   "VersionName": "251120",
-  "UploadTime": "2025-11-20 22:35:22",
-  "ModifyContent": "1: Update LivePlayActivity.java\n",
+  "UploadTime": "2025-11-20 23:06:24",
+  "ModifyContent": "1: Update LivePlayActivity.java\n2: Update HomeActivity.java\n",
   "DownloadUrl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/XHYSLIVE/XHYSLIVE-python.apk",
-  "ApkSize": 31119,
-  "ApkMd5": "e42ff08e53552fb0e62996ae067eb3b8"
+  "ApkSize": 31118,
+  "ApkMd5": "987f55d596cc9467bc3f40cdca76d7d2"
 }
