@@ -4,9 +4,9 @@
   "UpdateStatus": 3,//1、默认更新2、强制更新3、使用系统弹窗提示
   "VersionCode": 251121,
   "VersionName": "251121",
-  "UploadTime": "2025-11-20 23:43:46",
+  "UploadTime": "2025-11-21 00:02:12",
   "ModifyContent": "1: 尝试修复4.4更新SSL的问题\n",
   "DownloadUrl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/XHYSLIVE/XHYSLIVE-java.apk",
-  "ApkSize": 19639,
-  "ApkMd5": "23df5b986b6f6c744ede0cbd171d4fa4"
+  "ApkSize": 19640,
+  "ApkMd5": "d32c5721b09c1f96f7793ce013dbb0bf"
 }

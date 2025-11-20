@@ -2,11 +2,11 @@
   "Code": 0,
   "Msg": "新春快乐",
   "UpdateStatus": 3,//1、默认更新2、强制更新3、使用系统弹窗提示
-  "VersionCode": 251120,
-  "VersionName": "251120",
-  "UploadTime": "2025-11-20 23:43:46",
+  "VersionCode": 251121,
+  "VersionName": "251121",
+  "UploadTime": "2025-11-21 00:02:12",
   "ModifyContent": "1: 尝试修复4.4更新SSL的问题\n",
   "DownloadUrl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/XHYSLIVE/XHYSLIVE-python.apk",
   "ApkSize": 31119,
-  "ApkMd5": "7dc6bc3809fdef2e9b1a691765a7a7a0"
+  "ApkMd5": "26734739071019ed27717c3c1ab0cb83"
 }
