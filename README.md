@@ -44,4 +44,4 @@ This repo relies on the following third-party projects:
 - [xisohi/CatPawOpen/tree/main](https://github.com/xisohi/CatPawOpen/tree/main) (Updated: c41c0c9614ef84f215fa5ba103fb919886c629d6)
 - [xisohi/XHlive](https://github.com/xisohi/XHlive) (Updated: a85d73a69c7c460317a69d4aafa94cfdb7f6bc22)
 - [xisohi/XHlive/tree/kitkat](https://github.com/xisohi/XHlive/tree/kitkat) (Updated: 34d254a7da57999bd7f5d80342dc592111faaad5)
-- [xisohi/XHYSLIVE](https://github.com/xisohi/XHYSLIVE) (Updated: 18e81c00b08f9456a9961fcbd3fb316161150fcd)
+- [xisohi/XHYSLIVE](https://github.com/xisohi/XHYSLIVE) (Updated: 6babfac482f59f5026092dcbe83043418437f47f)
