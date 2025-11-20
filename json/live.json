@@ -1,3 +1,49 @@
-[
-{"name": "城市专用",     "url": "https://agit.ai/xisohi/XHYSosc/raw/branch/master/js/IPTV.txt"}
-]
+{
+  "lives": [
+    {
+      "name": "live",
+      "type": 0,
+      "url": "https://xhys.lcjly.cn/TV/live.txt",
+      "playerType": 1,
+      "ua": "okHttp/Mod-1.1.0",
+      "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+      "logo": "https://chinaiptv.pages.dev/logo/{name}.png"
+    },
+    {
+      "name": "安徽移动",
+      "type": 0,
+      "url": "https://iptv.xisohi.dpdns.org/Unicast/anhui/mobile.txt",
+      "playerType": 1,
+      "ua": "okHttp/Mod-1.1.0",
+      "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+      "logo": "https://chinaiptv.pages.dev/logo/{name}.png"
+    },
+    {
+      "name": "安徽电信[组播]",
+      "type": 0,
+      "url": "https://iptv.xisohi.dpdns.org/Multicast/anhui/telecom.txt",
+      "playerType": 1,
+      "ua": "okHttp/Mod-1.1.0",
+      "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+      "logo": "https://chinaiptv.pages.dev/logo/{name}.png"
+    },
+    {
+      "name": "安徽联通",
+      "type": 0,
+      "url": "https://iptv.xisohi.dpdns.org/Unicast/anhui/unicom.txt",
+      "playerType": 1,
+      "ua": "okHttp/Mod-1.1.0",
+      "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+      "logo": "https://chinaiptv.pages.dev/logo/{name}.png"
+    },
+    {
+      "name": "北京联通[组播]",
+      "type": 0,
+      "url": "https://iptv.xisohi.dpdns.org/Multicast/beijing/unicom.txt",
+      "playerType": 1,
+      "ua": "okHttp/Mod-1.1.0",
+      "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+      "logo": "https://chinaiptv.pages.dev/logo/{name}.png"
+    }
+  ]
+}
