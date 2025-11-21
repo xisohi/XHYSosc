@@ -4,9 +4,9 @@
   "UpdateStatus": 3,//1、默认更新2、强制更新3、使用系统弹窗提示
   "VersionCode": 251121,
   "VersionName": "251121",
-  "UploadTime": "2025-11-21 10:26:57",
-  "ModifyContent": "1: 删除点播配置\n",
+  "UploadTime": "2025-11-21 14:03:30",
+  "ModifyContent": "1: oge\n2: 精减\n",
   "DownloadUrl": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/XHYSLIVE/XHYSLIVE-python.apk",
-  "ApkSize": 31119,
-  "ApkMd5": "a36c27b7b39992ebd716ef4304a4ce5d"
+  "ApkSize": 31118,
+  "ApkMd5": "7111e6de923343b47798b6438ab0972f"
 }
