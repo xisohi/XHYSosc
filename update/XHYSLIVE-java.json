@@ -4,9 +4,9 @@
   "UpdateStatus": 3,//1、默认更新2、强制更新3、使用系统弹窗提示
   "VersionCode": 251122,
   "VersionName": "251122",
-  "UploadTime": "2025-11-22 15:42:42",
-  "ModifyContent": "1: Update LivePlayActivity.java\n2: Create .gitignore\n",
+  "UploadTime": "2025-11-22 20:13:46",
+  "ModifyContent": "1: Update ApiConfig.java\n2: update\n3: Update ApiDialog.java\n",
   "DownloadUrl": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/XHYSLIVE/XHYSLIVE-java.apk",
-  "ApkSize": 19633,
-  "ApkMd5": "d977f430ae5dcc59acaa89357a38c8b7"
+  "ApkSize": 19632,
+  "ApkMd5": "18634a7ef23e92d33582c723e2da8c93"
 }
