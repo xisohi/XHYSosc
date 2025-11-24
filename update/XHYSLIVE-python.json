@@ -2,11 +2,11 @@
   "Code": 0,
   "Msg": "新春快乐",
   "UpdateStatus": 3,//1、默认更新2、强制更新3、使用系统弹窗提示
-  "VersionCode": 251122,
-  "VersionName": "251122",
-  "UploadTime": "2025-11-22 20:13:46",
-  "ModifyContent": "1: Update ApiConfig.java\n2: update\n3: Update ApiDialog.java\n",
+  "VersionCode": 251123,
+  "VersionName": "251123",
+  "UploadTime": "2025-11-23 20:21:14",
+  "ModifyContent": "1: 更新\n2: ✅ 每次启动都会尝试下载最新直播源\n3: 从直播页面进入系统设置时暂停直播，从系统设置返回时恢复直播\n",
   "DownloadUrl": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/XHYSLIVE/XHYSLIVE-python.apk",
-  "ApkSize": 31118,
-  "ApkMd5": "e99b74964351616978767c92b9b49302"
+  "ApkSize": 31119,
+  "ApkMd5": "8eaa3b270b70430c8213c07e6ef59545"
 }
