@@ -1,7 +1,7 @@
 {
   "lives": [
     {
-      "name": "live",
+      "name": "直播",
       "type": "0",
       "url": "https://xhys.lcjly.cn/TV/live.txt",
       "playerType": 1,
