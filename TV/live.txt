@@ -69,6 +69,8 @@ CGTN俄语,https://0472.org/hls/cgtne.m3u8
 CGTN阿语,https://mgtv.ottiptv.cc/mg/609154345.m3u8?userid=423579792&sign=f81c7001b039587d07e959e61f15343a213c29809e2312b7cba8fda63cf352264b07af9925a42eced8ffb6f7b5f59894af9df4be0bae65a1513ed7f727e242f63734605dc46c73dfb6b28489cc27bca8&auth_token=acb0c268be4342419aa3ba49796b45e0
 CGTN阿语,https://live.ottiptv.cc/mcp/cgtnar.m3u8?userid=423579792&sign=ba0502d42bae427c07a55e47d8070f8d2937db49b4d9cc5d548c3ceb386379d10d089b520c92154c9843528edb612b1591cf3d597ad6c3b4f9c5110f9ff279f6cf64cde7530c3a2e6636c56b75&auth_token=acb0c268be4342419aa3ba49796b45e0
 CGTN阿语,https://0472.org/hls/cgtna.m3u8
+RTMP测试源,rtmp://f13h.mine.nu/sat/tv771
+HTTP-FLV测试源,http://hls.cntv.kcdnvip.com/asp/hls/1200/0303000a/3/default/90aa4ed1131b4e609e600a6f7f6975e7/1200.m3u8
 
 卫视,#genre#
 安徽卫视,https://live.ottiptv.cc/mcp/anhui.m3u8?userid=423579792&sign=087090833fa6698dc3bd66133c8c0e464b7cb0da7157f7222d90725cd2c280b0acbbceada7516e6a3fbafc658267ea2cefd65340e3232cb26708260ff9ed234225ace5013b694539eaa6fe46&auth_token=acb0c268be4342419aa3ba49796b45e0
