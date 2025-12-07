@@ -58,6 +58,9 @@ CCTV6,http://live.lcjly.cn/douyin/69416429589
 江苏卫视,http://live.lcjly.cn/douyin/417926571322
 大湾区卫视,http://live.lcjly.cn/douyin/603789803277
 合信佳,rtmp://61.48.253.63/live/1
+RTMP测试源,rtmp://f13h.mine.nu/sat/tv771
+HTTP-FLV测试源,http://hls.cntv.kcdnvip.com/asp/hls/1200/0303000a/3/default/90aa4ed1131b4e609e600a6f7f6975e7/1200.m3u8
+
 🎡港澳台,#genre#
 凤凰卫视,http://tv.bfsu.edu.cn/hls/fhzw.m3u8
 凤凰资讯,http://tv.bfsu.edu.cn/hls/fhzx.m3u8
