@@ -109,7 +109,7 @@ jobs:
         if: ${{ env.commit }}
         working-directory: XHYSosc/media
         run: |
-          chmod +x /home/runner/work/XHYSosc/XHYSosc/XHYSosc/media/gradlew
+          chmod +x ./gradlew
           #cp -r gradle.properties local.properties
           rm -rf app/src/armeabi_v7a/assets
           rm -rf app/src/arm64_v8a/assets
