@@ -1,6 +1,6 @@
 {
-  "code": "251205",
-  "name": "251205",
-  "desc": "1: Fix build\n2: Fix bug\n3: Optimize track selection\n4: Clean code\n5: Fix py init\n6: Fix bug\n7: Fix build\n8: Fix bug\n9: Update ExoUtil.java\n10: Fix crash\n11: Clean error msg\n12: Clean code\n13: Update build.gradle\n14: Add forceKey param\n15: Optimize header parse\n16: Revert "Optimize header parse"\n17: This reverts commit 3d275fa02b34b4b6b678f41989808ccdf7ae2364.\n18: Support drm licence header\n19: Rename proxyLocal to proxy\n20: Update Spider.java\n21: Add siteKey for spider\n",
+  "code": "251209",
+  "name": "251209",
+  "desc": "1: Update sdk to 36.1\n2: Clean code\n3: Update build.gradle\n4: Optimize digest param parse\n5: Fix type bug\n6: Optimize filter\n7: Use lazyload\n8: Use lazy load\n9: Optimize ui\n10: Adjust player ui\n11: Update gradle\n12: Optimize progress ui\n13: Fix build\n14: Update python\n15: Optimize live end check\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/lkys/{name}"
 }
