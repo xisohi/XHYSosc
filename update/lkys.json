@@ -1,6 +1,6 @@
 {
   "code": "251209",
   "name": "251209",
-  "desc": "1: Update sdk to 36.1\n2: Clean code\n3: Update build.gradle\n4: Optimize digest param parse\n5: Fix type bug\n6: Optimize filter\n7: Use lazyload\n8: Use lazy load\n9: Optimize ui\n10: Adjust player ui\n11: Update gradle\n12: Optimize progress ui\n13: Fix build\n14: Update python\n15: Optimize live end check\n",
+  "desc": "1: Update Download.java\n2: 添加GITHUB动态下载加速\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/lkys/{name}"
 }
