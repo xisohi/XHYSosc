@@ -101,6 +101,18 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Setup Python 3.10
+        if: ${{ env.commit }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Verify Python installation
+        if: ${{ env.commit }}
+        run: |
+          python3 --version
+          pip3 --version
+
       - name: Setup Gradle
         if: ${{ env.commit }}
         uses: gradle/actions/setup-gradle@v4
