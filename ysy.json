@@ -1,9 +1,9 @@
 {
-	"spider": "./jar/pg.jar;md5;650ee1d2aad3ffc1013fa22335121a8e",
+	"spider": "./jar/Yoursmile.jar;md5;c6aaf6a9498e1e1d07126779c687bdd8",
 	"wallpaper": "http://lcjly.cn/tupian",
 	"sites": [
 		{"key":"农民影视","name":"👩‍🌾农民影视","type":3,"api":"csp_XYQHiker","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/农民影视.json"},
-		{"key":"Guazi","name":"瓜子|App","type":3,"api":"csp_Guazi","quickSearch":1, "changeable":1, "filterable":1, "timeout":60, "ext":""},
+		{"key":"csp_Gz360","name":"🍉瓜子[优]","type":3,"api":"csp_Gz360","searchable":1,"quickSearch":1,"filterable":1},
 		{"key":"csp_LiteApple","name":"🍎苹果[优]","type":3,"api":"csp_LiteApple","searchable":1,"quickSearch":1,"filterable":1},
 		{"key":"csp_Jianpian","name":"🧲荐片[优]","type":3,"api":"csp_Jianpian","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/jianpian.json"},
 		{"key": "hipy_即看影视","name": "即看影视","type": 3,"api": "./js/lib/drpy2.min.js","ext":"./js/即看影视.js","searchable": 1,"quickSearch": 0,"filterable": 1},
