@@ -5,17 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="46f0f8ac-56a1-4a3d-8850-2133b812e519" name="Changes" comment="ii">
-      <change beforePath="$PROJECT_DIR$/XHYSyuan.json" beforeDir="false" afterPath="$PROJECT_DIR$/XHYSyuan.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/555影视[飞].js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/大米星球.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/如意影视.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/孜然影视.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/宝片视频.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/小鱼影视.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/干饭影视.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/短剧TV网.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/路漫漫[漫].js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/鸭奈飞影视.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ysy.json" beforeDir="false" afterPath="$PROJECT_DIR$/ysy.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,16 +24,16 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "xisohi"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;xisohi&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
-    "url": "git@github.com:xisohi/XHYSosc.git",
-    "accountId": "acea0177-bd90-4116-92fc-582d3ca81afd"
+    "url": "https://github.com/xisohi/XHYSosc.git",
+    "accountId": "d11b5f8a-f974-4e9d-b167-e0c090693c57"
   }
 }]]></component>
   <component name="ProjectColorInfo">{
@@ -54,20 +45,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/GitHub/XHYSosc/js"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/GitHub/XHYSosc/js&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\GitHub\XHYSosc\js" />
