@@ -4,7 +4,9 @@
 	"sites": [
 		{"key": "hipy_农民影视gz","name": "👨‍🌾农民影视","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/农民影视gz.js","searchable": 1,"quickSearch": 0,"filterable": 1},
 		{"key":"农民","name":"👩‍🌾农民","type":1,"api":"csp_XYQHiker","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/农民影视.json","jar":".jar/Yoursmile.jar"},
-		{"key":"csp_Gz360","name":"🍉瓜子","type":3,"api":"csp_Gz360","searchable":1,"quickSearch":1,"filterable":1,"jar":".jar/Yoursmile.jar"},
+		{"key":"csp_Gz360","name":"🍉瓜子","type":3,"api":"csp_Gz360","searchable":1,"quickSearch":1,"filterable":1},
+		{"key":"csp_LiteApple","name":"🍎苹果","type":3,"api":"csp_LiteApple","searchable":1,"quickSearch":1,"filterable":1},
+		{"key":"csp_Jianpian","name":"🧲荐片","type":3,"api":"csp_Jianpian","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/jianpian.json"},
 
 		{"key": "hipy_即看影视","name": "即看影视","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/即看影视.js","searchable": 1,"quickSearch": 0,"filterable": 1},
 		{"key": "hipy_木兮[优]","name": "木兮[优]","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/木兮[优].js","searchable": 1,"quickSearch": 0,"filterable": 1},
