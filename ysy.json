@@ -6,6 +6,8 @@
 		{"key":"csp_Gz360","name":"🍉瓜子[优]","type":3,"api":"csp_Gz360","searchable":1,"quickSearch":1,"filterable":1,"jar":"./jar/Yoursmile.jar"},
 		{"key":"csp_LiteApple","name":"🍎苹果[优]","type":3,"api":"csp_LiteApple","searchable":1,"quickSearch":1,"filterable":1,"jar":"./jar/Yoursmile.jar"},
 		{"key":"csp_Jianpian","name":"🧲荐片[优]","type":3,"api":"csp_Jianpian","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/jianpian.json","jar":"./jar/Yoursmile.jar"},
+		{"key":"csp_New6v","name":"🧲新6V","type":3,"api":"csp_New6v","searchable":1,"quickSearch":1,"filterable":1,"jar":"./jar/Yoursmile.jar"},
+		{"key":"csp_DyGod","name":"🧲电影天堂","type":3,"api":"csp_DyGod","searchable":1,"quickSearch":1,"filterable":1,"jar":"./jar/Yoursmile.jar"},
 		{"key": "hipy_即看影视","name": "即看影视","type": 3,"api": "./js/lib/drpy2.min.js","ext":"./js/即看影视.js","searchable": 1,"quickSearch": 0,"filterable": 1},
 		{"key": "hipy_木兮[优]","name": "木兮[优]","type": 3,"api": "./js/lib/drpy2.min.js","ext":"./js/木兮[优].js","searchable": 1,"quickSearch": 0,"filterable": 1},
 		{"key": "hipy_金牌影视[优]","name": "金牌影视[优]","type": 3,"api": "./js/lib/drpy2.min.js","ext":"./js/金牌影视.js","searchable": 1,"quickSearch": 0,"filterable": 1},
