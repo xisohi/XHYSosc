@@ -1,5 +1,5 @@
 {
-	"spider": "./jar/fm.jar;md5;a747194acf234c9e3f8e102fdc902970",
+	"spider": "./jar/Yoursmile.jar;md5;c6aaf6a9498e1e1d07126779c687bdd8",
 	"wallpaper": "http://lcjly.cn/tupian",
 	"sites": [
 		{"key": "hipy_农民影视gz","name": "👨‍🌾农民影视","type": 3,"api": "./drpy_libs/drpy2.min.js","ext":"./js/农民影视gz.js","searchable": 1,"quickSearch": 0,"filterable": 1},
