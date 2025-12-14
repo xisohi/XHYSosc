@@ -2,7 +2,6 @@
 	"spider": "./jar/Yoursmile.jar;md5;c6aaf6a9498e1e1d07126779c687bdd8",
 	"wallpaper": "http://lcjly.cn/tupian",
 	"sites": [
-//		{"key": "hipy_农民影视gz","name": "👨‍🌾农民影视","type": 3,"api": "./js/lib/drpy2.min.js","ext":"./js/农民影视gz.js","searchable": 1,"quickSearch": 0,"filterable": 1},
 		{"key":"农民影视","name":"👩‍🌾农民影视","type":3,"api":"csp_XYQHiker","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/农民影视.json"},
 		{"key":"csp_Gz360","name":"🍉瓜子[优]","type":3,"api":"csp_Gz360","searchable":1,"quickSearch":1,"filterable":1},
 		{"key":"csp_LiteApple","name":"🍎苹果[优]","type":3,"api":"csp_LiteApple","searchable":1,"quickSearch":1,"filterable":1},
