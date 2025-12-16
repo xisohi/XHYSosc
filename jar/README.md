@@ -6,7 +6,7 @@
 | 影视  |    fm.jar     |                                               | https://github.com/FongMi/CatVodSpider/|
 | PG  |    pg.jar     |                                               | |
 | 香雅情 |    XYQ.jar    |                                               |  |
-| 南风  | Yoursmile.jar |                                               | https://github.com/yoursmile66/TVBox |
+| 南风  | Yoursmile.jar |                                               | https://github.com/yoursmile66/TVBox<br/>https://jihulab.com/yoursmile2/TVBox |
 | 饭太硬 |    fty.jar    |             http://www.饭太硬.com/tv             |公众号【太太太硬了】         |
 | 王二小 |               |            http://tvbox.王小二放牛娃.top            | 公众号【王二小放牛娃】 |
 | 小米  |               |                                               |  |
