@@ -1,1 +1,111 @@
-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
+/*
+@header({
+  searchable: 2,
+  filterable: 1,
+  quickSearch: 0,
+  title: '可可影视[优]',
+  '类型': '影视',
+  lang: 'dr2'
+})
+*/
+
+var rule = {
+    title: '可可影视[优]',
+    host: 'https://www.keke1.app',
+    //host: 'https://www.kkys01.com',
+    url: '/show/fyclass-----2-fypage.html',
+    //url: '/show/fyclass-fyfilter-fypage.html',
+    searchUrl: '/search?t=lw%2FzDeVGGBRTbdH2HVvs7Q%3D%3D&k=**&page=fypage',
+    searchable: 2,
+    quickSearch: 0,
+    filterable: 1,
+    headers: {
+        'User-Agent': 'MOBILE_UA',
+    },
+    class_parse: '#nav-swiper&&.nav-swiper-slide;a&&Text;a&&href;/(\\w+).html',
+    cate_exclude: 'Netflix|今日更新|专题列表|排行榜',
+    tab_exclude:'可可影视提供',
+    tab_order: ['超清', '蓝光', '极速蓝光'],
+    tab_remove:['4K(高峰不卡)'],
+    play_parse: true,
+	lazy: $js.toString(() => {
+        input = {
+            parse: 1,
+            url: input,
+            js: 'document.querySelector("#my-video video").click()',
+        }
+    }),
+    limit: 20,
+    推荐: '.section-box:eq(2)&&.module-box-inner&&.module-item;*;*;*;*',
+    double: false,
+    一级: '.module-box-inner&&.module-item;.v-item-title:eq(1)&&Text;img:last-of-type&&data-original;.v-item-bottom&&span&&Text;a&&href',
+    二级: {
+        title: '.detail-pic&&img&&alt;.detail-tags&&a&&Text',
+        img: '.detail-pic&&img&&data-original',
+        desc: '.detail-info-row-main:eq(-2)&&Text;.detail-tags&&a&&Text;.detail-tags&&a:eq(1)&&Text;.detail-info-row-main:eq(1)&&Text;.detail-info-row-main&&Text',
+        content: '.detail-desc&&Text',
+        tabs: '.source-item-label',
+        //tabs: 'body&&.source-item-label[id]',
+        lists: '.episode-list:eq(#id) a',
+    },
+    搜索: '.search-result-list&&a;.title:eq(0)&&Text;.search-result-item-pic&&img&&data-original;.search-result-item-header&&Text;a&&href;.desc&&Text',
+    图片替换:'https://www.keke1.app=>https://vres.zclmjc.com',
+    预处理: $js.toString(() => {
+        function extractHashFromResponse(ruleHost) {
+            try {
+                let response = request(ruleHost);
+                const regex = /a0_0x2a54\s*=\s*\['([^']+)'/;
+                let match = response.match(regex);
+                return match ? match[1] : '';
+            } catch (error) {
+                console.error('请求失败:', error);
+                return '';
+            }
+        }
+
+        function sha1ToUint8ArrayLatin1(input) {
+            let hash = CryptoJS.SHA1(input);
+            let latin1String = hash.toString(CryptoJS.enc.Latin1);
+            let uint8Array = new Uint8Array(latin1String.length);
+
+            for (let i = 0; i < latin1String.length; i++) {
+                uint8Array[i] = latin1String.charCodeAt(i);
+            }
+
+            return uint8Array;
+        }
+
+        function run(c, n1) {
+            let i = 0;
+            while (i < 1000000) {
+                let input = c + i;
+                let hash = sha1ToUint8ArrayLatin1(input);
+                if (hash[n1] === 0xb0 && hash[n1 + 1] === 0x0b) {
+                    let myck = 'cdndefend_js_cookie=' + c + i;
+                    console.log('找到 myck:', myck);
+                    rule.headers['cookie'] = myck;
+                    setItem('mycookie', myck);
+                    setItem('myhash', c);
+                    break;
+                }
+                i++;
+            }
+            console.log('未找到符合条件的 i');
+        }
+
+        let hash = extractHashFromResponse(rule.host);
+        if (hash != '' && hash != getItem('myhash')) {
+            setItem('mycookie', '');
+            setItem('myhash', '');
+            run(hash, parseInt('0x' + hash[0], 16));
+        }
+        if (getItem('mycookie')) {
+            rule.headers['cookie'] = getItem('mycookie');
+        }
+        
+        let html = fetch(HOST, {headers: rule.headers});
+        const regex2 = /<input type="hidden" name="t" value="([^"]+)"/;
+        let match2 = html.match(regex2);
+        rule.searchUrl = rule.searchUrl.replace("lw%2FzDeVGGBRTbdH2HVvs7Q%3D%3D", match2 ? encodeURIComponent(match2[1]) : '');
+    }),
+}
