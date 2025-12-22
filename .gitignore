@@ -72,7 +72,6 @@ build/
 output-metadata.json
 
 ### Signing ###
-*.jks
 *.keystore
 
 ### Memory dumps ###
