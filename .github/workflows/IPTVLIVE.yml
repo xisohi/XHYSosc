@@ -16,7 +16,6 @@ on:
 
 permissions:
   contents: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -34,7 +33,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Check New Commit # 检查是否有新提交
+      - name: Check New Commit
         run: |
           upStream="https://github.com/${{  matrix.userName }}/${{ matrix.repoName }}"
           echo "upStream=$upStream" >> $GITHUB_ENV
@@ -47,13 +46,21 @@ jobs:
             echo "commit=$commit" >> $GITHUB_ENV
             echo "commitS=${commit:0:7}" >> $GITHUB_ENV
           fi
-      - name: Checkout Source Code # 检出源代码
+
+      - name: Checkout Source Code
         if: ${{ env.commit }}
         run: |
           git clone ${{ env.upStream }} XHYSosc
           cd XHYSosc
           git checkout ${{ env.commit }}
           echo "tag=$(git log --date=format:'%y%m%d' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
+
+      - name: Make gradlew executable  # 新增的关键步骤
+        if: ${{ env.commit }}
+        working-directory: XHYSosc
+        run: |
+          chmod +x gradlew
+          echo "Gradlew权限已设置"
 
       - name: Compress Source Code
         if: ${{ env.commit }}
