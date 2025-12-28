@@ -1,0 +1,182 @@
+name: XHlive-RTP
+
+on:
+  schedule:
+    - cron: 0 8 * * *
+  workflow_dispatch:
+    inputs:
+      rebuild:
+        description: '忽略构建记录以重新构建'
+        required: false
+        type: boolean
+      donotpublish:
+        description: '构建后不提交发布新版'
+        required: false
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - userName: xisohi
+            repoName: XHlive
+            branchName: RTP
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check New Commit # 检查是否有新提交
+        run: |
+          upStream="https://github.com/${{  matrix.userName }}/${{ matrix.repoName }}"
+          echo "upStream=$upStream" >> $GITHUB_ENV
+          commit=$(curl -sL "https://api.github.com/repos/${{  matrix.userName }}/${{ matrix.repoName }}/commits/${{ matrix.branchName }}" | jq -r '.sha')
+          if [ $? -ne 0 ]; then
+            echo "Failed to get commit from API"
+            exit 1
+          fi
+          echo "API returned commit: $commit"  # ← 加这句
+          if [ -z "$commit" ] || ! grep -q "$commit" README.md; then
+            echo "commit=$commit" >> $GITHUB_ENV
+            echo "commitS=${commit:0:7}" >> $GITHUB_ENV
+          fi
+      - name: Checkout Source Code # 检出源代码
+        if: ${{ env.commit }}
+        run: |
+          git clone --branch ${{ matrix.branchName }} --single-branch ${{ env.upStream }} XHYSosc
+          cd XHYSosc
+          git checkout ${{ env.commit }}
+          git fetch --unshallow || true
+          echo "tag=$(git log --date=format:'%y%m%d' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
+
+      - name: Compress Source Code
+        if: ${{ env.commit }}
+        working-directory: XHYSosc
+        run: |
+          tar -cJf sourceCode-${{ env.commitS }}.tar.xz --exclude=.git --exclude=.github *
+
+      - name: Set versionCode and versionName
+        if: ${{ env.commit }}
+        working-directory: XHYSosc
+        run: |
+          # 设置 versionCode
+          sed -i 's/versionCode = [^"]*/versionCode = ${{ env.tag }}/g' app/build.gradle.kts
+          # 设置 versionName
+          sed -i 's/versionName = [^"]*/versionName = "${{ env.tag }}"/g' app/build.gradle.kts   
+
+      - name: set up JDK 21
+        if: ${{ env.commit }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Build project
+        if: ${{ env.commit }}
+        working-directory: XHYSosc
+        run: ./gradlew clean && ./gradlew assembleRelease
+
+      - name: Sign app APK  # 文件签名
+        if: ${{ env.commit }}
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: XHYSosc/app/build/outputs/apk/release
+          alias: ${{ secrets.ALIAS }}
+          signingKeyBase64: ${{ secrets.KEYSTORE }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.ALIAS_PASSWORD }}
+        env:
+          BUILD_TOOLS_VERSION: "34.0.0"
+
+      - name: Prepare App
+        if: ${{ env.commit }}
+        working-directory: XHYSosc
+        run: |
+          rm -rf apk/
+          mkdir -p apk/
+            for file in `find app/build/outputs/apk/release -name "*unsigned-signed*.apk" -print`; do
+            # 获取文件的基本名称
+            base=$(basename "$file")
+            # 如果文件是 release- 开头
+            if [[ "$base" == release-* ]]; then
+              new_base=$(echo "$base" | sed "s/release/${{ matrix.repoName }}/")
+            else
+              new_base="${{ matrix.repoName }}-${{ matrix.branchName }}.apk"
+            fi
+            # 移动并重命名文件
+            mv "$file" "apk/$new_base"
+          done
+          mv sourceCode-${{ env.commitS }}.* apk/
+
+      - name: Release Note
+        if: ${{ env.commit }}
+        working-directory: XHYSosc
+        run: |
+          lastCommit=$(grep "${{ matrix.userName }}\/${{ matrix.repoName }}\/tree\/${{ matrix.branchName }}" ${{ github.workspace }}/README.md | grep -o '[a-z0-9]\{40\}')
+          export LESSCHARSET=utf-8
+          echo -e "Credit: [${{ matrix.userName }}](${{ env.upStream }})\nCommit: ${{ env.commit }}\nChangelog:" > apk/${{ matrix.userName }}-Release.log
+          if [ "${{ env.commit }}" == "${lastCommit}" ]; then
+            git log --pretty=format:%B ${{ env.commitS }} -1 | sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' | cat -n | sort -k2,2 -k1,1n | uniq -f1 | sort -k1,1n | cut -f2- >> apk/${{ matrix.userName }}-Release.log
+          else
+            git log --pretty=format:%B ${{ env.commitS }}...${lastCommit:0:7} | sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' | cat -n | sort -k2,2 -k1,1n | uniq -f1 | sort -k1,1n | cut -f2- >> apk/${{ matrix.userName }}-Release.log
+          fi
+
+      - name: Build Upgrade log
+        if: ${{ env.commit }}
+        working-directory: XHYSosc
+        run: |
+          lastCommit=$(grep "${{ matrix.userName }}\/${{ matrix.repoName }}\/tree\/${{ matrix.branchName }}" ${{ github.workspace }}/README.md | grep -o '[a-z0-9]\{40\}')
+          export LESSCHARSET=utf-8
+          echo -e "Credit: [${{ matrix.branchName }}](${{ env.upStream }})\nCommit: ${{ env.commit }}\nChangelog:" > apk/${{ matrix.branchName }}.log
+          if [ "${{ env.commit }}" == "${lastCommit}" ]; then
+            git log --pretty=format:%B ${{ env.commitS }} -1 | sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' | cat -n | sort -k2,2 -k1,1n | uniq -f1 | sort -k1,1n | cut -f2- > apk/${{ matrix.branchName }}.log
+          else
+            git log --pretty=format:%B ${{ env.commitS }}...${lastCommit:0:7} | sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' | cat -n | sort -k2,2 -k1,1n | uniq -f1 | sort -k1,1n | cut -f2- > apk/${{ matrix.branchName }}.log
+          fi
+      - name: Build Upgrade content
+        if: ${{ env.commit }}
+        working-directory: XHYSosc
+        run: |
+          echo "VersionCode=$(grep -oP 'versionCode = \K\d+' app/build.gradle.kts)" >> $GITHUB_ENV
+          echo "versionName=$(grep -oP 'versionName = \"\K[^\"]+' app/build.gradle.kts)" >> $GITHUB_ENV
+          echo "ModifyContent=$(awk 'BEGIN{ORS="\\\\n"}{print NR ": " $0}' apk/${{ matrix.branchName }}.log)" >> $GITHUB_ENV
+
+      - name: Release and Upload Assets
+        uses: ncipollo/release-action@v1
+        if: ${{ env.commit }}
+        with:
+          name: ${{ matrix.repoName }}-${{ matrix.branchName }}
+          tag: ${{ matrix.repoName }}-${{ matrix.branchName }}
+          bodyFile: XHYSosc/apk/${{ matrix.userName }}-Release.log
+          allowUpdates: true
+          removeArtifacts: true
+          artifacts: |
+            XHYSosc/apk/*.apk
+            XHYSosc/apk/sourceCode-${{ env.commitS }}.*
+
+      - name: Push to master
+        if: ${{ env.commit }}
+        run: |
+          rm -rf XHYSosc
+          git reset --hard
+          sed -i '/url =/d' ./.git/config
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote set-url --add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
+          git pull --rebase
+          sed -i "/${{ matrix.userName }}\/${{ matrix.repoName }}\/tree\/${{ matrix.branchName }}/s#Updated: [a-zA-Z0-9]*#Updated: ${{ env.commit }}#" README.md
+          sed -i 's/"version_code": [a-zA-Z0-9]*/"version_code": ${{ env.VersionCode }}/' update/${{ matrix.repoName }}-${{ matrix.branchName }}.json
+          sed -i 's/"version_name": "[^"]*"/"version_name": "${{ env.versionName }}"/' update/${{ matrix.repoName }}-${{ matrix.branchName }}.json
+          sed -i 's|"ModifyContent": ".*"|"ModifyContent": "${{ env.ModifyContent }}"|g' update/${{ matrix.repoName }}-${{ matrix.branchName }}.json
+          git add --all
+          git commit -m "${{ env.commit }}"
+          git push -u -f origin master
