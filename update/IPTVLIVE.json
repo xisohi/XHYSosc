@@ -2,6 +2,6 @@
   "version_code": 251228,
   "version_name": "251228",
   "ModifyContent": "1: up\n2: UP\n3: upda\n4: Update .gitignore\n5: Create .gitignore\n6: Update build.gradle.kts\n7: Update build.gradle\n8: Update build.gradle.kts\n9: Update MyTVApplication.kt\n10: Update ReleaseResponse.kt\n11: Update ConfirmationFragment.kt\n12: Update AndroidManifest.xml\n13: Update MainActivity.kt\n14: Update SettingFragment.kt\n15: Update SimpleServer.kt\n16: Update sources.txt\n17: Update strings.xml\n18: Create file_paths.xml\n19: Create sn.md\n20: Update index.html\n21: Update mobile.txt\n22: Update strings.xml\n23: Update UpdateManager.kt\n24: Update appreciate.png\n25: Update logo0.png\n26: Update banner0.png\n27: Update appreciate.png\n28: Update channels.txt\n",
-  "apk_name": "XHlive.apk",
-  "apk_url": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/XHlive/XHlive.apk"
+  "apk_name": "IPTVLIVE.apk",
+  "apk_url": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/IPTVLIVE/IPTVLIVE.apk"
 }
