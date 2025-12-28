@@ -88,9 +88,7 @@ jobs:
       - name: Build project
         if: ${{ env.commit }}
         working-directory: XHYSosc
-        run: |
-          rm -rf player/src/main/java/tv/danmaku/ijk/
-          ./gradlew clean && ./gradlew assembleRelease
+        run: ./gradlew clean && ./gradlew assembleRelease
 
       - name: Sign app APK  # 文件签名
         if: ${{ env.commit }}
