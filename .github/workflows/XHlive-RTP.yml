@@ -2,7 +2,7 @@ name: XHlive-RTP
 
 on:
   schedule:
-    - cron: 0 8 * * *
+    - cron: 0 13 * * *
   workflow_dispatch:
     inputs:
       rebuild:
