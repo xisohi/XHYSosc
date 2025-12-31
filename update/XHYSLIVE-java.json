@@ -4,9 +4,9 @@
   "UpdateStatus": 3,//1、默认更新2、强制更新3、使用系统弹窗提示
   "VersionCode": 251231,
   "VersionName": "251231",
-  "UploadTime": "2025-12-31 13:01:58",
+  "UploadTime": "2025-12-31 13:47:29",
   "ModifyContent": "1: 精减\n",
   "DownloadUrl": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/XHYSLIVE/XHYSLIVE-java.apk",
-  "ApkSize": 19550,
-  "ApkMd5": "da0cfe7d16424c90cafc590263733a96"
+  "ApkSize": 19522,
+  "ApkMd5": "1695a7d3d4318353375e9c2ebf37ea29"
 }
