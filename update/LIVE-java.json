@@ -4,9 +4,9 @@
   "UpdateStatus": 3,//1、默认更新2、强制更新3、使用系统弹窗提示
   "VersionCode": 260101,
   "VersionName": "260101",
-  "UploadTime": "2026-01-01 11:33:56",
-  "ModifyContent": "1: Update Constants.java\n2: Update build.gradle\n",
+  "UploadTime": "2026-01-01 17:17:22",
+  "ModifyContent": "1: Delete box_vod_control_view.xml\n2: Update LivePlayActivity.java\n3: 可以加载内置源了\n4: 删除快速搜索\n5: Update Constants.java\n6: Update build.gradle\n7: 精减\n8: 删除搜索\n9: Update ApiConfig.java\n10: 直播 缓存键拼写统一\n11: Update Constants.java\n12: 排版\n13: 删除历史记录\n14: Update fragment_model.xml\n15: 删除点播栏\n16: 删除窗口预览\n17: 删除首页源\n18: 删除首页站源，和多行\n19: 精减首页推荐\n20: 修改提示词\n21: 精减下次进入\n22: 精减快速\n23: 精减搜索展示\n24: 精减去广告\n25: 精减附近的\n26: 清理无效代码\n27: 更名\n28: 更换直播加载提示\n29: 修改启动进直播\n30: 修复无效源地址死机的BUG\n31: 移除跳转\n32: 解决进直播页闪退\n33: 硬分离\n34: 还原设置进直播的跳转\n35: 将配置地址写入点播\n36: Update RefreshEvent.java\n37: 接口还原\n38: 删除推送功能\n39: 直播与点播硬分离\n40: 点击直播，如果直播源为空时，跳到设置页\n41: Update gradle-wrapper.properties\n42: Update HomeActivity.java\n43: 直播进入系统设置释放播放器\n44: 直播页面添加系统设置按钮\n45: 直播源与API配置彻底分离\n",
   "DownloadUrl": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/LIVE/LIVE-java.apk",
-  "ApkSize": 19522,
-  "ApkMd5": "6ec166cad8837435bc0ee6e1fd93f827"
+  "ApkSize": 19517,
+  "ApkMd5": "d755b7ecc2c0c3ad0fecd9205e33a099"
 }
