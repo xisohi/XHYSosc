@@ -26,8 +26,8 @@ jobs:
       matrix:
         include:
           - userName: xisohi
-            repoName: XHYSLIVE
-            branchName: main
+            repoName: XHYSTV
+            branchName: LIVE
             java_ver: 17  # 定义 Java 版本
     steps:
       - name: Checkout
@@ -50,11 +50,11 @@ jobs:
             echo "Failed to get commit from API"
             exit 1
           fi
+          echo "API returned commit: $commit"  # ← 加这句
           if [ -z "$commit" ] || ! grep -q "$commit" README.md; then
             echo "commit=$commit" >> $GITHUB_ENV
             echo "commitS=${commit:0:7}" >> $GITHUB_ENV
           fi
-
       - name: Checkout Source Code
         if: ${{ env.commit }}
         run: |
@@ -209,8 +209,8 @@ jobs:
         uses: ncipollo/release-action@v1
         if: ${{ env.commit }}
         with:
-          name: ${{ matrix.repoName }}
-          tag: ${{ matrix.repoName }}
+          name: ${{ matrix.repoName }}-${{ matrix.branchName }}
+          tag: ${{ matrix.repoName }}-${{ matrix.branchName }}
           bodyFile: XHYSosc/apk/${{ matrix.userName }}-Release.log
           allowUpdates: true
           removeArtifacts: true
@@ -228,18 +228,18 @@ jobs:
           git remote set-url --add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
           git pull --rebase
           sed -i "/${{ matrix.userName }}\/${{ matrix.repoName }}/s#Updated: [a-zA-Z0-9]*#Updated: ${{ env.commit }}#" README.md
-          sed -i 's/"VersionCode": [a-zA-Z0-9]*/"VersionCode": ${{ env.VersionCode }}/' update/${{ matrix.repoName }}-java.json
-          sed -i 's/"VersionName": "[^"]*"/"VersionName": "${{ env.VersionCode }}"/' update/${{ matrix.repoName }}-java.json
-          sed -i 's|"UploadTime": ".*"|"UploadTime": "${{ env.UploadTime }}"|g' update/${{ matrix.repoName }}-java.json
-          sed -i 's|"ModifyContent": ".*"|"ModifyContent": "${{ env.ModifyContent }}"|g' update/${{ matrix.repoName }}-java.json
-          sed -i 's/"ApkSize": [a-zA-Z0-9]*/"ApkSize": ${{ env.ApkSize }}/' update/${{ matrix.repoName }}-java.json
-          sed -i 's/"ApkMd5": "[a-zA-Z0-9]*"/"ApkMd5": "${{ env.ApkMd5 }}"/' update/${{ matrix.repoName }}-java.json
-          sed -i 's/"VersionCode": [a-zA-Z0-9]*/"VersionCode": ${{ env.VersionCode }}/' update/${{ matrix.repoName }}-python.json
-          sed -i 's/"VersionName": "[^"]*"/"VersionName": "${{ env.VersionCode }}"/' update/${{ matrix.repoName }}-python.json
-          sed -i 's|"UploadTime": ".*"|"UploadTime": "${{ env.UploadTime }}"|g' update/${{ matrix.repoName }}-python.json
-          sed -i 's|"ModifyContent": ".*"|"ModifyContent": "${{ env.ModifyContent }}"|g' update/${{ matrix.repoName }}-python.json
-          sed -i 's/"ApkSize": [a-zA-Z0-9]*/"ApkSize": ${{ env.pythonApkSize }}/' update/${{ matrix.repoName }}-python.json
-          sed -i 's/"ApkMd5": "[a-zA-Z0-9]*"/"ApkMd5": "${{ env.pythonApkMd5 }}"/' update/${{ matrix.repoName }}-python.json
+          sed -i 's/"VersionCode": [a-zA-Z0-9]*/"VersionCode": ${{ env.VersionCode }}/' update/${{ matrix.repoName }}-${{ matrix.branchName }}-java.json
+          sed -i 's/"VersionName": "[^"]*"/"VersionName": "${{ env.VersionCode }}"/' update/${{ matrix.repoName }}-${{ matrix.branchName }}-java.json
+          sed -i 's|"UploadTime": ".*"|"UploadTime": "${{ env.UploadTime }}"|g' update/${{ matrix.repoName }}-${{ matrix.branchName }}-java.json
+          sed -i 's|"ModifyContent": ".*"|"ModifyContent": "${{ env.ModifyContent }}"|g' update/${{ matrix.repoName }}-${{ matrix.branchName }}-java.json
+          sed -i 's/"ApkSize": [a-zA-Z0-9]*/"ApkSize": ${{ env.ApkSize }}/' update/${{ matrix.repoName }}-${{ matrix.branchName }}-java.json
+          sed -i 's/"ApkMd5": "[a-zA-Z0-9]*"/"ApkMd5": "${{ env.ApkMd5 }}"/' update/${{ matrix.repoName }}-${{ matrix.branchName }}-java.json
+          sed -i 's/"VersionCode": [a-zA-Z0-9]*/"VersionCode": ${{ env.VersionCode }}/' update/${{ matrix.repoName }}-${{ matrix.branchName }}-python.json
+          sed -i 's/"VersionName": "[^"]*"/"VersionName": "${{ env.VersionCode }}"/' update/${{ matrix.repoName }}-${{ matrix.branchName }}-python.json
+          sed -i 's|"UploadTime": ".*"|"UploadTime": "${{ env.UploadTime }}"|g' update/${{ matrix.repoName }}-${{ matrix.branchName }}-python.json
+          sed -i 's|"ModifyContent": ".*"|"ModifyContent": "${{ env.ModifyContent }}"|g' update/${{ matrix.repoName }}-${{ matrix.branchName }}-python.json
+          sed -i 's/"ApkSize": [a-zA-Z0-9]*/"ApkSize": ${{ env.pythonApkSize }}/' update/${{ matrix.repoName }}-${{ matrix.branchName }}-python.json
+          sed -i 's/"ApkMd5": "[a-zA-Z0-9]*"/"ApkMd5": "${{ env.pythonApkMd5 }}"/' update/${{ matrix.repoName }}-${{ matrix.branchName }}-python.json
           git add --all
           git commit -m "${{ env.commit }}"
           git push -u -f origin master
