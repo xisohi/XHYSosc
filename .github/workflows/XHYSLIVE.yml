@@ -148,10 +148,10 @@ jobs:
           rm -rf apk/
           mkdir -p apk/
           for file in `find ~ -name "*java*.apk" -print`; do
-            mv "$file" apk/${{ matrix.repoName }}-java.apk
+            mv "$file" apk/${{ matrix.branchName }}-java.apk
           done
           for file in `find ~ -name "*python*.apk" -print`; do
-            mv "$file" apk/${{ matrix.repoName }}-python.apk
+            mv "$file" apk/${{ matrix.branchName }}-python.apk
           done
 
       - name: Release Note
@@ -200,10 +200,10 @@ jobs:
           echo "VersionCode=$(grep -oP 'versionCode \K\d+' app/build.gradle)" >> $GITHUB_ENV
           echo "UploadTime=$(git log --date=format:'%Y-%m-%d %H:%M:%S' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
           echo "ModifyContent=$(awk 'BEGIN{ORS="\\\\n"}{print NR ": " $0}' apk/${{ matrix.repoName }}.log)" >> $GITHUB_ENV
-          echo "ApkMd5=$(md5sum apk/${{ matrix.repoName }}-java.apk | awk '{ print $1 }')" >> $GITHUB_ENV
-          echo "ApkSize=$(ls -l --block-size=K apk/${{ matrix.repoName }}-java.apk | awk '{ print $5 }'|grep -o '[0-9]\+')" >> $GITHUB_ENV
-          echo "pythonApkMd5=$(md5sum apk/${{ matrix.repoName }}-python.apk | awk '{ print $1 }')" >> $GITHUB_ENV
-          echo "pythonApkSize=$(ls -l --block-size=K apk/${{ matrix.repoName }}-python.apk | awk '{ print $5 }'|grep -o '[0-9]\+')" >> $GITHUB_ENV
+          echo "ApkMd5=$(md5sum apk/${{ matrix.branchName }}-java.apk | awk '{ print $1 }')" >> $GITHUB_ENV
+          echo "ApkSize=$(ls -l --block-size=K apk/${{ matrix.branchName }}-java.apk | awk '{ print $5 }'|grep -o '[0-9]\+')" >> $GITHUB_ENV
+          echo "pythonApkMd5=$(md5sum apk/${{ matrix.branchName }}-python.apk | awk '{ print $1 }')" >> $GITHUB_ENV
+          echo "pythonApkSize=$(ls -l --block-size=K apk/${{ matrix.branchName }}-python.apk | awk '{ print $5 }'|grep -o '[0-9]\+')" >> $GITHUB_ENV
 
       - name: Release and Upload Assets
         uses: ncipollo/release-action@v1
@@ -227,7 +227,7 @@ jobs:
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git remote set-url --add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
           git pull --rebase
-          sed -i "/${{ matrix.userName }}\/${{ matrix.repoName }}/s#Updated: [a-zA-Z0-9]*#Updated: ${{ env.commit }}#" README.md
+          sed -i "/${{ matrix.userName }}\/${{ matrix.repoName }}\/tree\/${{ matrix.branchName }}/s#Updated: [a-zA-Z0-9]*#Updated: ${{ env.commit }}#" README.md
           sed -i 's/"VersionCode": [a-zA-Z0-9]*/"VersionCode": ${{ env.VersionCode }}/' update/${{ matrix.branchName }}-java.json
           sed -i 's/"VersionName": "[^"]*"/"VersionName": "${{ env.VersionCode }}"/' update/${{ matrix.branchName }}-java.json
           sed -i 's|"UploadTime": ".*"|"UploadTime": "${{ env.UploadTime }}"|g' update/${{ matrix.branchName }}-java.json
