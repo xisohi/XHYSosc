@@ -6,7 +6,7 @@
   "VersionName": "251231",
   "UploadTime": "2025-12-31 13:44:18",
   "ModifyContent": "1: 精减\n2: 删除搜索\n3: Update ApiConfig.java\n4: 直播 缓存键拼写统一\n5: Update Constants.java\n6: 排版\n7: 删除历史记录\n8: Update fragment_model.xml\n9: 删除点播栏\n10: 删除窗口预览\n11: 删除首页源\n12: 删除首页站源，和多行\n13: 精减首页推荐\n14: 修改提示词\n15: 精减下次进入\n16: 精减快速\n17: 精减搜索展示\n18: 精减去广告\n19: 精减附近的\n20: 清理无效代码\n21: 更名\n22: 更换直播加载提示\n23: 修改启动进直播\n24: 修复无效源地址死机的BUG\n25: 移除跳转\n26: 解决进直播页闪退\n27: 硬分离\n28: 还原设置进直播的跳转\n29: 将配置地址写入点播\n30: Update RefreshEvent.java\n31: 接口还原\n32: 删除推送功能\n33: 直播与点播硬分离\n34: 点击直播，如果直播源为空时，跳到设置页\n35: Update gradle-wrapper.properties\n36: Update HomeActivity.java\n37: 直播进入系统设置释放播放器\n38: 直播页面添加系统设置按钮\n39: 直播源与API配置彻底分离\n",
-  "DownloadUrl": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/XHYSLIVE/XHYSLIVE-python.apk",
-  "ApkSize": 31011,
-  "ApkMd5": "cdd8ccfcaaa7b49f760330b674004a15"
+  "DownloadUrl": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/LIVE/IPTV-java.apk",
+  "ApkSize": 19522,
+  "ApkMd5": "8d34ec05b737b2cf2d43f3e28b7827fc"
 }
