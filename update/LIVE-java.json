@@ -4,9 +4,9 @@
   "UpdateStatus": 3,//1、默认更新2、强制更新3、使用系统弹窗提示
   "VersionCode": 260102,
   "VersionName": "260102",
-  "UploadTime": "2026-01-02 11:56:58",
-  "ModifyContent": "1: 再精减\n2: 精减\n3: 修复下次进入没有正确进入分组的BUG\n4: 删除一些无用的代码\n5: Update LivePlayActivity.java\n6: Delete box_vod_control_view.xml\n7: 可以加载内置源了\n8: 删除快速搜索\n9: Update Constants.java\n10: Update build.gradle\n11: 删除搜索\n12: Update ApiConfig.java\n13: 直播 缓存键拼写统一\n14: Update Constants.java\n15: 排版\n16: 删除历史记录\n17: Update fragment_model.xml\n18: 删除点播栏\n19: 删除窗口预览\n20: 删除首页源\n21: 删除首页站源，和多行\n22: 精减首页推荐\n23: 修改提示词\n24: 精减下次进入\n25: 精减快速\n26: 精减搜索展示\n27: 精减去广告\n28: 精减附近的\n29: 清理无效代码\n30: 更名\n31: 更换直播加载提示\n32: 修改启动进直播\n33: 修复无效源地址死机的BUG\n34: 移除跳转\n35: 解决进直播页闪退\n36: 硬分离\n37: 还原设置进直播的跳转\n38: 将配置地址写入点播\n39: Update RefreshEvent.java\n40: 接口还原\n41: 删除推送功能\n42: 直播与点播硬分离\n43: 点击直播，如果直播源为空时，跳到设置页\n44: Update gradle-wrapper.properties\n45: Update HomeActivity.java\n46: 直播进入系统设置释放播放器\n47: 直播页面添加系统设置按钮\n48: 直播源与API配置彻底分离\n",
+  "UploadTime": "2026-01-02 12:51:38",
+  "ModifyContent": "1: 再精减\n2: 删除壁纸代码\n3: jj\n4: 再次精减\n5: 精减\n6: 修复下次进入没有正确进入分组的BUG\n7: 删除一些无用的代码\n8: Update LivePlayActivity.java\n9: Delete box_vod_control_view.xml\n10: 可以加载内置源了\n11: 删除快速搜索\n12: Update Constants.java\n13: Update build.gradle\n14: 删除搜索\n15: Update ApiConfig.java\n16: 直播 缓存键拼写统一\n17: Update Constants.java\n18: 排版\n19: 删除历史记录\n20: Update fragment_model.xml\n21: 删除点播栏\n22: 删除窗口预览\n23: 删除首页源\n24: 删除首页站源，和多行\n25: 精减首页推荐\n26: 修改提示词\n27: 精减下次进入\n28: 精减快速\n29: 精减搜索展示\n30: 精减去广告\n31: 精减附近的\n32: 清理无效代码\n33: 更名\n34: 更换直播加载提示\n35: 修改启动进直播\n36: 修复无效源地址死机的BUG\n37: 移除跳转\n38: 解决进直播页闪退\n39: 硬分离\n40: 还原设置进直播的跳转\n41: 将配置地址写入点播\n42: Update RefreshEvent.java\n43: 接口还原\n44: 删除推送功能\n45: 直播与点播硬分离\n46: 点击直播，如果直播源为空时，跳到设置页\n47: Update gradle-wrapper.properties\n48: Update HomeActivity.java\n49: 直播进入系统设置释放播放器\n50: 直播页面添加系统设置按钮\n51: 直播源与API配置彻底分离\n",
   "DownloadUrl": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/LIVE/LIVE-java.apk",
-  "ApkSize": 19456,
-  "ApkMd5": "7040d28b614b06e0b192bbb413b3b354"
+  "ApkSize": 19434,
+  "ApkMd5": "636e1480128bdeb8ec6a0b1d4a995b85"
 }
