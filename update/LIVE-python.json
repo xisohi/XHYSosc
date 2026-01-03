@@ -2,11 +2,11 @@
   "Code": 0,
   "Msg": "新春快乐",
   "UpdateStatus": 3,//1、默认更新2、强制更新3、使用系统弹窗提示
-  "VersionCode": 260102,
-  "VersionName": "260102",
-  "UploadTime": "2026-01-02 13:21:34",
-  "ModifyContent": "1: 删除字幕的代码\n",
+  "VersionCode": 260103,
+  "VersionName": "260103",
+  "UploadTime": "2026-01-03 12:50:54",
+  "ModifyContent": "1: Update app_banner.png\n2: logo\n3: Update README.md\n4: 大幅精减代码\n",
   "DownloadUrl": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/LIVE/LIVE-python.apk",
-  "ApkSize": 30931,
-  "ApkMd5": "cbf5edb0ce1ec52a3d731ef39ea8c930"
+  "ApkSize": 31168,
+  "ApkMd5": "79991aa40985d70f0aae5d299fdd18f5"
 }

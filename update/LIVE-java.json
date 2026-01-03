@@ -2,11 +2,11 @@
   "Code": 0,
   "Msg": "新春快乐",
   "UpdateStatus": 3,//1、默认更新2、强制更新3、使用系统弹窗提示
-  "VersionCode": 260102,
-  "VersionName": "260102",
-  "UploadTime": "2026-01-02 13:21:34",
-  "ModifyContent": "1: 删除字幕的代码\n",
+  "VersionCode": 260103,
+  "VersionName": "260103",
+  "UploadTime": "2026-01-03 12:50:54",
+  "ModifyContent": "1: Update app_banner.png\n2: logo\n3: Update README.md\n4: 大幅精减代码\n",
   "DownloadUrl": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/LIVE/LIVE-java.apk",
-  "ApkSize": 19432,
-  "ApkMd5": "81ba2fda845a16fe086b5beba02c02ed"
+  "ApkSize": 19667,
+  "ApkMd5": "a7077bb7aa0d3af032a7584d57508c56"
 }
