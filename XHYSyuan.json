@@ -1,5 +1,5 @@
 {
-	"spider": "./jar/Yoursmile.jar;md5;c6aaf6a9498e1e1d07126779c687bdd8",
+	"spider": "./jar/Yoursmile.jar;md5;3d41aceeb95ad6875872060d12f2e6b1",
 	"wallpaper": "http://lcjly.cn/tupian",
 	"sites": [
 		{"key":"农民影视","name":"👩‍🌾农民影视","type":3,"api":"csp_XYQHiker","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/农民影视.json"},
