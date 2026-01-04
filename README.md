@@ -45,5 +45,5 @@ This repo relies on the following third-party projects:
 - [xisohi/XHlive](https://github.com/xisohi/XHlive) (Updated: a85d73a69c7c460317a69d4aafa94cfdb7f6bc22)
 - [xisohi/XHlive/tree/kitkat](https://github.com/xisohi/XHlive/tree/kitkat) (Updated: 34d254a7da57999bd7f5d80342dc592111faaad5)
 - [xisohi/XHlive/tree/RTP](https://github.com/xisohi/XHlive/tree/RTP) (Updated: 757cea9ef9ddce70084d83b4a89a3835ffc6df4a)
-- [xisohi/XHYSTV/tree/LIVE](https://github.com/xisohi/XHYSTV/tree/LIVE) (Updated: 214386a8200710ccfb602c80094d32ea5c6bafe5)
+- [xisohi/XHYSTV/tree/LIVE](https://github.com/xisohi/XHYSTV/tree/LIVE) (Updated: 2b7bcd721e5ca83b721d2b41cfc0589e609747be)
 
