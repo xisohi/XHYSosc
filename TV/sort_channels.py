@@ -116,7 +116,7 @@ def main():
 
     # 源地址列表
     source_urls = [
-        "https://live.ottiptv.cc/iptv.m3u?userid=423579792&sign=1b9178f4a3fd4e0dc2a385881904a9c386395595d36b90d423e45f229d17e15f6ecd846bcccc97d223b5f580369a9b4cc49617734e42ee735e107e554d04bd2eec14386a398b&auth_token=acb0c268be4342419aa3ba49796b45e0",
+        "https://live.ottiptv.cc/iptv.m3u?userid=423579792&sign=baec96b4c32aced65de7e8619394ffba8999bb83b26d7a76123d7c60d53877250a5344b4a1c8160271a44c87daf915982ee794152d2088fc5128c7697d8de07154754b1c7b84&auth_token=acb0c268be4342419aa3ba49796b45e0",
         "https://live.fanmingming.com/tv/m3u/ipv6.m3u"
     ]
 

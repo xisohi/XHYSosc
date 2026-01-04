@@ -4,7 +4,6 @@
 	"sites": [
 		{"key":"农民影视","name":"👩‍🌾农民影视","type":3,"api":"csp_XYQHiker","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/农民影视.json"},
 		{"key":"csp_Gz360","name":"🍉瓜子[优]","type":3,"api":"csp_Gz360","searchable":1,"quickSearch":1,"filterable":1},
-		{"key":"Guazi","name":"瓜子|App","type":3,"api":"csp_Guazi","quickSearch":1, "changeable":1, "filterable":1, "timeout":60, "ext":"", "jar":"./jar/pg.jar"},
 		{"key":"csp_LiteApple","name":"🍎苹果[优]","type":3,"api":"csp_LiteApple","searchable":1,"quickSearch":1,"filterable":1},
 		{"key":"csp_Jianpian","name":"🧲荐片[优]","type":3,"api":"csp_Jianpian","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/jianpian.json"},
 		{"name":"🏭厂长","key":"厂长","type":3,"api":"csp_CzzyAmns","searchable":1,"filterable":1,"quickSearch":1,"changeable":1,"jar":"https://jihulab.com/yoursmile2/TVBox/-/raw/main/custom_spider.jar"},
@@ -80,7 +79,7 @@
 		"cache.ott.hnbblive.itv.cmvideo.cn=base-v4-free-mghy.e.cdn.chinamobile.com"
 	],
 	"lives": [
-		{"name": "live","type": 0,"url": "https://xhys.lcjly.cn/TV/live.txt","playerType": 1,"ua": "okHttp/Mod-1.1.0","epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}","logo": "https://chinaiptv.pages.dev/logo/{name}.png"},
+		{"name": "live","type": 0,"url": "https://xhys.lcjly.cn/TV/live.txt","playerType": 1,"ua": "okHttp/Mod-1.5.0.0","epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}","logo": "https://chinaiptv.pages.dev/logo/{name}.png"},
 		{"name": "安徽移动","type": 0,"url": "https://iptv.xisohi.dpdns.org/Unicast/anhui/mobile.txt","playerType": 1,"ua": "okHttp/Mod-1.1.0","epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}","logo": "https://chinaiptv.pages.dev/logo/{name}.png"},
 		{"name": "安徽电信[组播]","type": 0,"url": "https://iptv.xisohi.dpdns.org/Multicast/anhui/telecom.txt","playerType": 1,"ua": "okHttp/Mod-1.1.0","epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}","logo": "https://chinaiptv.pages.dev/logo/{name}.png"},
 		{"name": "安徽联通","type": 0,"url": "https://iptv.xisohi.dpdns.org/Unicast/anhui/unicom.txt","playerType": 1,"ua": "okHttp/Mod-1.1.0","epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}","logo": "https://chinaiptv.pages.dev/logo/{name}.png"},
