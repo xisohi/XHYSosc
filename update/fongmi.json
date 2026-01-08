@@ -1,6 +1,6 @@
 {
-  "code": "504",
-  "name": "5.0.4",
-  "desc": "1: Optimize\n2: filters\n3: Clean code\n",
+  "code": "511",
+  "name": "5.1.1",
+  "desc": "1: Update build.gradle\n2: Optimize replay\n3: Fix bug\n4: Fix play pause bug\n5: Update README.md\n6: Update build.gradle\n7: Fix build\n8: Add control api\n9: Fix session bug\n10: Fix error event bug\n11: Clean code\n12: Support set artwork when get playerContent\n13: Optimize change live home\n14: Optimize live list ui\n15: Clean live ui\n16: Fix bug\n17: Clean code\n18: Clean live ui\n19: Add gbk.js\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
