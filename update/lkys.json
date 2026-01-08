@@ -1,6 +1,6 @@
 {
-  "code": "251214",
-  "name": "251214",
-  "desc": "1: Update Download.java\n",
+  "code": "260107",
+  "name": "260107",
+  "desc": "1: Fix play pause bug\n2: Update README.md\n3: Update build.gradle\n4: Fix build\n5: Add control api\n6: Fix session bug\n7: Fix error event bug\n8: Clean code\n9: Support set artwork when get playerContent\n10: Optimize change live home\n11: Optimize live list ui\n12: Clean live ui\n13: Fix bug\n14: Clean code\n15: Clean live ui\n16: Add gbk.js\n17: Optimize\n18: filters\n19: Clean code\n20: Fix gzip bug\n21: Fix bug\n22: Fix gz file refresh\n23: Optimize episode find\n24: Clean import\n25: Optimize gz file check\n26: Clean code\n27: Optimize jar load\n28: Fix bug\n29: Update gradle\n30: Optimize code\n31: Fix build\n32: Fix bug\n33: Update build.gradle\n34: Optimize touch event\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/lkys/{name}"
 }
