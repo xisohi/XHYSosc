@@ -1,6 +1,6 @@
 {
   "code": "260113",
   "name": "260113",
-  "desc": "1: Update build.gradle\n2: Fix js proxy\n3: Revert "Clean code"\n4: This reverts commit d3394d27a72d2aa7f2bffa16f50dfda75af2003f.\n5: Clean code\n6: Add proxy error log\n7: Update proguard-rules.pro\n8: Update build.gradle\n9: Optimize history\n10: Optimize replay\n11: Fix bug\n",
+  "desc": "1: Update build.gradle\n2: Fix js proxy\n3: Revert Clean code\n4: This reverts commit d3394d27a72d2aa7f2bffa16f50dfda75af2003f.\n5: Clean code\n6: Add proxy error log\n7: Update proguard-rules.pro\n8: Update build.gradle\n9: Optimize history\n10: Optimize replay\n11: Fix bug\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/lkys/{name}"
 }
