@@ -1,6 +1,6 @@
 {
-  "code": "511",
-  "name": "5.1.1",
-  "desc": "1: Update build.gradle\n2: Optimize replay\n3: Fix bug\n4: Fix play pause bug\n5: Update README.md\n6: Update build.gradle\n7: Fix build\n8: Add control api\n9: Fix session bug\n10: Fix error event bug\n11: Clean code\n12: Support set artwork when get playerContent\n13: Optimize change live home\n14: Optimize live list ui\n15: Clean live ui\n16: Fix bug\n17: Clean code\n18: Clean live ui\n19: Add gbk.js\n",
+  "code": "513",
+  "name": "5.1.3",
+  "desc": "1: # Conflicts:\n2: #	app/build.gradle\n3: Update build.gradle\n4: Fix js proxy\n5: Revert "Clean code"\n6: This reverts commit d3394d27a72d2aa7f2bffa16f50dfda75af2003f.\n7: Clean code\n8: Add proxy error log\n9: Update proguard-rules.pro\n10: Update build.gradle\n11: Optimize history\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
