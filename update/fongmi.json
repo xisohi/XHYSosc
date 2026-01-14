@@ -1,6 +1,6 @@
 {
   "code": "513",
   "name": "5.1.3",
-  "desc": "1: # Conflicts:\n2: #	app/build.gradle\n3: Update build.gradle\n4: Fix js proxy\n5: Revert "Clean code"\n6: This reverts commit d3394d27a72d2aa7f2bffa16f50dfda75af2003f.\n7: Clean code\n8: Add proxy error log\n9: Update proguard-rules.pro\n10: Update build.gradle\n11: Optimize history\n",
+  "desc": "1: # Conflicts:\n2: #	app/build.gradle\n3: Update build.gradle\n4: Fix js proxy\n5: Revert Clean code\n6: This reverts commit d3394d27a72d2aa7f2bffa16f50dfda75af2003f.\n7: Clean code\n8: Add proxy error log\n9: Update proguard-rules.pro\n10: Update build.gradle\n11: Optimize history\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
