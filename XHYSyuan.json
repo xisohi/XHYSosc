@@ -7,7 +7,7 @@
 		{"name":"🍎小苹果","key":"小苹果","type":3,"api":"csp_XpgAmns","searchable":1,"filterable":1,"quickSearch":1,"changeable":1,"jar":"https://jihulab.com/yoursmile2/TVBox/-/raw/main/custom_spider.jar"},
 		{"key":"csp_Jianpian","name":"🧲荐片[优]","type":3,"api":"csp_Jianpian","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/jianpian.json"},
 		{"name":"🏭厂长","key":"厂长","type":3,"api":"csp_CzzyAmns","searchable":1,"filterable":1,"quickSearch":1,"changeable":1,"jar":"https://jihulab.com/yoursmile2/TVBox/-/raw/main/custom_spider.jar"},
-//		{"key": "hipy_木兮[优]","name": "木兮[优]","type": 3,"api": "./js/lib/drpy2.min.js","ext":"./js/木兮[优].js","searchable": 1,"quickSearch": 0,"filterable": 1},
+		{"key":"低端","name":"📺低端","type":3,"api":"csp_XYQHiker","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/低端影视.json"},
 		{"key": "hipy_金牌影视[优]","name": "金牌影视[优]","type": 3,"api": "./js/lib/drpy2.min.js","ext":"./js/金牌影视.js","searchable": 1,"quickSearch": 0,"filterable": 1},
 //		{"key": "hipy_南瓜影视[优]","name": "🎃南瓜影视[优]","type": 3,"api": "./js/lib/drpy2.min.js","ext":"./js/南瓜影视[优].js","searchable": 1,"quickSearch": 0,"filterable": 1},
 //		{"key": "hipy_可可影视[优]","name": "🉑可可影视[优]","type": 3,"api": "./js/lib/drpy2.min.js","ext":"./js/可可影视[优].js","searchable": 1,"quickSearch": 0,"filterable": 1},
