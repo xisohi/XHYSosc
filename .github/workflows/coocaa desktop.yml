@@ -15,6 +15,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
     strategy:
       fail-fast: false
       matrix:
@@ -22,7 +24,7 @@ jobs:
           - userName: xisohi
             repoName: CustomTVDesktopLauncher
             branchName: master
-            java_ver: 11  # AGP 4.2.2 最高支持 Java 11
+            java_ver: 11
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -60,16 +62,16 @@ jobs:
 
       - name: Setup Android SDK
         if: ${{ env.commit }}
-        uses: android-actions/setup-android@v3
-        with:
-          api-level: 30
-          build-tools: 30.0.3
-
-      - name: Create local.properties
-        if: ${{ env.commit }}
-        working-directory: XHYSosc
         run: |
-          echo "sdk.dir=${ANDROID_SDK_ROOT}" > local.properties
+          # 使用 GitHub Actions 自带的 Android SDK
+          echo "ANDROID_SDK_ROOT=${ANDROID_SDK_ROOT}" >> $GITHUB_ENV
+          echo "sdk.dir=${ANDROID_SDK_ROOT}" > XHYSosc/local.properties
+          
+          # 接受许可证（使用旧版 sdkmanager 兼容 Java 11）
+          yes | ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --licenses || true
+          
+          # 安装必要的组件
+          ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager "platforms;android-30" "build-tools;30.0.3" || true
 
       - name: Compress Source Code
         if: ${{ env.commit }}
@@ -81,14 +83,11 @@ jobs:
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
-          # 注入签名配置（支持环境变量）
           signingConfigs='ICAgIHNpZ25pbmdDb25maWdzIHtcCiAgICAgICAgaWYgKHByb2plY3QuaGFzUHJvcGVydHkoIlJFTEVBU0VfU1RPUkVfRklMRSIpKSB7XAogICAgICAgICAgICBteUNvbmZpZyB7XAogICAgICAgICAgICAgICAgc3RvcmVGaWxlIGZpbGUoUkVMRUFTRV9TVE9SRV9GSUxFKVwKICAgICAgICAgICAgICAgIHN0b3JlUGFzc3dvcmQgUkVMRUFTRV9TVE9SRV9QQVNTV09SRFwKICAgICAgICAgICAgICAgIGtleUFsaWFzIFJFTEVBU0VfS0VZX0FMSUFTXAogICAgICAgICAgICAgICAga2V5UGFzc3dvcmQgUkVMRUFTRV9LRVlfUEFTU1dPUkRcCiAgICAgICAgICAgICAgICB2MVNpZ25pbmdFbmFibGVkIHRydWVcCiAgICAgICAgICAgICAgICB2MlNpZ25pbmdFbmFibGVkIHRydWVcCiAgICAgICAgICAgICAgICBlbmFibGVWM1NpZ25pbmcgPSB0cnVlXAogICAgICAgICAgICAgICAgZW5hYmxlVjRTaWduaW5nID0gdHJ1ZVwKICAgICAgICAgICAgfVwKICAgICAgICB9XAogICAgfVwKXA=='
           signingConfig='ICAgICAgICAgICAgaWYgKHByb2plY3QuaGFzUHJvcGVydHkoIlJFTEVBU0VfU1RPUkVfRklMRSIpKSB7XAogICAgICAgICAgICAgICAgc2lnbmluZ0NvbmZpZyBzaWduaW5nQ29uZmlncy5teUNvbmZpZ1wKICAgICAgICAgICAgfVwK'
           signingConfigs="$(echo "$signingConfigs" |base64 -d )"
           signingConfig="$(echo "$signingConfig" |base64 -d )"
           sed -i -e "/defaultConfig {/i\\$signingConfigs " -e "/debug {/a\\$signingConfig " -e "/release {/a\\$signingConfig " app/build.gradle
-          
-          # 复制签名文件
           cp -f ${{ github.workspace }}/.github/workflows/TVBoxOSC.jks app/TVBoxOSC.jks
           echo 'RELEASE_STORE_FILE=./TVBoxOSC.jks' >> ./gradle.properties
           echo 'RELEASE_KEY_ALIAS=TVBoxOSC' >> ./gradle.properties
