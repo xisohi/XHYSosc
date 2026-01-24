@@ -29,13 +29,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up JDK ${{ matrix.java_ver }}
-        uses: actions/setup-java@v4
-        with:
-          java-version: ${{ matrix.java_ver }}
-          distribution: 'adopt'
-          cache: gradle
-
       - name: Prepare Build Info
         run: |
           upStream="https://github.com/${{ matrix.userName }}/${{ matrix.repoName }}"
@@ -55,6 +48,15 @@ jobs:
           cd XHYSosc
           git checkout ${{ env.commit }}
           echo "tag=$(date +'%y%m%d')" >> $GITHUB_ENV
+
+      - name: Set up JDK ${{ matrix.java_ver }}
+        if: ${{ env.commit }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ matrix.java_ver }}
+          distribution: 'adopt'
+          cache: gradle
+          cache-dependency-path: 'XHYSosc/**/build.gradle*'
 
       - name: Compress Source Code
         if: ${{ env.commit }}
@@ -103,7 +105,7 @@ jobs:
         run: |
           export LESSCHARSET=utf-8
           echo -e "Credit: [${{ matrix.userName }}](${{ env.upStream }})\nCommit: ${{ env.commit }}\nChangelog:" > apk/${{ matrix.userName }}-Release.log
-          # 直接显示最近10条提交记录（不再与README中的上次构建对比）
+          # 直接显示最近10条提交记录
           git log --pretty=format:"- %s (%h)" -10 >> apk/${{ matrix.userName }}-Release.log
 
       - name: Upload App To Artifact
