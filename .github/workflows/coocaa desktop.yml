@@ -132,8 +132,8 @@ jobs:
         uses: ncipollo/release-action@v1
         if: ${{ env.commit }}
         with:
-          name: ${{ matrix.repoName }}-${{ env.tag }}
-          tag: ${{ matrix.repoName }}-${{ env.tag }}
+          name: ${{ matrix.repoName }}
+          tag: ${{ matrix.repoName }}
           bodyFile: XHYSosc/apk/${{ matrix.userName }}-Release.log
           allowUpdates: true
           removeArtifacts: true
