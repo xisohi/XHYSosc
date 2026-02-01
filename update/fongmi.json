@@ -1,6 +1,6 @@
 {
   "code": "516",
   "name": "5.1.6",
-  "desc": "1: # Conflicts:\n2: #	app/build.gradle\n3: #	app/src/main/java/com/fongmi/android/tv/player/exo/ExoUtil.java\n4: Update yt lib\n5: Update build.gradle\n6: Clean code\n7: Fix bug\n8: Support update flag\n9: Optimize hashCode\n10: Optimize redirect play\n11: Fix subtitle bug\n12: Add vod upadte api\n13: Support more vod data upadte\n14: Fix large bitmap load\n",
+  "desc": "1: Update ExoUtil.java\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
