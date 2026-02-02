@@ -1,4 +1,4 @@
-name: fong
+name: fongmi
 on:
   schedule:
     - cron: 0 1 * * *
@@ -26,7 +26,7 @@ jobs:
         include:
           - userName: xisohi
             repoName: XHTV
-            branchName: fong
+            branchName: fongmi
 
     steps:
       - name: Checkout
