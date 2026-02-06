@@ -1,7 +1,7 @@
 {
-  "version_code": 260205,
-  "version_name": "260205",
-  "ModifyContent": "1: 尝试添加RTP\n",
+  "version_code": 260206,
+  "version_name": "260206",
+  "ModifyContent": "1: RTP有声无图\n2: Update Utils.kt\n",
   "apk_name": "XHlive.apk",
   "apk_url": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/XHlive/XHlive.apk"
 }
