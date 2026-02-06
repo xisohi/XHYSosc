@@ -1,8 +1,8 @@
 #EXTM3U
 #EXTM3U x-tvg-url="http://192.168.1.1/epg.xml"
 #EXTINF:-1 tvg-id="1" group-title="Group",测试一
-rtp://239.3.1.60:8084
+rtp://239.3.1.129:8008
 #EXTINF:-1 tvg-id="1" group-title="Group",测试2
-rtp://239.9.9.9:9999
+rtp://239.3.1.60:8084
 #EXTINF:-1 tvg-id="1" group-title="Group",Channel Name
 udp://239.9.9.9:9999
