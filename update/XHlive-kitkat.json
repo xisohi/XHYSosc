@@ -1,7 +1,7 @@
 {
   "version_code": 260208,
   "version_name": "260208",
-  "ModifyContent": "1: Update sources.txt\n2: 支持RTP,但音频必须是软解\n",
+  "ModifyContent": "1: Update Utils.kt\n2: Update RtpUdpDataSource.kt\n",
   "apk_name": "XHlive-kitkat.apk",
   "apk_url": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/XHlive-kitkat/XHlive-kitkat.apk"
 }
