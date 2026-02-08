@@ -1,7 +1,0 @@
-{
-  "version_code": 251228,
-  "version_name": "251228",
-  "ModifyContent": "1: Update build.gradle.kts\n2:  只依赖player 和quickjs 本地模块\n3: Update channels.txt\n",
-  "apk_name": "XHlive-RTP.apk",
-  "apk_url": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/XHlive-RTP/XHlive-RTP.apk"
-}
