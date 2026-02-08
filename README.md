@@ -43,7 +43,7 @@ This repo relies on the following third-party projects:
 - [xisohi/XHTV/tree/ghys](https://github.com/xisohi/XHTV/tree/ghys) (Updated: 98fd928f185974ab7440a7376dc839bff0ac8594)
 - [xisohi/XHTV/tree/kitkat](https://github.com/xisohi/XHTV/tree/kitkat) (Updated: 173644e483a4df89e0be04e68c9abd85fd0ddb79)
 - [xisohi/CatPawOpen/tree/main](https://github.com/xisohi/CatPawOpen/tree/main) (Updated: c41c0c9614ef84f215fa5ba103fb919886c629d6)
-- [xisohi/XHlive](https://github.com/xisohi/XHlive) (Updated: fc3786347f713a31b7b55202f614abfe01e80115)
+- [xisohi/XHlive](https://github.com/xisohi/XHlive) (Updated: 0e08f7c7220890278bb9a55ec94a2ec20f2e9421)
 - [xisohi/XHlive/tree/kitkat](https://github.com/xisohi/XHlive/tree/kitkat) (Updated: e70b2ca69d088372fd5e390a34c993e6df1f3d9e)
 - [xisohi/XHlive/tree/RTP](https://github.com/xisohi/XHlive/tree/RTP) (Updated: 757cea9ef9ddce70084d83b4a89a3835ffc6df4a)
 - [xisohi/XHYSTV/tree/LIVE](https://github.com/xisohi/XHYSTV/tree/LIVE) (Updated: 2b7bcd721e5ca83b721d2b41cfc0589e609747be)
