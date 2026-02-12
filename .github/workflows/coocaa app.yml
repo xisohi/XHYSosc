@@ -1,4 +1,4 @@
-name: DesktopLauncher
+name: coocaa Whitelist Manager
 
 on:
   workflow_dispatch:
