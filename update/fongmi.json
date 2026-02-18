@@ -1,6 +1,6 @@
 {
-  "code": "260203",
-  "name": "260203",
-  "desc": "1: Update Updater.java\n2: Update dialog_update.xml\n3: Update Updater.java\n4: 调整github代理默认为ghproxy\n",
+  "code": "260218",
+  "name": "260218",
+  "desc": "1: Update build.gradle\n2: # Conflicts:\n3: #	app/build.gradle\n4: Update Result.java\n5: Update gradle\n6: Fix bug\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
