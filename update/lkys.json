@@ -2,5 +2,5 @@
   "code": "260218",
   "name": "260218",
   "desc": "1: Update build.gradle\n2: Update Result.java\n3: Update gradle\n4: Fix bug\n5: Update build.gradle\n6: Update yt lib\n7: Update build.gradle\n8: Clean code\n9: Support update flag\n10: Optimize hashCode\n11: Optimize redirect play\n12: Fix subtitle bug\n13: Add vod upadte api\n14: Support more vod data upadte\n15: Fix large bitmap load\n",
-  "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/lkys/{name}"
+  "apkurl": "https://ghproxy.net/https://github.com/xisohi/XHYSosc/releases/download/lkys/{name}"
 }
