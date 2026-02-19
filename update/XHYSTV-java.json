@@ -2,11 +2,11 @@
   "Code": 0,
   "Msg": "新春快乐",
   "UpdateStatus": 3,//1、默认更新2、强制更新3、使用系统弹窗提示
-  "VersionCode": 251213,
-  "VersionName": "251213",
+  "VersionCode": 260219,
+  "VersionName": "260219",
   "UploadTime": "2025-12-13 17:26:27",
   "ModifyContent": "1: Update ApiConfig.java\n",
   "DownloadUrl": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/XHYSTV/XHYSTV-java.apk",
-  "ApkSize": 19643,
-  "ApkMd5": "f07990fdf00a10b375b65654e4dafb80"
+  "ApkSize": ,
+  "ApkMd5": ""
 }
