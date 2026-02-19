@@ -1,12 +1,5 @@
 {
-  "Code": 0,
-  "Msg": "新春快乐",
-  "UpdateStatus": 3,//1、默认更新2、强制更新3、使用系统弹窗提示
-  "VersionCode": 250420,
-  "VersionName": "250420",
-  "UploadTime": "2025-04-19 21:41:03",
-  "ModifyContent": "1: 修改包名\n2: 请重新下载安装包（http://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/XHYSTV/XHYSTV-java.apk）\n3: 独立py和java打包版本\n",
-  "DownloadUrl": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/XHYSTV/XHYSTV-java.apk",
-  "ApkSize": 19639,
-  "ApkMd5": ""
+  "code": "260203",
+  "name": "260203",
+  "desc": "1: Update dialog_update.xml\n2: Update Updater.java\n3: 修复直播无声问题\n"
 }
