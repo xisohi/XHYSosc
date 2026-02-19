@@ -223,7 +223,7 @@ jobs:
           git remote set-url --add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
           git pull --rebase
           sed -i "/${{ matrix.userName }}\/${{ matrix.repoName }}/s#Updated: [a-zA-Z0-9]*#Updated: ${{ env.commit }}#" README.md
-          sed -i 's/"code": [a-zA-Z0-9]*/"code": ${{ env.code }}/' update/${{ matrix.repoName }}.json
+          sed -i 's/"code": [a-zA-Z0-9]*/"code": "${{ env.code }}"/' update/${{ matrix.repoName }}.json
           sed -i 's/"name": "[^"]*"/"name": "${{ env.code }}"/' update/${{ matrix.repoName }}.json
           sed -i 's|"desc": ".*"|"desc": "${{ env.desc }}"|g' update/${{ matrix.repoName }}.json
           git add --all
