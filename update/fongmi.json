@@ -1,6 +1,6 @@
 {
-  "code": "260218",
-  "name": "260218",
-  "desc": "1: Update build.gradle\n2: # Conflicts:\n3: #	app/build.gradle\n4: Update Result.java\n5: Update gradle\n6: Fix bug\n",
+  "code": "260219",
+  "name": "260219",
+  "desc": "1: Update build.gradle\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
