@@ -1,4 +1,4 @@
-name: coocaa Whitelist Manager
+name: 酷开白名单管家
 
 on:
   workflow_dispatch:
