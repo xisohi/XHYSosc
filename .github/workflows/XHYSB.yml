@@ -135,12 +135,14 @@ jobs:
         run: |
           rm -rf apk/
           mkdir -p apk/
-          for file in `find ~ -name "*java*.apk" -print`; do
-            mv "$file" apk/${{ matrix.repoName }}-java.apk
+
+          # 查找所有 XHYS-*.apk 文件，直接保留原文件名
+          for file in `find ~ -name "XHYS-*.apk" -print | sort`; do
+            mv "$file" "apk/"
           done
-          for file in `find ~ -name "*python*.apk" -print`; do
-            mv "$file" apk/${{ matrix.repoName }}-python.apk
-          done
+
+          # 移动源码包
+          mv sourceCode-${{ env.commitS }}.* apk/ 2>/dev/null || true
 
       - name: 创建发布说明内容
         if: ${{ env.commit }}
