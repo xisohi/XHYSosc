@@ -1,12 +1,5 @@
 {
-  "Code": 0,
-  "Msg": "新春快乐",
-  "UpdateStatus": 3,//1、默认更新2、强制更新3、使用系统弹窗提示
-  "VersionCode": 260218,
-  "VersionName": "260218",
-  "UploadTime": "2026-02-18 16:25:40",
-  "ModifyContent": "",
-  "DownloadUrl": "https://ghproxy.net/https://github.com/xisohi/XHYSosc/releases/download/XHYS/XHYS-armeabi-generic-python.apk",
-  "ApkSize": 39960,
-  "ApkMd5": "aa8f8c815985f26e91fe12e5b75d8ebe"
+  "code": "260220",
+  "name": "260220",
+  "desc": "1: 修复已知bug\n"
 }
