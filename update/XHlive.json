@@ -1,7 +1,7 @@
 {
-  "version_code": 260209,
-  "version_name": "260209",
-  "ModifyContent": "1: Update banner0.png\n",
+  "version_code": 260226,
+  "version_name": "260226",
+  "ModifyContent": "1: 隐藏直播源地址\n",
   "apk_name": "XHlive.apk",
   "apk_url": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/XHlive/XHlive.apk"
 }
