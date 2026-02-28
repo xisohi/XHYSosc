@@ -1,7 +1,7 @@
 {
-  "version_code": 260227,
-  "version_name": "260227",
-  "ModifyContent": "1: 调整源设置版面\n2: 增加UA支持\n3: 增加referrer支持\n4: 修复已知BUG，\n5: Update README.md\n6: Update index.html\n7: Update SimpleServer.kt\n8: up\n",
+  "version_code": 260228,
+  "version_name": "260228",
+  "ModifyContent": "1: 修复安卓9安装权限的问题\n",
   "apk_name": "XHlive.apk",
   "apk_url": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/XHlive/XHlive.apk"
 }
