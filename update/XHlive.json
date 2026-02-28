@@ -1,7 +1,7 @@
 {
-  "version_code": 260229,
-  "version_name": "260229",
-  "ModifyContent": "1: 修复安卓9安装权限的问题\n",
+  "version_code": 260228,
+  "version_name": "1.0",
+  "ModifyContent": "1: up\n2: Update strings.xml\n3: Update build.gradle.kts\n",
   "apk_name": "XHlive.apk",
   "apk_url": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/XHlive/XHlive.apk"
 }
