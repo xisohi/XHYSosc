@@ -68,9 +68,9 @@ jobs:
         working-directory: XHYSosc
         run: |
           # 设置 versionCode
-          sed -i 's/versionCode = [^"]*/versionCode = ${{ env.tag }}/g' app/build.gradle.kts
+          sed -i 's/versionCode = [0-9]*/versionCode = ${{ env.tag }}/g' app/build.gradle.kts
           # 设置 versionName
-          sed -i "s/versionName \"[^\"]*\"/versionName \"${{ env.tag }}\"/g" app/build.gradle.kts   
+          sed -i 's/versionName = "[^"]*"/versionName = "${{ env.tag }}"/g' app/build.gradle.kts   
 
       - name: set up JDK 21
         if: ${{ env.commit }}
