@@ -1,4 +1,4 @@
-name: XHYSTV
+name: 星辉影视TV
 # 代码来自https://github.com/o0HalfLife0o/TVBoxOSC
 on:
   schedule:
@@ -197,13 +197,8 @@ jobs:
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
-          echo "VersionCode=$(grep -oP 'versionCode \K\d+' app/build.gradle)" >> $GITHUB_ENV
-          echo "UploadTime=$(git log --date=format:'%Y-%m-%d %H:%M:%S' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
-          echo "ModifyContent=$(awk 'BEGIN{ORS="\\\\n"}{print NR ": " $0}' apk/${{ matrix.repoName }}.log)" >> $GITHUB_ENV
-          echo "ApkMd5=$(md5sum apk/${{ matrix.repoName }}-java.apk | awk '{ print $1 }')" >> $GITHUB_ENV
-          echo "ApkSize=$(ls -l --block-size=K apk/${{ matrix.repoName }}-java.apk | awk '{ print $5 }'|grep -o '[0-9]\+')" >> $GITHUB_ENV
-          echo "pythonApkMd5=$(md5sum apk/${{ matrix.repoName }}-python.apk | awk '{ print $1 }')" >> $GITHUB_ENV
-          echo "pythonApkSize=$(ls -l --block-size=K apk/${{ matrix.repoName }}-python.apk | awk '{ print $5 }'|grep -o '[0-9]\+')" >> $GITHUB_ENV
+          echo "code=$(grep -oP 'versionCode \K\d+' app/build.gradle)" >> $GITHUB_ENV
+          echo "desc=$(awk 'BEGIN{ORS="\\\\n"}{print NR ": " $0}' apk/${{ matrix.repoName }}.log)" >> $GITHUB_ENV
 
       - name: Release and Upload Assets
         uses: ncipollo/release-action@v1
@@ -228,18 +223,9 @@ jobs:
           git remote set-url --add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
           git pull --rebase
           sed -i "/${{ matrix.userName }}\/${{ matrix.repoName }}/s#Updated: [a-zA-Z0-9]*#Updated: ${{ env.commit }}#" README.md
-          sed -i 's/"VersionCode": [a-zA-Z0-9]*/"VersionCode": ${{ env.VersionCode }}/' update/${{ matrix.repoName }}-java.json
-          sed -i 's/"VersionName": "[^"]*"/"VersionName": "${{ env.VersionCode }}"/' update/${{ matrix.repoName }}-java.json
-          sed -i 's|"UploadTime": ".*"|"UploadTime": "${{ env.UploadTime }}"|g' update/${{ matrix.repoName }}-java.json
-          sed -i 's|"ModifyContent": ".*"|"ModifyContent": "${{ env.ModifyContent }}"|g' update/${{ matrix.repoName }}-java.json
-          sed -i 's/"ApkSize": [a-zA-Z0-9]*/"ApkSize": ${{ env.ApkSize }}/' update/${{ matrix.repoName }}-java.json
-          sed -i 's/"ApkMd5": "[a-zA-Z0-9]*"/"ApkMd5": "${{ env.ApkMd5 }}"/' update/${{ matrix.repoName }}-java.json
-          sed -i 's/"VersionCode": [a-zA-Z0-9]*/"VersionCode": ${{ env.VersionCode }}/' update/${{ matrix.repoName }}-python.json
-          sed -i 's/"VersionName": "[^"]*"/"VersionName": "${{ env.VersionCode }}"/' update/${{ matrix.repoName }}-python.json
-          sed -i 's|"UploadTime": ".*"|"UploadTime": "${{ env.UploadTime }}"|g' update/${{ matrix.repoName }}-python.json
-          sed -i 's|"ModifyContent": ".*"|"ModifyContent": "${{ env.ModifyContent }}"|g' update/${{ matrix.repoName }}-python.json
-          sed -i 's/"ApkSize": [a-zA-Z0-9]*/"ApkSize": ${{ env.pythonApkSize }}/' update/${{ matrix.repoName }}-python.json
-          sed -i 's/"ApkMd5": "[a-zA-Z0-9]*"/"ApkMd5": "${{ env.pythonApkMd5 }}"/' update/${{ matrix.repoName }}-python.json
+          sed -i 's/"code": "[^"]*"/"code": "${{ env.code }}"/' update/${{ matrix.repoName }}.json
+          sed -i 's/"name": "[^"]*"/"name": "${{ env.code }}"/' update/${{ matrix.repoName }}.json
+          sed -i 's|"desc": ".*"|"desc": "${{ env.desc }}"|g' update/${{ matrix.repoName }}.json
           git add --all
           git commit -m "${{ env.commit }}"
           git push -u -f origin master
