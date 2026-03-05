@@ -1,7 +1,7 @@
 {
-  "version_code": 260301,
-  "version_name": "260301",
-  "ModifyContent": "1: 优化播放体验\n2: Update SourcesAdapter.kt\n3: 添加UA字段\n",
+  "version_code": 260305,
+  "version_name": "260305",
+  "ModifyContent": "1: 调整安卓5更新权限问题\n",
   "apk_name": "XHlive-kitkat.apk",
   "apk_url": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/XHlive-kitkat/XHlive-kitkat.apk"
 }
