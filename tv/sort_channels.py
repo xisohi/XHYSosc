@@ -61,7 +61,7 @@ def fetch_m3u_content(url):
 def load_channel_mapping():
     """加载频道名称映射表"""
     mapping = {}
-    mapping_path = tv/channel_mapping.txt"
+    mapping_path = "tv/channel_mapping.txt"
     if not os.path.exists(mapping_path):
         return mapping
 
