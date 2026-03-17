@@ -8,7 +8,7 @@ def load_categories_from_template():
     current_category = None
 
     # 确保模板文件存在
-    template_path = "TV/moban.txt"
+    template_path = "tv/moban.txt"
     if not os.path.exists(template_path):
         print(f"错误：未找到模板文件 {template_path}")
         return categories
@@ -61,7 +61,7 @@ def fetch_m3u_content(url):
 def load_channel_mapping():
     """加载频道名称映射表"""
     mapping = {}
-    mapping_path = "TV/channel_mapping.txt"
+    mapping_path = tv/channel_mapping.txt"
     if not os.path.exists(mapping_path):
         return mapping
 
@@ -111,8 +111,8 @@ def parse_m3u_to_txt(m3u_content):
 
 def main():
     # 创建TV目录（如果不存在）
-    if not os.path.exists("TV"):
-        os.makedirs("TV")
+    if not os.path.exists("tv"):
+        os.makedirs("tv")
 
     # 源地址列表
     source_urls = [
@@ -166,7 +166,7 @@ def main():
         sorted_content.append("")
 
     # 保存结果
-    output_path = "TV/live.txt"
+    output_path = "tv/live.txt"
     try:
         with open(output_path, "w", encoding="utf-8") as f:
             f.write("\n".join(sorted_content))

@@ -20,17 +20,17 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r ./TV/requirements.txt
+          pip install -r ./tv/requirements.txt
 
       - name: Run Python script
         run: |
-          python ./TV/sort_channels.py
+          python ./tv/sort_channels.py
 
       - name: Commit and push sorted file
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add TV/live.txt
+          git add tv/live.txt
           git commit -m "Update sorted channels" || echo "No changes to commit"
           git push
 
