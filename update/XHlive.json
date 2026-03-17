@@ -1,7 +1,7 @@
 {
-  "version_code": 260306,
-  "version_name": "260306",
-  "ModifyContent": "1: Update UpdateManager.kt\n2: 修复安卓5.1.1更新权限问题\n",
+  "version_code": 260317,
+  "version_name": "260317",
+  "ModifyContent": "1: Update README.md\n",
   "apk_name": "XHlive.apk",
   "apk_url": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/XHlive/XHlive.apk"
 }
