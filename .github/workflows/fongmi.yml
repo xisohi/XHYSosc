@@ -1,4 +1,4 @@
-name: fongmi
+name: 旭辉影视
 on:
   schedule:
     - cron: 0 1 * * *

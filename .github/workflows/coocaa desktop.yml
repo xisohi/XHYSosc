@@ -1,4 +1,4 @@
-name: DesktopLauncher
+name: 酷开伪桌面
 
 on:
   workflow_dispatch:
