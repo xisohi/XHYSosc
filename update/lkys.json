@@ -1,6 +1,6 @@
 {
-  "code": "260219",
-  "name": "260219",
-  "desc": "1: Update settings.gradle\n",
+  "code": "260317",
+  "name": "260317",
+  "desc": "1: Update ExoUtil.java\n2: Add LIVE.md\n3: Update BaseActivity.java\n4: Update readme\n5: Update SPIDER.md\n6: Update readme\n7: Update build.gradle\n8: Fix bug\n9: Clean code\n10: Optimize config code\n11: Fix build\n12: Fix sync bug\n13: Fix bug\n",
   "apkurl": "https://ghproxy.net/https://github.com/xisohi/XHYSosc/releases/download/lkys/{name}"
 }
