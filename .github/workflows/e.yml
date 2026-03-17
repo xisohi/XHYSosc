@@ -1,0 +1,49 @@
+name: EPG Update
+
+on:
+  schedule:
+    - cron: '35 0 * * *'   # 每天 00:35
+    - cron: '10 10 * * *'  # 每天 10:10
+    - cron: '55 14 * * *'  # 每天 14:55
+  workflow_dispatch:  # 支持手动触发
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y wget gzip
+
+      - name: Download and extract EPG file
+        run: |
+          # 下载gzip压缩文件
+          wget https://github.com/kuke31/xmlgz/raw/main/e.xml.gz -O e.xml.gz
+          
+          # 解压文件
+          gunzip -f e.xml.gz
+          
+          # 检查文件是否成功解压
+          if [ -f e.xml ]; then
+            echo "EPG file extracted successfully"
+          else
+            echo "Failed to extract EPG file"
+            exit 1
+          fi
+
+      - name: Configure Git
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit changes
+        run: |
+          git add e.xml
+          # 只有当文件有变化时才提交
+          git diff --quiet && git diff --staged --quiet || git commit -m "EPG Update $(date '+%Y-%m-%d %H:%M:%S')"
+
+      - name: Push changes
+        run: git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
