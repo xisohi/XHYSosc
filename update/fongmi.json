@@ -1,6 +1,6 @@
 {
-  "code": "260315",
-  "name": "260315",
-  "desc": "1: # Conflicts:\n2: #	app/src/main/java/com/fongmi/android/tv/api/config/LiveConfig.java\n3: #	app/src/main/java/com/fongmi/android/tv/api/config/VodConfig.java\n4: Update build.gradle\n5: Fix bug\n6: Update docs\n7: Update proguard rule\n8: Update LIVE.md\n9: Add LIVE.md\n10: Update readme\n11: Update SPIDER.md\n12: Update readme\n13: Update build.gradle\n14: Clean code\n15: Optimize config code\n16: Fix build\n17: Fix sync bug\n",
+  "code": "260317",
+  "name": "260317",
+  "desc": "1: Optimize seek view\n2: Optimize key down check\n3: Optimize seek view\n4: Update build.gradle\n5: Support timestamp\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
