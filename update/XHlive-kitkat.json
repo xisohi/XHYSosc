@@ -1,7 +1,7 @@
 {
-  "version_code": 260317,
-  "version_name": "260317",
-  "ModifyContent": "1: 更新logo和epg地址\n",
+  "version_code": 260318,
+  "version_name": "260318",
+  "ModifyContent": "1: Update build.gradle.kts\n2: Update MainActivity.kt\n",
   "apk_name": "XHlive-kitkat.apk",
   "apk_url": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/XHlive-kitkat/XHlive-kitkat.apk"
 }
