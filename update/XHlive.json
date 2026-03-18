@@ -1,7 +1,7 @@
 {
   "version_code": 260318,
   "version_name": "260318",
-  "ModifyContent": "1: 修改安卓6以下默认使用软解码\n",
+  "ModifyContent": "1: Update PlayerFragment.kt\n",
   "apk_name": "XHlive.apk",
   "apk_url": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/XHlive/XHlive.apk"
 }
