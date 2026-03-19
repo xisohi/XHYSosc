@@ -12,6 +12,9 @@ on:
         required: false
         type: boolean
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -50,7 +53,7 @@ jobs:
           git clone --branch ${{ matrix.branchName }} ${{ env.upStream }} XHYSosc
           cd XHYSosc
           git checkout ${{ env.commit }}
-          echo "tag=$(date +'%y%m%d')-${{ env.commitS }}" >> $GITHUB_ENV
+          echo "tag=$(git log --date=format:'%y%m%d' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
 
       - name: Set up JDK ${{ matrix.java_ver }}
         if: ${{ env.commit }}
@@ -75,20 +78,6 @@ jobs:
         run: |
           tar -cJf sourceCode-${{ env.commitS }}.tar.xz --exclude=.git --exclude=.github *
 
-      - name: Release Apk Sign
-        if: ${{ env.commit }}
-        working-directory: XHYSosc
-        run: |
-          # 复制签名文件（从当前 XHYSosc 仓库）
-          cp -f ${{ github.workspace }}/.github/workflows/TVBoxOSC.jks app/TVBoxOSC.jks
-          
-          # 配置签名信息
-          echo "" >> ./gradle.properties
-          echo "RELEASE_STORE_FILE=./TVBoxOSC.jks" >> ./gradle.properties
-          echo "RELEASE_KEY_ALIAS=TVBoxOSC" >> ./gradle.properties
-          echo "RELEASE_STORE_PASSWORD=xh8621989" >> ./gradle.properties
-          echo "RELEASE_KEY_PASSWORD=xh8621989" >> ./gradle.properties
-
       - name: Fix Gradle Permissions
         if: ${{ env.commit }}
         working-directory: XHYSosc
@@ -99,13 +88,37 @@ jobs:
         working-directory: XHYSosc
         run: ./gradlew assembleRelease --build-cache --parallel --warning-mode all
 
+      - name: Sign app APK  # 使用你验证过的签名方式
+        if: ${{ env.commit }}
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: XHYSosc/app/build/outputs/apk/release
+          alias: ${{ secrets.ALIAS }}
+          signingKeyBase64: ${{ secrets.KEYSTORE }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.ALIAS_PASSWORD }}
+        env:
+          BUILD_TOOLS_VERSION: "34.0.0"
+
       - name: Prepare App
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
           rm -rf apk/
           mkdir -p apk/
-          cp app/build/outputs/apk/release/*.apk apk/星辉语音助手-${{ env.tag }}.apk
+          # 查找签名后的 APK（通常包含 signed 关键字）
+          for file in `find app/build/outputs/apk/release -name "*signed*.apk" -print`; do
+            base=$(basename "$file")
+            new_base="星辉语音助手-${{ env.tag }}.apk"
+            mv "$file" "apk/$new_base"
+            break  # 只取第一个签名后的 APK
+          done
+          # 如果没有找到 signed 文件，尝试找 release APK
+          if [ ! -f apk/*.apk ]; then
+            cp app/build/outputs/apk/release/*.apk apk/星辉语音助手-${{ env.tag }}.apk
+          fi
+          # 复制源代码
+          cp sourceCode-${{ env.commitS }}.tar.xz apk/
 
       - name: Release Note
         if: ${{ env.commit }}
@@ -123,7 +136,6 @@ jobs:
           name: ${{ matrix.userName }}-${{ matrix.repoName }}
           path: |
             XHYSosc/apk/*
-            XHYSosc/sourceCode-${{ env.commitS }}.tar.xz
 
       - name: Whether Or Not to Publish
         if: ${{ inputs.donotpublish && env.commit }}
@@ -141,4 +153,4 @@ jobs:
           removeArtifacts: true
           artifacts: |
             XHYSosc/apk/*.apk
-            XHYSosc/sourceCode-${{ env.commitS }}.tar.xz
+            XHYSosc/apk/sourceCode-${{ env.commitS }}.*
