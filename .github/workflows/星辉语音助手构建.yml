@@ -28,7 +28,7 @@ jobs:
             repoName: vosk-android-demo
             branchName: master
             java_ver: 17
-    
+
     steps:
       - name: Checkout XHYSosc
         uses: actions/checkout@v4
@@ -88,7 +88,7 @@ jobs:
         working-directory: XHYSosc
         run: ./gradlew assembleRelease --build-cache --parallel --warning-mode all
 
-      - name: Sign app APK  # 使用你验证过的签名方式
+      - name: Sign app APK
         if: ${{ env.commit }}
         uses: r0adkll/sign-android-release@v1
         with:
@@ -100,25 +100,34 @@ jobs:
         env:
           BUILD_TOOLS_VERSION: "34.0.0"
 
-      - name: Prepare App
+      - name: Prepare App (Copy signed APK and verify)
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
           rm -rf apk/
           mkdir -p apk/
-          # 查找签名后的 APK（通常包含 signed 关键字）
-          for file in `find app/build/outputs/apk/release -name "*signed*.apk" -print`; do
-            base=$(basename "$file")
-            new_base="xhyyzs-${{ env.tag }}.apk"
-            mv "$file" "apk/$new_base"
-            break  # 只取第一个签名后的 APK
-          done
-          # 如果没有找到 signed 文件，尝试找 release APK
-          if [ ! -f apk/*.apk ]; then
-            cp app/build/outputs/apk/release/*.apk apk/xhyyzs-${{ env.tag }}.apk
+          # 签名后的 APK 固定文件名（由 sign-android-release 生成）
+          SIGNED_APK="app/build/outputs/apk/release/app-release-unsigned-signed.apk"
+          if [ ! -f "$SIGNED_APK" ]; then
+            echo "ERROR: Signed APK not found at $SIGNED_APK" >&2
+            exit 1
           fi
+          # 复制并重命名
+          cp "$SIGNED_APK" "apk/xhyyzs-${{ env.tag }}.apk"
+          echo "Copied signed APK to apk/xhyyzs-${{ env.tag }}.apk"
+          
+          # 验证签名
+          echo "Verifying APK signature..."
+          ${ANDROID_SDK_ROOT}/build-tools/34.0.0/apksigner verify "apk/xhyyzs-${{ env.tag }}.apk"
+          if [ $? -ne 0 ]; then
+            echo "ERROR: APK signature verification failed!" >&2
+            exit 1
+          fi
+          echo "APK signature verified successfully."
+          
           # 复制源代码
           cp sourceCode-${{ env.commitS }}.tar.xz apk/
+          echo "Source code copied."
 
       - name: Release Note
         if: ${{ env.commit }}
