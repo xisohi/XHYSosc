@@ -1,0 +1,144 @@
+name: 星辉语音助手构建
+
+on:
+  workflow_dispatch:
+    inputs:
+      rebuild:
+        description: '忽略构建记录以重新构建'
+        required: false
+        type: boolean
+      donotpublish:
+        description: '构建后不提交发布新版'
+        required: false
+        type: boolean
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - userName: xisohi
+            repoName: vosk-android-demo
+            branchName: master
+            java_ver: 17
+    
+    steps:
+      - name: Checkout XHYSosc (当前仓库)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Prepare Build Info
+        run: |
+          upStream="https://github.com/${{ matrix.userName }}/${{ matrix.repoName }}"
+          echo "upStream=$upStream" >> $GITHUB_ENV
+          commit=$(curl -sL "https://api.github.com/repos/${{ matrix.userName }}/${{ matrix.repoName }}/commits/${{ matrix.branchName }}" | jq -r '.sha')
+          if [ $? -ne 0 ]; then
+            echo "Failed to get commit from API"
+            exit 1
+          fi
+          echo "commit=$commit" >> $GITHUB_ENV
+          echo "commitS=${commit:0:7}" >> $GITHUB_ENV
+
+      - name: Checkout vosk-android-demo Source Code
+        if: ${{ env.commit }}
+        run: |
+          git clone --branch ${{ matrix.branchName }} ${{ env.upStream }} XHYSosc
+          cd XHYSosc
+          git checkout ${{ env.commit }}
+          echo "tag=$(date +'%y%m%d')-${{ env.commitS }}" >> $GITHUB_ENV
+
+      - name: Set up JDK ${{ matrix.java_ver }}
+        if: ${{ env.commit }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ matrix.java_ver }}
+          distribution: 'temurin'
+          cache: gradle
+          cache-dependency-path: 'XHYSosc/**/build.gradle*'
+
+      - name: Setup Android SDK
+        if: ${{ env.commit }}
+        run: |
+          echo "ANDROID_SDK_ROOT=${ANDROID_SDK_ROOT}" >> $GITHUB_ENV
+          echo "sdk.dir=${ANDROID_SDK_ROOT}" > XHYSosc/local.properties
+          yes | ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --licenses || true
+          ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager "platforms;android-34" "build-tools;34.0.0" || true
+
+      - name: Compress Source Code
+        if: ${{ env.commit }}
+        working-directory: XHYSosc
+        run: |
+          tar -cJf sourceCode-${{ env.commitS }}.tar.xz --exclude=.git --exclude=.github *
+
+      - name: Release Apk Sign
+        if: ${{ env.commit }}
+        working-directory: XHYSosc
+        run: |
+          # 复制签名文件（从当前 XHYSosc 仓库）
+          cp -f ${{ github.workspace }}/.github/workflows/TVBoxOSC.jks app/TVBoxOSC.jks
+          
+          # 配置签名信息
+          echo "" >> ./gradle.properties
+          echo "RELEASE_STORE_FILE=./TVBoxOSC.jks" >> ./gradle.properties
+          echo "RELEASE_KEY_ALIAS=TVBoxOSC" >> ./gradle.properties
+          echo "RELEASE_STORE_PASSWORD=xh8621989" >> ./gradle.properties
+          echo "RELEASE_KEY_PASSWORD=xh8621989" >> ./gradle.properties
+
+      - name: Fix Gradle Permissions
+        if: ${{ env.commit }}
+        working-directory: XHYSosc
+        run: chmod +x gradlew
+
+      - name: Build With Gradle
+        if: ${{ env.commit }}
+        working-directory: XHYSosc
+        run: ./gradlew assembleRelease --build-cache --parallel --warning-mode all
+
+      - name: Prepare App
+        if: ${{ env.commit }}
+        working-directory: XHYSosc
+        run: |
+          rm -rf apk/
+          mkdir -p apk/
+          cp app/build/outputs/apk/release/*.apk apk/星辉语音助手-${{ env.tag }}.apk
+
+      - name: Release Note
+        if: ${{ env.commit }}
+        working-directory: XHYSosc
+        run: |
+          export LESSCHARSET=utf-8
+          echo -e "Credit: [${{ matrix.userName }}](${{ env.upStream }})\nCommit: ${{ env.commit }}\nChangelog:" > apk/${{ matrix.userName }}-Release.log
+          cd ${{ github.workspace }}
+          git log --pretty=format:"- %s (%h)" -10 >> XHYSosc/apk/${{ matrix.userName }}-Release.log
+
+      - name: Upload App To Artifact
+        uses: actions/upload-artifact@v4
+        if: ${{ env.commit }}
+        with:
+          name: ${{ matrix.userName }}-${{ matrix.repoName }}
+          path: |
+            XHYSosc/apk/*
+            XHYSosc/sourceCode-${{ env.commitS }}.tar.xz
+
+      - name: Whether Or Not to Publish
+        if: ${{ inputs.donotpublish && env.commit }}
+        run: |
+          echo "commit=" >> $GITHUB_ENV
+
+      - name: Release and Upload Assets
+        uses: ncipollo/release-action@v1
+        if: ${{ env.commit }}
+        with:
+          name: 星辉语音助手-${{ env.tag }}
+          tag: ${{ env.tag }}
+          bodyFile: XHYSosc/apk/${{ matrix.userName }}-Release.log
+          allowUpdates: true
+          removeArtifacts: true
+          artifacts: |
+            XHYSosc/apk/*.apk
+            XHYSosc/sourceCode-${{ env.commitS }}.tar.xz
