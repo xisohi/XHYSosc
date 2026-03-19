@@ -5,7 +5,7 @@ on:
     - cron: '20 0 * * *'   # 每天 00:20
     - cron: '50 09 * * *'  # 每天 9:50
     - cron: '35 14 * * *'  # 每天 14:35
-  workflow_dispatch:  # 支持手动触发
+  workflow_dispatch:
 
 jobs:
   build:
@@ -16,26 +16,155 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y wget gzip
 
-      - name: Download and extract EPG file
+      - name: Download and check for changes with retry
+        id: check
         run: |
-          # 下载gzip压缩文件
-          wget https://github.com/kuke31/xmlgz/raw/main/e.xml.gz -O e.xml.gz
+          MAX_RETRIES=4
+          RETRY_COUNT=0
+          RETRY_DELAY=300
+          DOWNLOAD_SUCCESS=false
           
-          # 解压文件
-          gunzip -f e.xml.gz
+          while [ $RETRY_COUNT -lt $MAX_RETRIES ] && [ "$DOWNLOAD_SUCCESS" = false ]; do
+            if [ $RETRY_COUNT -gt 0 ]; then
+              echo "⏳ 第 $RETRY_COUNT 次重试，等待 $((RETRY_DELAY/60)) 分钟..."
+              sleep $RETRY_DELAY
+            fi
+            
+            echo "📥 下载 EPG 文件 (尝试 $((RETRY_COUNT+1))/$MAX_RETRIES)..."
+            DOWNLOAD_START=$(date +%s)
+            
+            wget --tries=2 --timeout=30 https://github.com/kuke31/xmlgz/raw/main/e.xml.gz -O e.xml.gz.new 2>download_error.log
+            DOWNLOAD_EXIT_CODE=$?
+            DOWNLOAD_END=$(date +%s)
+            DOWNLOAD_TIME=$((DOWNLOAD_END - DOWNLOAD_START))
+            
+            echo "下载耗时: ${DOWNLOAD_TIME}秒"
+            
+            if [ $DOWNLOAD_EXIT_CODE -ne 0 ] || [ ! -f e.xml.gz.new ] || [ ! -s e.xml.gz.new ]; then
+              echo "⚠️ 下载失败，错误代码: $DOWNLOAD_EXIT_CODE"
+              cat download_error.log
+              RETRY_COUNT=$((RETRY_COUNT + 1))
+              continue
+            fi
+            
+            if ! gzip -t e.xml.gz.new 2>/dev/null; then
+              echo "⚠️ 下载的文件不是有效的 gzip 格式"
+              RETRY_COUNT=$((RETRY_COUNT + 1))
+              continue
+            fi
+            
+            echo "📦 解压文件..."
+            if ! gunzip -f e.xml.gz.new; then
+              echo "⚠️ 解压失败"
+              RETRY_COUNT=$((RETRY_COUNT + 1))
+              continue
+            fi
+            
+            if [ ! -f e.xml.new ] || [ ! -s e.xml.new ]; then
+              echo "⚠️ 解压后的文件无效"
+              RETRY_COUNT=$((RETRY_COUNT + 1))
+              continue
+            fi
+            
+            DOWNLOAD_SUCCESS=true
+          done
           
-          # 检查文件是否成功解压
+          if [ "$DOWNLOAD_SUCCESS" = false ]; then
+            echo "❌ 所有重试都失败了，退出"
+            exit 1
+          fi
+          
+          echo "🔍 比较文件变化..."
           if [ -f e.xml ]; then
-            echo "EPG file extracted successfully"
+            OLD_SIZE=$(wc -c < e.xml)
+            NEW_SIZE=$(wc -c < e.xml.new)
+            OLD_MD5=$(md5sum e.xml | cut -d' ' -f1)
+            NEW_MD5=$(md5sum e.xml.new | cut -d' ' -f1)
+            OLD_LINES=$(wc -l < e.xml)
+            NEW_LINES=$(wc -l < e.xml.new)
+            
+            echo "旧文件: ${OLD_SIZE} 字节, ${OLD_LINES} 行, MD5: ${OLD_MD5}"
+            echo "新文件: ${NEW_SIZE} 字节, ${NEW_LINES} 行, MD5: ${NEW_MD5}"
+            
+            echo "OLD_MD5=${OLD_MD5}" >> $GITHUB_ENV
+            echo "NEW_MD5=${NEW_MD5}" >> $GITHUB_ENV
+            
+            if [ "$OLD_MD5" = "$NEW_MD5" ]; then
+              echo "✅ 文件无变化，跳过更新"
+              echo "🕒 最后更新时间: $(stat -c %y e.xml 2>/dev/null || echo '未知')"
+              rm -f e.xml.new
+              echo "updated=false" >> $GITHUB_OUTPUT
+            else
+              echo "🔄 文件有变化，准备更新"
+              echo "📊 变化: $((NEW_SIZE - OLD_SIZE)) 字节, $((NEW_LINES - OLD_LINES)) 行"
+              mv e.xml.new e.xml
+              echo "updated=true" >> $GITHUB_OUTPUT
+            fi
           else
-            echo "Failed to extract EPG file"
+            echo "🆕 首次运行，创建文件"
+            NEW_SIZE=$(wc -c < e.xml.new)
+            NEW_LINES=$(wc -l < e.xml.new)
+            NEW_MD5=$(md5sum e.xml.new | cut -d' ' -f1)
+            echo "新文件: ${NEW_SIZE} 字节, ${NEW_LINES} 行, MD5: ${NEW_MD5}"
+            mv e.xml.new e.xml
+            echo "updated=true" >> $GITHUB_OUTPUT
+          fi
+          
+          echo "⏰ 检查完成时间: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+
+      - name: Commit and push changes with retry
+        if: steps.check.outputs.updated == 'true'
+        run: |
+          MAX_PUSH_RETRIES=3
+          PUSH_RETRY_COUNT=0
+          PUSH_SUCCESS=false
+          PUSH_RETRY_DELAY=60
+          
+          while [ $PUSH_RETRY_COUNT -lt $MAX_PUSH_RETRIES ] && [ "$PUSH_SUCCESS" = false ]; do
+            if [ $PUSH_RETRY_COUNT -gt 0 ]; then
+              echo "⏳ 推送重试 $PUSH_RETRY_COUNT/$MAX_PUSH_RETRIES，等待 ${PUSH_RETRY_DELAY}秒..."
+              sleep $PUSH_RETRY_DELAY
+            fi
+            
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            
+            git pull --rebase origin main
+            
+            git add e.xml
+            
+            if git diff --staged --quiet; then
+              echo "⚠️ 没有新的更改需要提交"
+              PUSH_SUCCESS=true
+              break
+            fi
+            
+            COMMIT_MSG="Update EPG file
+- Date: $(date -u '+%Y-%m-%d %H:%M UTC')
+- Size: $(wc -c < e.xml) bytes
+- Lines: $(wc -l < e.xml)
+- MD5: $(md5sum e.xml | cut -d' ' -f1)
+- Previous MD5: ${{ env.OLD_MD5 }}"
+            
+            git commit -m "$COMMIT_MSG"
+            
+            if git push; then
+              echo "✅ 推送成功"
+              PUSH_SUCCESS=true
+            else
+              echo "⚠️ 推送失败，重试中..."
+              PUSH_RETRY_COUNT=$((PUSH_RETRY_COUNT + 1))
+              sleep $PUSH_RETRY_DELAY
+            fi
+          done
+          
+          if [ "$PUSH_SUCCESS" = false ]; then
+            echo "❌ 推送失败，已重试 $MAX_PUSH_RETRIES 次"
             exit 1
           fi
 
-      - name: Commit and push sorted file
+      - name: Skip message
+        if: steps.check.outputs.updated == 'false'
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add e.xml
-          git commit -m "Update sorted channels" || echo "No changes to commit"
-          git push
+          echo "⏭️ 文件无变化，跳过提交"
+          echo "📊 MD5: ${{ env.OLD_MD5 }}"
