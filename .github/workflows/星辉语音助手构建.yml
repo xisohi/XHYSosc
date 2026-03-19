@@ -30,7 +30,7 @@ jobs:
             java_ver: 17
     
     steps:
-      - name: Checkout XHYSosc (当前仓库)
+      - name: Checkout XHYSosc
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -109,13 +109,13 @@ jobs:
           # 查找签名后的 APK（通常包含 signed 关键字）
           for file in `find app/build/outputs/apk/release -name "*signed*.apk" -print`; do
             base=$(basename "$file")
-            new_base="星辉语音助手-${{ env.tag }}.apk"
+            new_base="xhyyzs-${{ env.tag }}.apk"
             mv "$file" "apk/$new_base"
             break  # 只取第一个签名后的 APK
           done
           # 如果没有找到 signed 文件，尝试找 release APK
           if [ ! -f apk/*.apk ]; then
-            cp app/build/outputs/apk/release/*.apk apk/星辉语音助手-${{ env.tag }}.apk
+            cp app/build/outputs/apk/release/*.apk apk/xhyyzs-${{ env.tag }}.apk
           fi
           # 复制源代码
           cp sourceCode-${{ env.commitS }}.tar.xz apk/
