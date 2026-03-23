@@ -1,7 +1,7 @@
 {
-  "version_code": 260318,
-  "version_name": "260318",
-  "ModifyContent": "1: Update build.gradle.kts\n2: Update MainActivity.kt\n",
+  "version_code": 260323,
+  "version_name": "260323",
+  "ModifyContent": "1: Update EPG URL for IPTV configuration\n",
   "apk_name": "XHlive-kitkat.apk",
   "apk_url": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/XHlive-kitkat/XHlive-kitkat.apk"
 }
