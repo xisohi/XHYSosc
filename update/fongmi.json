@@ -1,6 +1,6 @@
 {
-  "code": "260317",
-  "name": "260317",
-  "desc": "1: Optimize seek view\n2: Optimize key down check\n3: Optimize seek view\n4: Update build.gradle\n5: Support timestamp\n",
+  "code": "260330",
+  "name": "260330",
+  "desc": "1: Update App.java\n2: Signed-off-by: xihi <xuhui0607@gmail.com>\n3: Add execute method to run tasks on executor service\n4: Update Download.java\n5: Update build.gradle\n6: Fix config load\n7: Clean code\n8: Update .gitignore\n9: Update build.gradle\n10: Fix episode bug\n11: # Conflicts:\n12: #	app/src/leanback/java/com/fongmi/android/tv/Updater.java\n13: #	app/src/main/java/com/fongmi/android/tv/utils/Download.java\n14: #	app/src/mobile/java/com/fongmi/android/tv/Updater.java\n15: Fix epg timezone\n16: Fix epg time zone\n17: Optimize epg\n18: Clean executor code\n19: Fix bug\n20: Clean quickjs code\n21: Clean catvod code\n22: Optimize js spider\n23: Fix episode bug\n24: Clean time code\n25: Support rtsp range\n26: Fix title bu\n27: Fix title visible\n28: Optimize fetchArray\n29: Add fetchArray for headers, proxy, rules and doh\n30: Add refetsh category api\n31: Support title select\n32: Clean code\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
