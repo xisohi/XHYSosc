@@ -118,13 +118,24 @@ jobs:
         working-directory: XHYSosc
         run: |
           chmod +x gradlew
+          # 构建所有 release 变体
           ./gradlew assembleRelease --build-cache --parallel --daemon --warning-mode all
 
-      - name: Sign app APK
+      - name: Debug Build Output
+        if: ${{ env.commit }}
+        working-directory: XHYSosc
+        run: |
+          echo "=== APK 输出目录结构 ==="
+          find app/build/outputs/apk -type d
+          echo "=== 所有 APK 文件 ==="
+          find app/build/outputs/apk -name "*.apk" -type f
+
+      - name: Sign all APKs
         if: ${{ env.commit }}
         uses: r0adkll/sign-android-release@v1
         with:
-          releaseDirectory: XHYSosc/app/build/outputs/apk/release
+          # 使用父目录，让 action 递归查找所有子目录中的 APK
+          releaseDirectory: XHYSosc/app/build/outputs/apk
           alias: ${{ secrets.ALIAS }}
           signingKeyBase64: ${{ secrets.KEYSTORE }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
@@ -138,15 +149,14 @@ jobs:
         run: |
           rm -rf apk/
           mkdir -p apk/
-          # Action 签名后的 APK 文件名格式为 *-signed.apk
-          for file in app/build/outputs/apk/release/*-signed.apk; do
-            if [ -f "$file" ]; then
-              base=$(basename "$file")
-              # 移除 -signed 后缀，重命名为最终名称
-              new_base=$(echo "$base" | sed 's/-signed//')
-              cp "$file" "apk/$new_base"
-            fi
+          # 查找所有已签名的 APK（包括子目录中的）
+          find app/build/outputs/apk -name "*-signed.apk" -type f | while read file; do
+            base=$(basename "$file")
+            new_base=$(echo "$base" | sed 's/-signed//')
+            cp "$file" "apk/$new_base"
+            echo "Copied: $file -> apk/$new_base"
           done
+          ls -la apk/
 
       - name: Release Note
         if: ${{ env.commit }}
