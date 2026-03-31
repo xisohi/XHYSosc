@@ -130,12 +130,22 @@ jobs:
           echo "=== 所有 APK 文件 ==="
           find app/build/outputs/apk -name "*.apk" -type f
 
-      - name: Sign all APKs
+      - name: Collect APKs for signing
+        if: ${{ env.commit }}
+        working-directory: XHYSosc
+        run: |
+          # 创建统一的 release 目录
+          mkdir -p app/build/outputs/apk/release
+          # 收集所有 APK
+          find app/build/outputs/apk -name "*.apk" -type f -exec cp {} app/build/outputs/apk/release/ \;
+          echo "收集到的 APK 文件："
+          ls -la app/build/outputs/apk/release/
+
+      - name: Sign app APK
         if: ${{ env.commit }}
         uses: r0adkll/sign-android-release@v1
         with:
-          # 使用父目录，让 action 递归查找所有子目录中的 APK
-          releaseDirectory: XHYSosc/app/build/outputs/apk
+          releaseDirectory: XHYSosc/app/build/outputs/apk/release
           alias: ${{ secrets.ALIAS }}
           signingKeyBase64: ${{ secrets.KEYSTORE }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
@@ -149,12 +159,14 @@ jobs:
         run: |
           rm -rf apk/
           mkdir -p apk/
-          # 查找所有已签名的 APK（包括子目录中的）
-          find app/build/outputs/apk -name "*-signed.apk" -type f | while read file; do
-            base=$(basename "$file")
-            new_base=$(echo "$base" | sed 's/-signed//')
-            cp "$file" "apk/$new_base"
-            echo "Copied: $file -> apk/$new_base"
+          # 复制签名后的 APK
+          for file in app/build/outputs/apk/release/*-signed.apk; do
+            if [ -f "$file" ]; then
+              base=$(basename "$file")
+              new_base=$(echo "$base" | sed 's/-signed//')
+              cp "$file" "apk/$new_base"
+              echo "Signed: $file -> apk/$new_base"
+            fi
           done
           ls -la apk/
 
