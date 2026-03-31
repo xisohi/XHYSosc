@@ -4,6 +4,8 @@
 	"sites": [
 		{"key":"农民影视","name":"👩‍🌾农民影视","type":3,"api":"csp_XYQHiker","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/农民影视.json"},
 		{"key":"csp_Gz360","name":"🍉瓜子[优]","type":3,"api":"csp_Gz360","searchable":1,"quickSearch":1,"filterable":1},
+		{"key": "WexWenCai","name": "💥文才┃秒播💥","type": 3,"api": "csp_WexWenCaiGuard","searchable": 1,"changeable": 1,"jar":"./jar/niuer.txt"},
+		{"key": "WexReBo","name": "💥热播┃秒播💥","type": 3,"api": "csp_WexReBoGuard","searchable": 1,"changeable": 1,"jar":"./jar/niuer.txt"},
 		{"name":"🍎小苹果","key":"小苹果","type":3,"api":"csp_XpgAmns","searchable":1,"filterable":1,"quickSearch":1,"changeable":1,"jar":"https://jihulab.com/yoursmile2/TVBox/-/raw/main/custom_spider.jar"},
 		{"key":"csp_Jianpian","name":"🧲荐片[优]","type":3,"api":"csp_Jianpian","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/jianpian.json"},
 		{"name":"🏭厂长","key":"厂长","type":3,"api":"csp_CzzyAmns","searchable":1,"filterable":1,"quickSearch":1,"changeable":1,"jar":"https://jihulab.com/yoursmile2/TVBox/-/raw/main/custom_spider.jar"},
