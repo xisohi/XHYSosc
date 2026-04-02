@@ -4,7 +4,8 @@
 	"sites": [
 		{"key":"农民影视","name":"👩‍🌾农民影视","type":3,"api":"csp_XYQHiker","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/农民影视.json"},
 		{"key":"csp_Gz360","name":"🍉瓜子[优]","type":3,"api":"csp_Gz360","searchable":1,"quickSearch":1,"filterable":1},
-//		{"key": "WexWenCai","name": "💥文才💥","type": 3,"api": "csp_WexWenCaiGuard","searchable": 1,"changeable": 1,"jar":"./jar/niuer.txt"},
+		{"key": "Wexwencai", "name": "🌺文才🌺", "type": 3, "api": "csp_WexwencaiGuard", "searchable": 1, "changeable": 1,"jar":"./jar/wangxiaoer.txt"},
+		{"key": "WexkuihuatvGuard", "name": "💥葵花💥", "type": 3, "api": "csp_WexkuihuatvGuard", "searchable": 1, "changeable": 1,"jar":"./jar/wangxiaoer.txt"},
 		{"key": "WexDuBoKu","name": "💥独播💥","type": 3,"api": "csp_WexDuBoKuGuard", "searchable": 1,"changeable": 1,"jar":"./jar/niuer.txt"},
 		{"key": "WexYueYue","name": "💥闪电💥","type": 3,"api": "csp_WexYueYueGuard", "searchable": 1,"changeable": 1,"jar":"./jar/niuer.txt"},
 		{"key": "WexYiYs", "name": "💥伊影💥", "type": 3, "api": "csp_WexYiYsGuard", "searchable": 1, "changeable": 1,"jar":"./jar/niuer.txt"},
