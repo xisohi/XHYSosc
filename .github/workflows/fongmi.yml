@@ -49,14 +49,12 @@ jobs:
       - name: Checkout Source Code
         if: ${{ env.commit }}
         run: |
-          # 克隆仓库（默认分支已自动切换到 release）
-          git clone -b release-1.10.0-fongmi --depth 1 https://github.com/FongMi/media.git TVBox-TV
-          cd TVBox-TV
-                  
-          cd /home/runner/work/TVBox-TV/TVBox-TV
-          git clone ${{ env.upStream }} TVBox-TV/media
-          cd TVBox-TV/media
-          git checkout ${{ env.commit }}
+            git clone -b release-1.10.0-fongmi --depth 1 https://github.com/FongMi/media.git TVBox-TV
+            cd TVBox-TV
+            # 直接克隆 upstream 到工作根目录下的 TVBox-TV/media（注意路径）
+            git clone ${{ env.upStream }} ../TVBox-TV/media
+            cd ../TVBox-TV/media
+            git checkout ${{ env.commit }}
           # 设置时区为上海
           export TZ='Asia/Shanghai'
           echo "tag=$(git log --date=format:'%Y%m%d-%H%M' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
