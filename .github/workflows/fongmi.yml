@@ -59,6 +59,14 @@ jobs:
           git clone -b release-1.10.0-fongmi --depth 1 https://github.com/FongMi/media.git media
           echo "tag=$(git log --date=format:'%y%m%d' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
 
+      - name: Extra Modify
+        if: ${{ env.commit }}
+        working-directory: XHYSosc
+        run: |
+          if [[ "${{ matrix.userName }}" == "xisohi" ]]; then
+            sed -i 's/TeamNewPipe/teamnewpipe/g' app/build.gradle
+          fi
+
       - name: Compress Source Code
         if: ${{ env.commit }}
         working-directory: XHYSosc
@@ -81,19 +89,6 @@ jobs:
           sed -i 's/versionCode [0-9]*/versionCode ${{ env.tag }}/g' app/build.gradle
           # 设置 versionName
           sed -i "s/versionName \"[^\"]*\"/versionName \"${{ env.tag }}\"/g" app/build.gradle
-
-      - name: Fix build.gradle errors
-        if: ${{ env.commit }}
-        working-directory: XHYSosc
-        run: |
-          # 1. 修正 compileSdk 语法（将错误的多行块改为单行）
-          sed -i '/compileSdk {/,/}/c\    compileSdk 35' app/build.gradle
-
-          # 2. 删除顶部的 localProps 加载代码（避免因 local.properties 不存在而崩溃）
-          sed -i '/^def localProps = new Properties()$/,/^}/d' app/build.gradle
-
-          # 3. 替换 signingConfigs 为 debug 密钥（避免引用未定义的 localProps）
-          sed -i '/signingConfigs {/,/^    }/c\    signingConfigs {\n        release {\n            storeFile file("debug.keystore")\n            keyAlias "androiddebugkey"\n            keyPassword "android"\n            storePassword "android"\n        }\n    }' app/build.gradle
 
       - name: Setup Java
         if: ${{ env.commit && (matrix.userName == 'xisohi') }}
