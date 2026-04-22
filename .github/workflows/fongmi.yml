@@ -118,7 +118,6 @@ jobs:
         working-directory: XHYSosc
         run: |
           chmod +x gradlew
-          cp -r gradle.properties local.properties
           # 构建所有 release 变体
           ./gradlew assembleRelease --build-cache --parallel --daemon --warning-mode all
 
