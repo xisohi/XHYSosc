@@ -59,14 +59,6 @@ jobs:
           git clone -b release-1.10.0-fongmi --depth 1 https://github.com/FongMi/media.git media
           echo "tag=$(git log --date=format:'%y%m%d' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
 
-      - name: Extra Modify
-        if: ${{ env.commit }}
-        working-directory: XHYSosc
-        run: |
-          if [[ "${{ matrix.userName }}" == "xisohi" ]]; then
-            sed -i 's/TeamNewPipe/teamnewpipe/g' app/build.gradle
-          fi
-
       - name: Compress Source Code
         if: ${{ env.commit }}
         working-directory: XHYSosc
