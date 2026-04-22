@@ -52,6 +52,10 @@ jobs:
           # 克隆仓库（默认分支已自动切换到 release）
           git clone -b release-1.10.0-fongmi --depth 1 https://github.com/FongMi/media.git TVBox-TV
           cd TVBox-TV
+                  
+          cd /home/runner/work/TVBox-TV/TVBox-TV
+          git clone ${{ env.upStream }} TVBox-TV/media
+          cd TVBox-TV/media
           git checkout ${{ env.commit }}
           # 设置时区为上海
           export TZ='Asia/Shanghai'
