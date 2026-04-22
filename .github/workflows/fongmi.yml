@@ -1,5 +1,4 @@
 name: 旭辉影视
-
 on:
   schedule:
     - cron: 0 1 * * *
@@ -34,7 +33,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
       - name: Check New Commit
         run: |
           upStream="https://github.com/${{  matrix.userName }}/${{ matrix.repoName }}"
@@ -48,7 +46,6 @@ jobs:
             echo "commit=$commit" >> $GITHUB_ENV
             echo "commitS=${commit:0:7}" >> $GITHUB_ENV
           fi
-
       - name: Checkout Source Code
         if: ${{ env.commit }}
         run: |
@@ -71,6 +68,7 @@ jobs:
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
+          #zip -q -x ".git/*" -x  ".github/*" -r source-${{ env.commitS }}.zip .
           tar -cJf source-${{ env.commitS }}.tar.xz --exclude=.git --exclude=.github *
 
       - name: Option For Test
@@ -89,6 +87,20 @@ jobs:
           sed -i 's/versionCode [0-9]*/versionCode ${{ env.tag }}/g' app/build.gradle
           # 设置 versionName
           sed -i "s/versionName \"[^\"]*\"/versionName \"${{ env.tag }}\"/g" app/build.gradle
+      - name: Release Apk Sign
+        if: ${{ env.commit }}
+        working-directory: XHYSosc
+        run: |
+          signingConfigs='ICAgIHNpZ25pbmdDb25maWdzIHtcCiAgICAgICAgaWYgKHByb2plY3QuaGFzUHJvcGVydHkoIlJFTEVBU0VfU1RPUkVfRklMRSIpKSB7XAogICAgICAgICAgICBteUNvbmZpZyB7XAogICAgICAgICAgICAgICAgc3RvcmVGaWxlIGZpbGUoUkVMRUFTRV9TVE9SRV9GSUxFKVwKICAgICAgICAgICAgICAgIHN0b3JlUGFzc3dvcmQgUkVMRUFTRV9TVE9SRV9QQVNTV09SRFwKICAgICAgICAgICAgICAgIGtleUFsaWFzIFJFTEVBU0VfS0VZX0FMSUFTXAogICAgICAgICAgICAgICAga2V5UGFzc3dvcmQgUkVMRUFTRV9LRVlfUEFTU1dPUkRcCiAgICAgICAgICAgICAgICB2MVNpZ25pbmdFbmFibGVkIHRydWVcCiAgICAgICAgICAgICAgICB2MlNpZ25pbmdFbmFibGVkIHRydWVcCiAgICAgICAgICAgICAgICBlbmFibGVWM1NpZ25pbmcgPSB0cnVlXAogICAgICAgICAgICAgICAgZW5hYmxlVjRTaWduaW5nID0gdHJ1ZVwKICAgICAgICAgICAgfVwKICAgICAgICB9XAogICAgfVwKXA=='
+          signingConfig='ICAgICAgICAgICAgaWYgKHByb2plY3QuaGFzUHJvcGVydHkoIlJFTEVBU0VfU1RPUkVfRklMRSIpKSB7XAogICAgICAgICAgICAgICAgc2lnbmluZ0NvbmZpZyBzaWduaW5nQ29uZmlncy5teUNvbmZpZ1wKICAgICAgICAgICAgfVwK'
+          signingConfigs="$(echo "$signingConfigs" |base64 -d )"
+          signingConfig="$(echo "$signingConfig" |base64 -d )"
+          sed -i -e "/defaultConfig {/i\\$signingConfigs " -e "/debug {/a\\$signingConfig " -e "/release {/a\\$signingConfig " app/build.gradle
+          cp -f ${{ github.workspace }}/.github/workflows/TVBoxOSC.jks app/TVBoxOSC.jks
+          sed -i '$a\RELEASE_STORE_FILE=./TVBoxOSC.jks'     ./gradle.properties
+          sed -i '$a\RELEASE_KEY_ALIAS=TVBoxOSC'            ./gradle.properties
+          sed -i '$a\RELEASE_STORE_PASSWORD=xh8621989'       ./gradle.properties
+          sed -i '$a\RELEASE_KEY_PASSWORD=xh8621989'         ./gradle.properties
 
       - name: Setup Java
         if: ${{ env.commit && (matrix.userName == 'xisohi') }}
@@ -108,7 +120,6 @@ jobs:
         run: |
           python3 --version
           pip3 --version
-
       - name: Setup Gradle
         if: ${{ env.commit }}
         uses: gradle/gradle-build-action@v2
@@ -118,40 +129,7 @@ jobs:
         working-directory: XHYSosc
         run: |
           chmod +x gradlew
-          # 构建所有 release 变体
-          ./gradlew assembleRelease --build-cache --parallel --daemon --warning-mode all
-
-      - name: Debug Build Output
-        if: ${{ env.commit }}
-        working-directory: XHYSosc
-        run: |
-          echo "=== APK 输出目录结构 ==="
-          find app/build/outputs/apk -type d
-          echo "=== 所有 APK 文件 ==="
-          find app/build/outputs/apk -name "*.apk" -type f
-
-      - name: Collect APKs for signing
-        if: ${{ env.commit }}
-        working-directory: XHYSosc
-        run: |
-          # 创建统一的 release 目录
-          mkdir -p app/build/outputs/apk/release
-          # 收集所有 APK
-          find app/build/outputs/apk -name "*.apk" -type f -exec cp {} app/build/outputs/apk/release/ \;
-          echo "收集到的 APK 文件："
-          ls -la app/build/outputs/apk/release/
-
-      - name: Sign app APK
-        if: ${{ env.commit }}
-        uses: r0adkll/sign-android-release@v1
-        with:
-          releaseDirectory: XHYSosc/app/build/outputs/apk/release
-          alias: ${{ secrets.ALIAS }}
-          signingKeyBase64: ${{ secrets.KEYSTORE }}
-          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
-          keyPassword: ${{ secrets.ALIAS_PASSWORD }}
-        env:
-          BUILD_TOOLS_VERSION: "34.0.0"
+          ./gradlew assemblerelease --build-cache --parallel --daemon --warning-mode all
 
       - name: Prepare App
         if: ${{ env.commit }}
@@ -159,16 +137,9 @@ jobs:
         run: |
           rm -rf apk/
           mkdir -p apk/
-          # 复制签名后的 APK
-          for file in app/build/outputs/apk/release/*-signed.apk; do
-            if [ -f "$file" ]; then
-              base=$(basename "$file")
-              new_base=$(echo "$base" | sed 's/-signed//')
-              cp "$file" "apk/$new_base"
-              echo "Signed: $file -> apk/$new_base"
-            fi
+          find ~ -type d -iname "release" -print0 | while IFS= read -r -d '' dir; do
+            find "$dir" -type f -name "*.apk" -exec sh -c 'cp "$1" "apk/${1##*/}"' sh {} \;
           done
-          ls -la apk/
 
       - name: Release Note
         if: ${{ env.commit }}
