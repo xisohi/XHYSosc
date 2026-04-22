@@ -87,7 +87,7 @@ jobs:
         working-directory: XHYSosc
         run: |
           # 1. 修正 compileSdk 语法（将错误的多行块改为单行）
-          sed -i '/compileSdk {/,/}/c\    compileSdk 34' app/build.gradle
+          sed -i '/compileSdk {/,/}/c\    compileSdk 35' app/build.gradle
 
           # 2. 删除顶部的 localProps 加载代码（避免因 local.properties 不存在而崩溃）
           sed -i '/^def localProps = new Properties()$/,/^}/d' app/build.gradle
