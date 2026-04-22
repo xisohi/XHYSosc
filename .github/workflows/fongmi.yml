@@ -50,26 +50,7 @@ jobs:
         if: ${{ env.commit }}
         run: |
           # 克隆仓库（默认分支已自动切换到 release）
-          git clone https://github.com/androidx/media.git TVBox-TV
-          cd TVBox-TV
-          # 显式同步默认分支（可选，确保本地分支跟踪远程 release）
-          git checkout release
-          # 获取最新预发布版本
-          LATEST_RELEASE=$(curl -s https://api.github.com/repos/androidx/media/releases | jq -r '.[0].tag_name')
-          # 检查版本号末尾是否有字母
-          if [[ -n "$LATEST_RELEASE" && "$LATEST_RELEASE" =~ ^[0-9]+\.[0-9]+\.[0-9]+-(rc|beta|alpha)[0-9]+$ ]]; then
-              # 尝试切换到对应的分支
-              if git checkout -b "release-$LATEST_RELEASE" "origin/release-$LATEST_RELEASE"; then
-                  echo "已切换到分支：release-$LATEST_RELEASE"
-              else
-                  echo "未能找到远程分支 release-$LATEST_RELEASE，保持在默认分支 release。"
-              fi
-          else
-              echo "未找到合适的版本或版本号末尾无字母，保持在默认分支 release。"
-          fi
-          
-          cd /home/runner/work/TVBox-TV/TVBox-TV
-          git clone ${{ env.upStream }} TVBox-TV/media
+          git clone -b release-1.10.0-fongmi --depth 1 https://github.com/FongMi/media.git TVBox-TV
           cd TVBox-TV/media
           git checkout ${{ env.commit }}
           # 设置时区为上海
