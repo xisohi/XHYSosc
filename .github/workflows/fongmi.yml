@@ -1,5 +1,7 @@
-name: 旭辉影视
+name: TV
+
 on:
+  push:
   schedule:
     - cron: 0 1 * * *
   workflow_dispatch:
@@ -10,10 +12,6 @@ on:
         type: boolean
       donotpublish:
         description: '构建后不提交发布新版'
-        required: false
-        type: boolean
-      testOption:
-        description: 'arm64支持，不支持ijk解码'
         required: false
         type: boolean
 
@@ -33,63 +31,90 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Check New Commit
         run: |
-          upStream="https://github.com/${{  matrix.userName }}/${{ matrix.repoName }}"
+          upStream=https://github.com/${{ matrix.userName }}/${{ matrix.repoName }}
           echo "upStream=$upStream" >> $GITHUB_ENV
-          commit=$(curl -sL "https://api.github.com/repos/${{  matrix.userName }}/${{ matrix.repoName }}/commits/${{ matrix.branchName }}" | jq -r '.sha')
-          if [ $? -ne 0 ]; then
-            echo "Failed to get commit from API"
-            exit 1
+          commit=$(curl -sL $upStream/commits/${{ matrix.branchName }} |grep -o "/${{ matrix.userName }}/${{ matrix.repoName }}/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
+          if [[ -z "${commit}" ]]; then
+            commit=$(curl -s "https://api.github.com/repos/${{ matrix.userName }}/${{ matrix.repoName }}/commits/${{ matrix.branchName }}?per_page=1" | jq -r '.sha' )
           fi
-          if [ -z "$commit" ] || ! grep -q "$commit" README.md; then
+          if ! grep -q "$commit" README.md || [ "${{ inputs.rebuild }}" == "true" ]; then
             echo "commit=$commit" >> $GITHUB_ENV
             echo "commitS=${commit:0:7}" >> $GITHUB_ENV
           fi
+          echo "commit=$commit"
+
       - name: Checkout Source Code
         if: ${{ env.commit }}
         run: |
-          git clone ${{ env.upStream }} XHYSosc
-          cd XHYSosc
+          # 克隆仓库（默认分支已自动切换到 release）
+          git clone https://github.com/androidx/media.git TVBox-TV
+          cd TVBox-TV
+          # 显式同步默认分支（可选，确保本地分支跟踪远程 release）
+          git checkout release
+          # 获取最新预发布版本
+          LATEST_RELEASE=$(curl -s https://api.github.com/repos/androidx/media/releases | jq -r '.[0].tag_name')
+          # 检查版本号末尾是否有字母
+          if [[ -n "$LATEST_RELEASE" && "$LATEST_RELEASE" =~ ^[0-9]+\.[0-9]+\.[0-9]+-(rc|beta|alpha)[0-9]+$ ]]; then
+              # 尝试切换到对应的分支
+              if git checkout -b "release-$LATEST_RELEASE" "origin/release-$LATEST_RELEASE"; then
+                  echo "已切换到分支：release-$LATEST_RELEASE"
+              else
+                  echo "未能找到远程分支 release-$LATEST_RELEASE，保持在默认分支 release。"
+              fi
+          else
+              echo "未找到合适的版本或版本号末尾无字母，保持在默认分支 release。"
+          fi
+          
+          cd /home/runner/work/TVBox-TV/TVBox-TV
+          git clone ${{ env.upStream }} TVBox-TV/media
+          cd TVBox-TV/media
           git checkout ${{ env.commit }}
-          # 克隆 media 到项目根目录（与 app/ 同级）
-          git clone -b release-1.10.0-fongmi --depth 1 https://github.com/FongMi/media.git media
-          echo "tag=$(git log --date=format:'%y%m%d' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
+          # 设置时区为上海
+          export TZ='Asia/Shanghai'
+          echo "tag=$(git log --date=format:'%Y%m%d-%H%M' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
 
       - name: Extra Modify
         if: ${{ env.commit }}
-        working-directory: XHYSosc
+        working-directory: TVBox-TV/media
         run: |
-          if [[ "${{ matrix.userName }}" == "xisohi" ]]; then
-            sed -i 's/TeamNewPipe/teamnewpipe/g' app/build.gradle
+          echo '修改VersionName'
+          if [ "${{ matrix.userName }}" == "xinyi1984" ]; then
+            # 进行 sed 修改
+            sed -i 's/\.concat(buildTime())/ +\"${{ env.tag }}\"/g' app/build.gradle 
+          else
+             sed -i "/versionName/s#[0-9a-zA-Z_\.\'\"-]\+\$#\'${{ env.tag }}\'#" app/build.gradle
+             sed -i "/android:text=/s#=\"#=\"${{ env.tag }}\\\\n\\\\n#" app/src/main/res/layout/dialog_about.xml
+          fi 
+          echo 'crosswalk源，防挂'
+          if grep -q 'crosswalk' build.gradle; then
+            sed -i "/crosswalk/a\        maven { url 'https://o0HalfLife0o.github.io/crosswalk/releases/crosswalk/android/maven2' }" build.gradle
+          else
+            sed -i "/jitpack.io/a\        maven { url 'https://o0HalfLife0o.github.io/crosswalk/releases/crosswalk/android/maven2' }" build.gradle
           fi
 
       - name: Compress Source Code
         if: ${{ env.commit }}
-        working-directory: XHYSosc
+        working-directory: TVBox-TV/media
         run: |
-          #zip -q -x ".git/*" -x  ".github/*" -r source-${{ env.commitS }}.zip .
-          tar -cJf source-${{ env.commitS }}.tar.xz --exclude=.git --exclude=.github *
+          #删除xinyi1984-TV的release目录
+          rm -rf release
+          zip -q -x ".git/*" -x  ".github/*" -r source-${{ env.commitS }}.zip .
+          #tar -cJf source-${{ env.commitS }}.tar.xz --exclude=.git --exclude=.github *
 
       - name: Option For Test
         if: ${{ inputs.testOption }}
-        working-directory: XHYSosc
+        working-directory: TVBox-TV/media
         run: |
           #添加arm64支持，不支持ijk解码
           sed -i "/armeabi-v7a[\'\"]$/s#\$#, 'arm64-v8a'#" app/build.gradle
           sed -i "/armeabi-v7a[\'\"]$/s#\$#, 'arm64-v8a'#" player/build.gradle
 
-      - name: Set versionCode and versionName
-        if: ${{ env.commit }}
-        working-directory: XHYSosc
-        run: |
-          # 设置 versionCode
-          sed -i 's/versionCode [0-9]*/versionCode ${{ env.tag }}/g' app/build.gradle
-          # 设置 versionName
-          sed -i "s/versionName \"[^\"]*\"/versionName \"${{ env.tag }}\"/g" app/build.gradle
       - name: Release Apk Sign
         if: ${{ env.commit }}
-        working-directory: XHYSosc
+        working-directory: TVBox-TV/media
         run: |
           signingConfigs='ICAgIHNpZ25pbmdDb25maWdzIHtcCiAgICAgICAgaWYgKHByb2plY3QuaGFzUHJvcGVydHkoIlJFTEVBU0VfU1RPUkVfRklMRSIpKSB7XAogICAgICAgICAgICBteUNvbmZpZyB7XAogICAgICAgICAgICAgICAgc3RvcmVGaWxlIGZpbGUoUkVMRUFTRV9TVE9SRV9GSUxFKVwKICAgICAgICAgICAgICAgIHN0b3JlUGFzc3dvcmQgUkVMRUFTRV9TVE9SRV9QQVNTV09SRFwKICAgICAgICAgICAgICAgIGtleUFsaWFzIFJFTEVBU0VfS0VZX0FMSUFTXAogICAgICAgICAgICAgICAga2V5UGFzc3dvcmQgUkVMRUFTRV9LRVlfUEFTU1dPUkRcCiAgICAgICAgICAgICAgICB2MVNpZ25pbmdFbmFibGVkIHRydWVcCiAgICAgICAgICAgICAgICB2MlNpZ25pbmdFbmFibGVkIHRydWVcCiAgICAgICAgICAgICAgICBlbmFibGVWM1NpZ25pbmcgPSB0cnVlXAogICAgICAgICAgICAgICAgZW5hYmxlVjRTaWduaW5nID0gdHJ1ZVwKICAgICAgICAgICAgfVwKICAgICAgICB9XAogICAgfVwKXA=='
           signingConfig='ICAgICAgICAgICAgaWYgKHByb2plY3QuaGFzUHJvcGVydHkoIlJFTEVBU0VfU1RPUkVfRklMRSIpKSB7XAogICAgICAgICAgICAgICAgc2lnbmluZ0NvbmZpZyBzaWduaW5nQ29uZmlncy5teUNvbmZpZ1wKICAgICAgICAgICAgfVwK'
@@ -100,121 +125,279 @@ jobs:
           sed -i '$a\RELEASE_STORE_FILE=./TVBoxOSC.jks'     ./gradle.properties
           sed -i '$a\RELEASE_KEY_ALIAS=TVBoxOSC'            ./gradle.properties
           sed -i '$a\RELEASE_STORE_PASSWORD=xh8621989'       ./gradle.properties
-          sed -i '$a\RELEASE_KEY_PASSWORD=xh8621989'         ./gradle.properties
+          sed -i '$a\RELEASE_KEY_PASSWORD=xh8621989'        ./gradle.properties
 
-      - name: Setup Java
-        if: ${{ env.commit && (matrix.userName == 'xisohi') }}
-        uses: actions/setup-java@v3
+      # Set up JDK 17 解决androidx/room/RoomProcessor has been compiled by a more recent version of the Java Runtime (class file version 61.0), this version of the Java Runtime only recognizes class file versions up to 55.0  61需要java-version: 17
+      - name: set up JDK 17
+        if: ${{ env.commit }}
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Setup Python 3.10
-        if: ${{ env.commit }}
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Verify Python installation
-        if: ${{ env.commit }}
-        run: |
-          python3 --version
-          pip3 --version
       - name: Setup Gradle
         if: ${{ env.commit }}
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Build With Gradle
         if: ${{ env.commit }}
-        working-directory: XHYSosc
+        working-directory: TVBox-TV/media
         run: |
-          chmod +x gradlew
+          chmod +x ./gradlew
+          #cp -r gradle.properties local.properties
+          rm -rf app/src/armeabi_v7a/assets
+          rm -rf app/src/arm64_v8a/assets
           ./gradlew assemblerelease --build-cache --parallel --daemon --warning-mode all
+          #./gradlew assembleleanbackJavaArm64_v8arelease --build-cache --parallel --daemon --warning-mode all
+          #./gradlew assembleleanbackJavaArmeabi_v7arelease --build-cache --parallel --daemon --warning-mode all
+          #./gradlew assemblemobileJavaArm64_v8arelease --build-cache --parallel --daemon --warning-mode all
 
       - name: Prepare App
         if: ${{ env.commit }}
-        working-directory: XHYSosc
+        working-directory: TVBox-TV/media
         run: |
           rm -rf apk/
           mkdir -p apk/
-          find ~ -type d -iname "release" -print0 | while IFS= read -r -d '' dir; do
-            find "$dir" -type f -name "*.apk" -exec sh -c 'cp "$1" "apk/${1##*/}"' sh {} \;
+          for file in `find ~ \( -name "*arm64*.apk" -o -name "*armeabi_v7a*.apk" \) -not -name "*x86*" -print`; do
+          #for file in `find ~ \( -name "*python*.apk" -o -name "*java*.apk" \) -not -name "*x86*" -print`; do
+          #for file in `find ~ -name "*java*.apk" -not -name "*x86*" -print`; do
+            # 获取文件的基本名称
+            base=$(basename "$file")
+            # 在基本名称添加分支${{ matrix.branchName }}_
+            # new_base="${{ matrix.branchName }}_$base"
+            new_base="$base"
+            # 移动并重命名文件
+            mv "$file" "apk/$new_base"
           done
+          mv source-${{ env.commitS }}.* apk/
 
       - name: Release Note
         if: ${{ env.commit }}
-        working-directory: XHYSosc
+        working-directory: TVBox-TV/media
         run: |
           lastCommit=$(grep "${{ matrix.userName }}\/${{ matrix.repoName }}\/tree\/${{ matrix.branchName }}" ${{ github.workspace }}/README.md |grep -o '[a-z0-9]\{40\}')
           export LESSCHARSET=utf-8
-          echo -e "Credit: [${{ matrix.userName }}/${{ matrix.repoName }}/${{ matrix.branchName }}](${{ env.upStream }})\nCommit: ${{ env.commit }}\nChangelog:" > apk/${{ matrix.repoName }}-Release.log
+          echo -e "Credit: [${{ matrix.userName }}/${{ matrix.repoName }}/${{ matrix.branchName }}](${{ env.upStream }})\nCommit: ${{ env.commit }}\nChangelog:" > apk/${{ matrix.userName }}-Release.log
           if [ "${{ env.commit }}" == "${lastCommit}" ]; then
-            git log --pretty=format:%B ${{ env.commitS }} -1 |sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' |cat -n |sort -k2,2 -k1,1n |uniq -f1 |sort -k1,1n |cut -f2- >> apk/${{ matrix.repoName }}-Release.log
+            git log --pretty=format:%B ${{ env.commitS }} -1 |sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' |cat -n |sort -k2,2 -k1,1n |uniq -f1 |sort -k1,1n |cut -f2- >> apk/${{ matrix.userName }}-Release.log
           else
-            git log --pretty=format:%B ${{ env.commitS }}...${lastCommit:0:7} |sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' |cat -n |sort -k2,2 -k1,1n |uniq -f1 |sort -k1,1n |cut -f2- >> apk/${{ matrix.repoName }}-Release.log
+            git log --pretty=format:%B ${{ env.commitS }}...${lastCommit:0:7} |sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' |cat -n |sort -k2,2 -k1,1n |uniq -f1 |sort -k1,1n |cut -f2- >> apk/${{ matrix.userName }}-Release.log
+          fi
+          
+          #- name: Upload App To Artifact
+          #if: ${{ env.commit }}
+          #uses: actions/upload-artifact@v3
+          #with:
+          #name: ${{ matrix.userName }}-${{ matrix.repoName }}-${{ matrix.branchName }}
+          #path: |
+          #TVBox-TV/apk/*
+          
+          #- name: Check if release exists and delete it
+          #if: ${{ env.commit }}
+          #run: |
+          ## 设置你的 GitHub 仓库信息
+          #REPO_OWNER=xinyi1984
+          #REPO_NAME=TVBox-TV
+          #GITHUB_TOKEN=${{ secrets.GITHUBXYTV_TOKEN }} # 这是 GitHub Actions 自动提供的 token
+          #RELEASE_NAME=$(grep "${{ matrix.userName }}\/${{ matrix.repoName }}\/tree\/${{ matrix.branchName }}" ${{ github.workspace }}/README.md |grep -o '[0-9\-]\{13\}') # 这是你想要删除的 releases 的名称
+          # 使用 curl 和 GitHub API 获取 releases 列表
+          #RELEASES=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases")
+          # 使用 jq 工具解析 JSON，并查找匹配的 releases ID
+          # RELEASE_ID=$(echo "$RELEASES" | jq -r --arg name "$RELEASE_NAME" '.[] | select(.name == $name) | .id')
+          # 检查是否找到了匹配的 releases
+          #if [ -n "$RELEASE_ID" ]; then
+          # echo "Found release with name $RELEASE_NAME and ID $RELEASE_ID. Deleting it..."
+          # # 使用 curl 和 GitHub API 删除匹配的 releases
+          # curl -s -X DELETE -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases/$RELEASE_ID"
+          #echo "Release deleted successfully."
+          # else
+          # echo "No release found with name $RELEASE_NAME."
+          # fi
+          
+          #- name: Release and Upload Assets
+          #uses: ncipollo/release-action@v1
+          #if: ${{ env.commit }}
+          #with:
+          #name: ${{ env.tag }}
+          #tag: ${{ env.tag }}
+          #bodyFile: TVBox-TV/media/apk/${{ matrix.userName }}-Release.log
+          #allowUpdates: true
+          #removeArtifacts: true
+          #artifacts: |
+          #TVBox-TV/media/apk/*.apk
+          #TVBox-TV/media/apk/source-${{ env.commitS }}.*              
+          
+          # - name: Download Telegram Bot API Binary
+          # if: ${{ env.commit }}
+          # uses: actions/download-artifact@v4
+          # with:
+          # name: telegram-bot-api-binary
+          # path: TVBox-TV/media
+          
+          # - name: Post To Telegram
+          # if: ${{ env.commit }}
+          # working-directory: TVBox-TV/media
+          # env:
+          # CHAT_ID: -1002241320915
+          # TELEGRAM_TOKEN: ${{ secrets.BOT_TOKEN }}
+          # run: |
+          # if [ -n "${{ secrets.BOT_TOKEN }}" ]; then
+          # sed -i -e '1s/\[\(.*\)\].*/#\1/' -e 's#\([&"\/]\)#\\\1#g' apk/${{ matrix.userName }}-Release.log
+          # mv -f apk/${{ matrix.userName }}-Release.log caption.txt
+          # chmod +x telegram-bot-api-binary
+          # ./telegram-bot-api-binary --api-id=21724 --api-hash=3e0cb5efcd52300aec5994fdfc5bdc16 --local 2>&1 > /dev/null &
+          # mv /home/runner/work/TVBox-TV/TVBox-TV/.github/scripts/upload.py ./
+          # python upload.py
+          # fi
+
+      - name: Upload json To xytv
+        if: ${{ env.commit }}
+        working-directory: TVBox-TV/media
+        run: |
+          git clone --depth 5 https://github.com/xinyi1984/xytv.git
+          # 根据当前分支和 versionName 设置目标目录
+          if [ "${{ matrix.branchName }}" == "release" ]; then
+            sed -i "s#xinyi1984/TVBox-TV/fongmi/apk/dev#xinyi1984/TVBox-TV/fongmi/apk/release#g" xytv/json/market.json
+          else
+            # 获取 app/build.gradle 中的 versionName
+            versionName=$(grep "versionName" /home/runner/work/TVBox-TV/TVBox-TV/TVBox-TV/media/app/build.gradle | awk -F '"' '{print $2}')
+            if [[ $versionName =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+               sed -i "s#xinyi1984/TVBox-TV/fongmi/apk/dev#xinyi1984/TVBox-TV/fongmi/apk/release#g" xytv/json/market.json
+            else
+              sed -i "s#xinyi1984/TVBox-TV/fongmi/apk/release#xinyi1984/TVBox-TV/fongmi/apk/dev#g" xytv/json/market.json
+            fi
+          fi
+          sed -i "s#https://ghfast.top/https://raw.githubusercontent.com#https://ghfast.top/https://raw.githubusercontent.com#g" xytv/json/market.json
+          sed -i "s#[0-9]\{8\}-[0-9]\{4\}#${{ env.tag }}#g" xytv/json/market.json
+          cd xytv
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add json/market.json
+          git remote rm origin
+          git remote add origin "https://xinyi1984:${{ secrets.GITHUBXYTV_TOKEN }}@github.com/xinyi1984/xytv"
+          git commit -m "更新market.json"
+          git push -f -u origin master
+        continue-on-error: true
+
+      - name: Push APK to fongmi
+        if: ${{ env.commit }}
+        run: |
+          # 克隆fongmi分支到临时目录
+          git clone --depth 5 --branch fongmi "https://xinyi1984:${{ secrets.GITHUB_TOKEN }}@github.com/xinyi1984/TVBox-TV.git" fongmi-apk
+          cd fongmi-apk
+
+          # 根据当前分支和 versionName 设置目标目录
+          if [ "${{ matrix.branchName }}" == "release" ]; then
+            target_dir="apk/release"
+          else
+            # 获取 app/build.gradle 中的 versionName
+            versionName=$(grep "versionName" /home/runner/work/TVBox-TV/TVBox-TV/TVBox-TV/media/app/build.gradle | awk -F '"' '{print $2}')
+            if [[ $versionName =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              target_dir="apk/release"
+            else
+              target_dir="apk/dev"
+            fi
           fi
 
-      - name: Build Upgrade log
+          # 清理并创建发布目录
+          mkdir -p $target_dir
+          rm -f $target_dir/*  # 清理旧文件
+
+          # 复制新构建的APK文件
+          cp -v /home/runner/work/TVBox-TV/TVBox-TV/TVBox-TV/media/apk/* $target_dir/
+
+          # 配置Git并提交更改
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add $target_dir/
+          git commit -m " 更新apk build APKs ${{ env.tag }}"
+
+          # 强制推送更新
+          git push --force origin fongmi
+          cd ..
+          rm -rf fongmi-apk
+
+      - name: Send Telegram Notification
         if: ${{ env.commit }}
-        working-directory: XHYSosc
+        working-directory: TVBox-TV/media
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
         run: |
-          lastCommit=$(grep "${{ matrix.userName }}\/${{ matrix.repoName }}\/tree\/${{ matrix.branchName }}" ${{ github.workspace }}/README.md |grep -o '[a-z0-9]\{40\}')
-          export LESSCHARSET=utf-8
-          echo -e "Credit: [${{ matrix.branchName }}](${{ env.upStream }})\nCommit: ${{ env.commit }}\nChangelog:" > apk/${{ matrix.branchName }}.log
-          if [ "${{ env.commit }}" == "${lastCommit}" ]; then
-            git log --pretty=format:%B ${{ env.commitS }} -1 |sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' |cat -n |sort -k2,2 -k1,1n |uniq -f1 |sort -k1,1n |cut -f2- > apk/${{ matrix.branchName }}.log
-          else
-            git log --pretty=format:%B ${{ env.commitS }}...${lastCommit:0:7} |sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' |cat -n |sort -k2,2 -k1,1n |uniq -f1 |sort -k1,1n |cut -f2- > apk/${{ matrix.branchName }}.log
-          fi
-
-      - name: Build Upgrade content
-        if: ${{ env.commit }}
-        working-directory: XHYSosc
-        run: |
-          echo "versionCode=$(grep -oP 'versionCode \K\d+' app/build.gradle)" >> $GITHUB_ENV
-          echo "versionName=$(grep -oP 'versionName \"\K[^\"]+' app/build.gradle)" >> $GITHUB_ENV
-          echo "desc=$(awk 'BEGIN{ORS="\\\\n"}{print NR ": " $0}' apk/${{ matrix.branchName }}.log)" >> $GITHUB_ENV
-
-      - name: Upload App To Artifact
-        uses: actions/upload-artifact@v4
-        if: ${{ env.commit }}
-        with:
-          name: ${{ matrix.userName }}-${{ matrix.repoName }}
-          path: |
-            XHYSosc/apk/*
-
-      - name: Whether Or Not to Publish
-        if: ${{ inputs.donotpublish && env.commit }}
-        run: |
-          echo "commit=" >> $GITHUB_ENV
-
-      - name: Release and Upload Assets
-        uses: ncipollo/release-action@main
-        if: ${{ env.commit }}
-        with:
-          name: ${{ matrix.branchName }}
-          tag: ${{ matrix.branchName }}
-          bodyFile: XHYSosc/apk/${{ matrix.repoName }}-Release.log
-          allowUpdates: true
-          removeArtifacts: true
-          artifacts: |
-            XHYSosc/apk/*.apk
-            XHYSosc/source-${{ env.commitS }}.*
+          # 运行Telegram推送脚本
+          python3 ${{ github.workspace }}/.github/scripts/send_telegram.py
 
       - name: Push to master
         if: ${{ env.commit }}
         run: |
-          rm -rf XHYSosc
+          rm -rf *
+          rm -rf TVBox-TV
+          git reset --hard #用于将当前分支的 HEAD 指针强制移动到指定的提交，并重置工作目录和暂存区以匹配该提交，这会丢弃所有未提交的更改
           sed -i '/url =/d' ./.git/config
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git remote set-url --add origin "https://${{ github.actor }}:${{ secrets.GIT_TOKEN }}@github.com/${{ github.repository }}"
+          git remote set-url --add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
           git pull --rebase
           sed -i "/${{ matrix.userName }}\/${{ matrix.repoName }}\/tree\/${{ matrix.branchName }}/s#Updated: [a-zA-Z0-9]*#Updated: ${{ env.commit }}#" README.md
-          sed -i 's/"code": "[a-zA-Z0-9]*"/"code": "${{ env.versionCode }}"/' update/${{ matrix.branchName }}.json
-          sed -i 's/"name": "[^"]*"/"name": "${{ env.versionName }}"/' update/${{ matrix.branchName }}.json
-          sed -i 's|"desc": ".*"|"desc": "${{ env.desc }}"|g' update/${{ matrix.branchName }}.json
-          sed -i "s/update at .*/update at $(date '+%Y-%m-%d %H:%M:%S')/" README.md
+          sed -i "/${{ matrix.userName }}\/${{ matrix.repoName }}\/tree\/${{ matrix.branchName }}/s#name: [0-9\-]*#name: ${{ env.tag }}#" README.md
           git add --all
           git commit -m "${{ env.commit }}"
           git push -u -f origin master
+          #continue-on-error: true 是因为 git commit 会失败也是预期的，这个步骤可以忽略失败。加上这个命令就可以在这个步骤失败的时候，不会影响其他步骤
+        continue-on-error: true
+
+      - name: Clean Gradle Cache After Build
+        if: ${{ env.commit }}
+        run: |
+          echo "清理Gradle缓存..."
+          # 清理项目级缓存
+          if [ -d "TV/media" ]; then
+            cd TV/media
+            ./gradlew clean
+            rm -rf .gradle/caches
+            rm -rf build/
+          fi
+          # 清理全局Gradle缓存中的大文件
+          find ~/.gradle/caches -name "*.jar" -type f -delete
+          find ~/.gradle/caches -name "*.pom" -type f -delete
+          find ~/.gradle/caches -name "*.module" -type f -delete 
+          
+          # telegram-bot-api:
+          # name: Telegram Bot API
+          # runs-on: ubuntu-latest
+          # steps:
+          # - name: Checkout
+          # uses: actions/checkout@v4
+          
+          # - name: Clone Telegram Bot API
+          # run: |
+          # git clone --recursive https://github.com/tdlib/telegram-bot-api.git
+          # git status telegram-bot-api >> telegram-bot-api-status
+          
+          # - name: Cache Bot API Binary
+          # id: cache-bot-api
+          # uses: actions/cache@v4
+          # with:
+          # path: telegram-bot-api-binary
+          # key: CI-telegram-bot-api-${{ hashFiles('telegram-bot-api-status') }}
+          
+          # - name: Compile Telegram Bot API
+          # if: steps.cache-bot-api.outputs.cache-hit != 'true'
+          #  run: |
+          # sudo apt-get update
+          # sudo apt-get install make git zlib1g-dev libssl-dev gperf cmake g++
+          # cd telegram-bot-api
+          # rm -rf build
+          # mkdir build
+          # cd build
+          # cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=.. ..
+          # cmake --build . --target install -j$(nproc)
+          # cd ../..
+          # ls -l telegram-bot-api/bin/telegram-bot-api*
+          # cp telegram-bot-api/bin/telegram-bot-api telegram-bot-api-binary
+          
+          # - name: Upload Binary
+          # uses: actions/upload-artifact@master
+          # with:
+          # name: telegram-bot-api-binary
+        # path: telegram-bot-api-binary
