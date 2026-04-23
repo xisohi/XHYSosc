@@ -22,13 +22,13 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - userName: fongmi
+          - userName: xinyi1984
             repoName: TV
             branchName: fongmi
             #- userName: xinyi1984
             #repoName: TV
             #branchName: okjack
-          - userName: fongmi
+          - userName: xinyi1984
             repoName: TV
             branchName: release
 
