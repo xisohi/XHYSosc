@@ -1,6 +1,6 @@
 {
-  "code": "260330",
-  "name": "260330",
-  "desc": "1: Remove EXECUTOR field and execute method\n2: Removed the static EXECUTOR field and the execute method.\n3: Signed-off-by: xihi <xuhui0607@gmail.com>\n4: Update App.java\n",
+  "code": "260425",
+  "name": "260425",
+  "desc": "1: p\n",
   "apkurl": "https://ghproxy.net/https://github.com/xisohi/XHYSosc/releases/download/lkys/{name}"
 }
