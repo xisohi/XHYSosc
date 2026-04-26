@@ -59,6 +59,18 @@ jobs:
           git clone -b release-1.10.0-fongmi --depth 1 https://github.com/FongMi/media.git media
           echo "tag=$(git log --date=format:'%y%m%d' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
 
+      - name: Fix missing proguard-rules.txt
+        if: ${{ env.commit }}
+        working-directory: XHYSosc
+        run: |
+          find media/libraries -name "build.gradle" | while read f; do
+            dir=$(dirname "$f")
+            if [ ! -f "$dir/proguard-rules.txt" ]; then
+              echo "# Auto-generated empty proguard file" > "$dir/proguard-rules.txt"
+              echo "Created: $dir/proguard-rules.txt"
+            fi
+          done
+
       - name: Compress Source Code
         if: ${{ env.commit }}
         working-directory: XHYSosc
