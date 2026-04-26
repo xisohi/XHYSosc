@@ -1,6 +1,6 @@
 {
-  "code": "260331",
-  "name": "260331",
-  "desc": "1: update\n2: Fix episode compare\n3: Update .gitignore\n4: Update build.gradle\n",
+  "code": "260426",
+  "name": "260426",
+  "desc": "1: Update proguard-rules.pro\n2: Update VideoActivity.java\n3: up\n4: 内置源\n5: Update build.gradle\n6: Update Config.java\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
