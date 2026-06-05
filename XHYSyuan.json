@@ -5,7 +5,6 @@
 	"sites": [
 		{"key":"农民影视","name":"👩‍🌾农民影视","type":3,"api":"csp_XYQHiker","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/农民影视.json"},
 		{"key":"csp_Gz360","name":"🍉瓜子[优]","type":3,"api":"csp_Gz360","searchable":1,"quickSearch":1,"filterable":1},
-		{"key": "WexDuBoKu","name": "💥独播💥","type": 3,"api": "csp_WexDuBoKuGuard", "searchable": 1,"changeable": 1,"jar":"./jar/niuer.txt"},
 		{"key": "WexYueYue","name": "💥闪电💥","type": 3,"api": "csp_WexYueYueGuard", "searchable": 1,"changeable": 1,"jar":"./jar/niuer.txt"},
 		{"key": "WexYiYs", "name": "💥伊影💥", "type": 3, "api": "csp_WexYiYsGuard", "searchable": 1, "changeable": 1,"jar":"./jar/niuer.txt"},
 		{"key": "WexReBo", "name": "💥热播💥", "type": 3, "api": "csp_WexReBoGuard", "searchable": 1, "changeable": 1,"jar":"./jar/niuer.txt"},
