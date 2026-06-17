@@ -140,19 +140,14 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew assemblerelease --build-cache --parallel --daemon --warning-mode all
-
+   
       - name: Prepare App
-        if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
           rm -rf apk/
           mkdir -p apk/
-          for file in `find ~ -name "*java*.apk" -print`; do
-            mv "$file" apk/${{ matrix.repoName }}-java.apk
-          done
-          for file in `find ~ -name "*python*.apk" -print`; do
-            mv "$file" apk/${{ matrix.repoName }}-python.apk
-          done
+          # 直接复制所有APK，保留原名
+          find ~ -name "XHYSTV-*.apk" -exec cp {} apk/ \;
 
       - name: Release Note
         if: ${{ env.commit }}
