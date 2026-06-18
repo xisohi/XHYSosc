@@ -1,6 +1,6 @@
 {
-  "code": "260524",
-  "name": "260524",
-  "desc": "1: Update build.gradle\n2: Fix offset bug\n3: Clean code\n4: Fix load more\n5: Fix danmaku not release\n6: Fix android 10 permission\n7: Fix gson crash\n8: Optimize offset dialog\n9: Add audio/text offset setting\n10: Adjust danmaku setting reset button\n11: Fix track select\n",
+  "code": "260613",
+  "name": "260613",
+  "desc": "1: Fix youtube\n",
   "apkurl": "https://ghfast.top/https://github.com/xisohi/XHYSosc/releases/download/fongmi/{name}"
 }
