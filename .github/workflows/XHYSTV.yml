@@ -142,6 +142,7 @@ jobs:
           ./gradlew assemblerelease --build-cache --parallel --daemon --warning-mode all
    
       - name: Prepare App
+        if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
           rm -rf apk/
