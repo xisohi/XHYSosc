@@ -1,5 +1,5 @@
 {
   "code": "260623",
   "name": "260623",
-  "desc": "1: 支持logvar弹幕\n2: 支持弹幕推送http://127.0.0.1:9978/action?do=refresh\n3: 去广告增强\n4: 解决部分源历史记录异常"
+  "desc": "1: 优化jar加载\n2: 优化js爬虫兼容性(修复各种js导致的闪退)\n3: 优化logvar弹幕匹配\n4: 支持logvar弹幕\n"
 }
