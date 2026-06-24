@@ -4,7 +4,7 @@
 	"wallpaper": "http://lcjly.cn/tupian",
 	"sites": [
 		{"key":"农民","name":"👩‍🌾农民影视","type":3,"api":"csp_XYQHiker","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/农民影视.json"},
-		{"key":"csp_Gz360","name":"🍉瓜子[优]","type":3,"api":"csp_Gz360","searchable":1,"quickSearch":1,"filterable":1},
+		{"key":"csp_Gz360","name":"🍉瓜子[优]","type":3,"api":"csp_Gz360","searchable":1,"quickSearch":1,"filterable":1,"jar":"./jar/Gz360.jar"},
 		{"key":"csp_GuaZi","name":"🍉瓜子","type":3,"api":"csp_GuaziAmns","searchable":1,"filterable":1,"quickSearch":1,"jar":"./jar/custom_spider.jar"},
 		{"key":"天天","name":"⛅天天","type":3,"api":"csp_TTian","searchable":1,"quickSearch":1,"filterable":1,"ext":"7lj763gg0939791h1l3888jig44gi291li"},
 		{"key":"金牌","name":"🥇金牌","type":3,"api":"csp_Jpys","searchable":1,"quickSearch":1,"filterable":1,"ext":"7lj763gg402i7942463j9j9jh8579590k3hjii5gi4i73l2k5l"},
@@ -13,7 +13,6 @@
 		{"key": "WexYueYue","name": "💥闪电💥","type": 3,"api": "csp_WexYueYueGuard", "searchable": 1,"changeable": 1,"jar":"./jar/wangerxiao.txt"},
 		{"key": "WexYiYs", "name": "💥伊影💥", "type": 3, "api": "csp_WexYiYsGuard", "searchable": 1, "changeable": 1,"jar":"./jar/wangerxiao.txt"},
 		{"key": "WexReBo", "name": "💥热播💥", "type": 3, "api": "csp_WexReBoGuard", "searchable": 1, "changeable": 1,"jar":"./jar/wangerxiao.txt"},
-//		{"key": "WexXiongYing", "name": "💥雄鹰💥", "type": 3, "api": "csp_WexXiongYingGuard", "searchable": 1, "changeable": 1,"jar":"./jar/wangerxiao.txt"},
 		{"key": "WexBoBo", "name": "🎇伯伯🎇", "type": 3, "api": "csp_WexBoBoGuard", "searchable": 1, "changeable": 1,"jar":"./jar/wangerxiao.txt"},
 		{"key": "WexBtTwo", "name": "🎇鼻涕🎇", "type": 3, "api": "csp_WexBtTwoGuard", "searchable": 1, "changeable": 1,"jar":"./jar/wangerxiao.txt"},
 		{"key": "WexIkanBot", "name": "🎇爱看┃采集🎇", "type": 3, "api": "csp_WexIkanBotGuard", "searchable": 1, "changeable": 1,"jar":"./jar/wangerxiao.txt"},
