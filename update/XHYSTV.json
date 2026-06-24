@@ -1,5 +1,5 @@
 {
   "code": "260624",
   "name": "260624",
-  "desc": "1: 优化jar加载\n2: 优化js爬虫兼容性(修复各种js导致的闪退)\n3: 优化logvar弹幕匹配\n4: 支持logvar弹幕\n"
+  "desc": "1: 解决诸如php转发直播等不能播放的bug\n2: 优化直播加载\n3: 兼容影视壳的Proxy配置规则\n4: 修正安全dns\n5: 升级时添加版本标注\n6: 端午节快乐\n7: Update build.gradle\n8: # Conflicts:\n9: #	app/build.gradle\n10: 修复已知bug\n11: update\n12: Update Github.java\n13: UPDATE\n"
 }
