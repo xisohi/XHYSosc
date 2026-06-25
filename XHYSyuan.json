@@ -4,7 +4,7 @@
 	"sites": [
 		{"key":"农民","name":"👩‍🌾农民影视","type":3,"api":"csp_XYQHiker","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/农民影视.json"},
 		{"key":"csp_Gz360","name":"🍉瓜子[优]","type":3,"api":"csp_Gz360","searchable":1,"quickSearch":1,"filterable":1,"jar":"./jar/Gz360.jar"},
-		{"key":"csp_GuaZi","name":"🍉瓜子","type":3,"api":"csp_GuaZi","searchable":1,"changeable":0,"ext":{"commonConfig":"https://gh-proxy.com/raw.githubusercontent.com/yoursmile66/TVBox/main/json/peizhi.json"}},
+		{"key":"csp_GuaZi","name":"🍉瓜子","type":3,"api":"csp_GuaZi","searchable":1,"changeable":0,"ext":{"commonConfig":"./json/peizhi.json"}},
 		{"key":"天天","name":"⛅天天","type":3,"api":"csp_TTian","searchable":1,"quickSearch":1,"filterable":1,"ext":"7lj763gg0939791h1l3888jig44gi291li"},
 		{"key":"金牌","name":"🥇金牌","type":3,"api":"csp_Jpys","searchable":1,"quickSearch":1,"filterable":1,"ext":"7lj763gg402i7942463j9j9jh8579590k3hjii5gi4i73l2k5l"},
 		{"key":"首发","name":"🚀首发","type":3,"api":"csp_Qiji","ext":"7lj763gg402i7942483l849kk10ljji4g6li98059ijj72225j5255l2k95g5i1h1g985ggj905j86ig3604gi80lgl30jk3hk637h53ghk49hgj689125k7738h7947igg3k5h3gk6j12718k402802hlkh6k527581gk4936hkj49i8i9g2hh53l320l3i3197"},
@@ -17,6 +17,7 @@
 		{"key": "新6V", "name": "🎇新6V┃磁力🎇", "type": 3, "api": "csp_WexXb6vGuard", "searchable": 1, "changeable": 0,"jar":"./jar/wangerxiao.txt"},
 		{"key":"csp_Jianpian","name":"🧲荐片[优]","type":3,"api":"csp_Jianpian","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/jianpian.json"},
 		{"key":"低端","name":"📺低端","type":3,"api":"csp_XYQHiker","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/低端影视.json"},
+		{"key":"Youtube","name":"⚡Youtube","type":3,"api":"csp_Youtube","searchable":1,"changeable":1,"style":{"type":"rect","ratio":1.433},"ext":{"commonConfig":"./json/peizhi.json","json":"./json/youtube.json"}},
 		{"key": "hipy_金牌影视[优]","name": "金牌影视[优]","type": 3,"api": "./js/lib/drpy2.min.js","ext":"./js/金牌影视.js","searchable": 1,"quickSearch": 0,"filterable": 1},
 		{"key": "hipy_优酷[官]","name": "优酷[官]","type": 3,"api": "./js/lib/drpy2.min.js","ext":"./js/优酷[官].js","searchable": 1,"quickSearch": 1,"filterable": 1},
 		{"key": "hipy_奇珍异兽[官]","name": "爱奇艺[官]","type": 3,"api": "./js/lib/drpy2.min.js","ext":"./js/奇珍异兽[官].js","searchable": 1,"quickSearch": 1,"filterable": 1},
