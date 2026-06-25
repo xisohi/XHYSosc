@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TVBox 配置加解密工具</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #0f172a;
+            min-height: 100vh;
+            color: #e2e8f0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 40px 0;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: #94a3b8;
+            font-size: 1rem;
+        }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        .tab-btn {
+            padding: 12px 30px;
+            border: 2px solid #334155;
+            background: #1e293b;
+            color: #94a3b8;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        .tab-btn:hover {
+            border-color: #667eea;
+            color: #e2e8f0;
+        }
+        .tab-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: transparent;
+            color: white;
+        }
+        .panel {
+            display: none;
+            background: #1e293b;
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid #334155;
+        }
+        .panel.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .input-group input[type="text"],
+        .input-group input[type="file"] {
+            width: 100%;
+            padding: 12px 16px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            color: #e2e8f0;
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
+        }
+        .input-group input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .input-group input[type="file"] {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .input-group input[type="file"]::-webkit-file-upload-button {
+            background: #334155;
+            color: #e2e8f0;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 16px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            color: #e2e8f0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.85rem;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        .btn-secondary {
+            background: #334155;
+            color: #e2e8f0;
+        }
+        .btn-secondary:hover {
+            background: #475569;
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(17, 153, 142, 0.4);
+        }
+        .result-area {
+            margin-top: 20px;
+            padding: 20px;
+            background: #0f172a;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            display: none;
+        }
+        .result-area.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .result-header h3 {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .info-panel {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #334155;
+        }
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #1e293b;
+        }
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        .info-label {
+            color: #94a3b8;
+        }
+        .info-value {
+            color: #38bdf8;
+            font-family: monospace;
+        }
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+        }
+        .toast.show {
+            transform: translateX(0);
+        }
+        .toast.success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+        .toast.error {
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+        }
+        .drag-area {
+            border: 2px dashed #334155;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+        .drag-area:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+        }
+        .drag-area.drag-over {
+            border-color: #38ef7d;
+            background: rgba(56, 239, 125, 0.05);
+        }
+        .drag-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        .drag-text {
+            color: #94a3b8;
+        }
+        .sites-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+        .site-item {
+            padding: 8px 12px;
+            background: #1e293b;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .site-num {
+            background: #667eea;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        .site-name {
+            flex: 1;
+        }
+        .site-key {
+            color: #94a3b8;
+            font-size: 0.8rem;
+            font-family: monospace;
+        }
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .tabs {
+                flex-direction: column;
+            }
+            .btn-group {
+                flex-direction: column;
+            }
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 TVBox 配置加解密工具</h1>
+            <p>基于 AES-128-CBC 加密算法 | 纯前端实现，数据不会上传到服务器</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('decrypt')">🔓 解密配置</button>
+            <button class="tab-btn" onclick="switchTab('encrypt')">🔒 加密配置</button>
+            <button class="tab-btn" onclick="switchTab('info')">📊 配置信息</button>
+        </div>
+
+        <!-- 解密面板 -->
+        <div class="panel active" id="panel-decrypt">
+            <div class="drag-area" id="drag-area-decrypt" onclick="document.getElementById('file-decrypt').click()">
+                <div class="drag-icon">📁</div>
+                <div class="drag-text">点击选择文件或拖拽文件到此处</div>
+                <input type="file" id="file-decrypt" style="display:none" accept=".txt,.json">
+            </div>
+            <div class="input-group">
+                <label>或粘贴十六进制内容：</label>
+                <textarea id="input-decrypt" placeholder="将 TVBox 加密的十六进制内容粘贴到这里..."></textarea>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="doDecrypt()">🔓 开始解密</button>
+                <button class="btn btn-secondary" onclick="clearDecrypt()">🗑️ 清空</button>
+            </div>
+            <div class="result-area" id="result-decrypt">
+                <div class="result-header">
+                    <h3>解密结果</h3>
+                    <button class="btn btn-success" onclick="downloadResult('decrypt')">💾 下载 JSON</button>
+                </div>
+                <textarea id="output-decrypt" readonly></textarea>
+            </div>
+        </div>
+
+        <!-- 加密面板 -->
+        <div class="panel" id="panel-encrypt">
+            <div class="drag-area" id="drag-area-encrypt" onclick="document.getElementById('file-encrypt').click()">
+                <div class="drag-icon">📁</div>
+                <div class="drag-text">点击选择 JSON 文件或拖拽文件到此处</div>
+                <input type="file" id="file-encrypt" style="display:none" accept=".json,.txt">
+            </div>
+            <div class="input-group">
+                <label>或粘贴 JSON 内容：</label>
+                <textarea id="input-encrypt" placeholder="将 TVBox JSON 配置粘贴到这里..."></textarea>
+            </div>
+            <div class="input-group">
+                <label>加密密钥 (默认: 128)</label>
+                <input type="text" id="key-encrypt" value="128" placeholder="输入密钥">
+            </div>
+            <div class="input-group">
+                <label>偏移量 IV (默认: 1782201799995)</label>
+                <input type="text" id="iv-encrypt" value="1782201799995" placeholder="输入IV">
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="doEncrypt()">🔒 开始加密</button>
+                <button class="btn btn-secondary" onclick="clearEncrypt()">🗑️ 清空</button>
+            </div>
+            <div class="result-area" id="result-encrypt">
+                <div class="result-header">
+                    <h3>加密结果</h3>
+                    <button class="btn btn-success" onclick="downloadResult('encrypt')">💾 下载加密文件</button>
+                </div>
+                <textarea id="output-encrypt" readonly></textarea>
+            </div>
+        </div>
+
+        <!-- 信息面板 -->
+        <div class="panel" id="panel-info">
+            <div class="drag-area" id="drag-area-info" onclick="document.getElementById('file-info').click()">
+                <div class="drag-icon">📁</div>
+                <div class="drag-text">点击选择加密配置文件或拖拽到此处</div>
+                <input type="file" id="file-info" style="display:none" accept=".txt,.json">
+            </div>
+            <div class="input-group">
+                <label>或粘贴十六进制内容：</label>
+                <textarea id="input-info" placeholder="将 TVBox 加密的十六进制内容粘贴到这里..."></textarea>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="doInfo()">📊 查看信息</button>
+                <button class="btn btn-secondary" onclick="clearInfo()">🗑️ 清空</button>
+            </div>
+            <div class="result-area" id="result-info">
+                <div class="info-panel" id="info-basic">
+                    <!-- 基本信息 -->
+                </div>
+                <div class="info-panel" id="info-sites">
+                    <h3 style="color:#94a3b8;margin-bottom:15px;">📺 站点列表</h3>
+                    <div class="sites-list" id="sites-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ==================== 工具函数 ====================
+
+        function hexToBytes(hex) {
+            const bytes = new Uint8Array(hex.length / 2);
+            for (let i = 0; i < hex.length; i += 2) {
+                bytes[i / 2] = parseInt(hex.substr(i, 2), 16);
+            }
+            return bytes;
+        }
+
+        function bytesToHex(bytes) {
+            return Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        function stringToBytes(str) {
+            return new TextEncoder().encode(str);
+        }
+
+        function bytesToString(bytes) {
+            return new TextDecoder().decode(bytes);
+        }
+
+        function rightPad(str, char, length) {
+            let s = stringToBytes(str);
+            const c = stringToBytes(char)[0];
+            if (s.length >= length) return s.slice(0, length);
+            const result = new Uint8Array(length);
+            result.set(s);
+            result.fill(c, s.length);
+            return result;
+        }
+
+        function removePkcs7Padding(data) {
+            const padLen = data[data.length - 1];
+            if (padLen > 16) return data;
+            return data.slice(0, data.length - padLen);
+        }
+
+        function addPkcs7Padding(data) {
+            const padLen = 16 - (data.length % 16);
+            const result = new Uint8Array(data.length + padLen);
+            result.set(data);
+            result.fill(padLen, data.length);
+            return result;
+        }
+
+        async function aesCbcDecrypt(dataHex, keyStr, ivStr) {
+            const key = rightPad(keyStr, '0', 16);
+            const iv = rightPad(ivStr, '0', 16);
+            const data = hexToBytes(dataHex);
+
+            const cryptoKey = await crypto.subtle.importKey(
+                'raw', key, { name: 'AES-CBC' }, false, ['decrypt']
+            );
+
+            const decrypted = await crypto.subtle.decrypt(
+                { name: 'AES-CBC', iv: iv },
+                cryptoKey,
+                data
+            );
+
+            return bytesToString(removePkcs7Padding(new Uint8Array(decrypted)));
+        }
+
+        async function aesCbcEncrypt(plainText, keyStr, ivStr) {
+            const key = rightPad(keyStr, '0', 16);
+            const iv = rightPad(ivStr, '0', 16);
+            const data = addPkcs7Padding(stringToBytes(plainText));
+
+            const cryptoKey = await crypto.subtle.importKey(
+                'raw', key, { name: 'AES-CBC' }, false, ['encrypt']
+            );
+
+            const encrypted = await crypto.subtle.encrypt(
+                { name: 'AES-CBC', iv: iv },
+                cryptoKey,
+                data
+            );
+
+            return bytesToHex(new Uint8Array(encrypted));
+        }
+
+        function parseTvboxFormat(hexContent) {
+            hexContent = hexContent.replace(/\s/g, '');
+
+            // 检查是否是纯十六进制
+            if (!/^[0-9a-fA-F]+$/.test(hexContent)) {
+                throw new Error('输入内容不是有效的十六进制字符串');
+            }
+
+            // 解码十六进制
+            let hexStr;
+            try {
+                const decoded = hexToBytes(hexContent);
+                hexStr = bytesToHex(decoded);
+            } catch (e) {
+                throw new Error('十六进制解码失败');
+            }
+
+            // 查找 2324 标记
+            const pos2324 = hexStr.indexOf('2324');
+            if (pos2324 < 0) {
+                throw new Error('未找到 2324 (#$) 分隔标记');
+            }
+
+            // 查找 2423 标记
+            const pos2423 = hexStr.indexOf('2423');
+            if (pos2423 < 0) {
+                throw new Error('未找到 2423 ($#) 标记');
+            }
+
+            // 提取密钥
+            const keyHex = hexStr.substring(pos2423 + 4, pos2324);
+            const keyStr = bytesToString(hexToBytes(keyHex));
+
+            // 提取数据
+            const dataHex = hexStr.substring(pos2324 + 4, hexStr.length - 26);
+
+            // 提取IV
+            const ivHex = hexStr.substring(hexStr.length - 26);
+            const ivStr = bytesToString(hexToBytes(ivHex));
+
+            return { key: keyStr, iv: ivStr, data: dataHex };
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast ' + type;
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById('panel-' + tab).classList.add('active');
+        }
+
+        // ==================== 文件拖拽 ====================
+
+        function setupDragArea(areaId, fileId, callback) {
+            const area = document.getElementById(areaId);
+            const fileInput = document.getElementById(fileId);
+
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => callback(event.target.result);
+                    reader.readAsText(e.target.files[0]);
+                }
+            });
+
+            area.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                area.classList.add('drag-over');
+            });
+
+            area.addEventListener('dragleave', () => {
+                area.classList.remove('drag-over');
+            });
+
+            area.addEventListener('drop', (e) => {
+                e.preventDefault();
+                area.classList.remove('drag-over');
+                const file = e.dataTransfer.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => callback(event.target.result);
+                    reader.readAsText(file);
+                }
+            });
+        }
+
+        setupDragArea('drag-area-decrypt', 'file-decrypt', (content) => {
+            document.getElementById('input-decrypt').value = content;
+        });
+
+        setupDragArea('drag-area-encrypt', 'file-encrypt', (content) => {
+            document.getElementById('input-encrypt').value = content;
+        });
+
+        setupDragArea('drag-area-info', 'file-info', (content) => {
+            document.getElementById('input-info').value = content;
+        });
+
+        // ==================== 解密功能 ====================
+
+        async function doDecrypt() {
+            const input = document.getElementById('input-decrypt').value.trim();
+            if (!input) {
+                showToast('请输入要解密的内容', 'error');
+                return;
+            }
+
+            try {
+                const parsed = parseTvboxFormat(input);
+                const decrypted = await aesCbcDecrypt(parsed.data, parsed.key, parsed.iv);
+
+                document.getElementById('output-decrypt').value = decrypted;
+                document.getElementById('result-decrypt').classList.add('show');
+                showToast('解密成功！');
+            } catch (e) {
+                showToast('解密失败: ' + e.message, 'error');
+                console.error(e);
+            }
+        }
+
+        function clearDecrypt() {
+            document.getElementById('input-decrypt').value = '';
+            document.getElementById('output-decrypt').value = '';
+            document.getElementById('result-decrypt').classList.remove('show');
+            document.getElementById('file-decrypt').value = '';
+        }
+
+        // ==================== 加密功能 ====================
+
+        async function doEncrypt() {
+            const input = document.getElementById('input-encrypt').value.trim();
+            const key = document.getElementById('key-encrypt').value || '128';
+            const iv = document.getElementById('iv-encrypt').value || '1782201799995';
+
+            if (!input) {
+                showToast('请输入要加密的内容', 'error');
+                return;
+            }
+
+            try {
+                const encrypted = await aesCbcEncrypt(input, key, iv);
+                const keyHex = bytesToHex(stringToBytes(key));
+                const ivHex = bytesToHex(stringToBytes(iv));
+                const result = '2423' + keyHex + '2324' + encrypted + ivHex;
+
+                document.getElementById('output-encrypt').value = result;
+                document.getElementById('result-encrypt').classList.add('show');
+                showToast('加密成功！');
+            } catch (e) {
+                showToast('加密失败: ' + e.message, 'error');
+                console.error(e);
+            }
+        }
+
+        function clearEncrypt() {
+            document.getElementById('input-encrypt').value = '';
+            document.getElementById('output-encrypt').value = '';
+            document.getElementById('result-encrypt').classList.remove('show');
+            document.getElementById('file-encrypt').value = '';
+        }
+
+        // ==================== 信息查看 ====================
+
+        async function doInfo() {
+            const input = document.getElementById('input-info').value.trim();
+            if (!input) {
+                showToast('请输入配置文件内容', 'error');
+                return;
+            }
+
+            try {
+                const parsed = parseTvboxFormat(input);
+                const decrypted = await aesCbcDecrypt(parsed.data, parsed.key, parsed.iv);
+
+                // 解析 JSON
+                let jsonText = decrypted;
+                if (jsonText.startsWith('//')) {
+                    jsonText = jsonText.split('\n').slice(1).join('\n');
+                }
+                const config = JSON.parse(jsonText.trim());
+
+                // 显示基本信息
+                const basicHtml = `
+                    <div class="info-item">
+                        <span class="info-label">🔑 密钥</span>
+                        <span class="info-value">${parsed.key}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">🔐 IV</span>
+                        <span class="info-value">${parsed.iv}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">📦 内容长度</span>
+                        <span class="info-value">${decrypted.length.toLocaleString()} 字符</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">🕷️ Spider</span>
+                        <span class="info-value">${(config.spider || 'N/A').substring(0, 50)}${(config.spider || '').length > 50 ? '...' : ''}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">🖼️ 壁纸</span>
+                        <span class="info-value">${config.wallpaper || 'N/A'}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">📺 站点数量</span>
+                        <span class="info-value">${(config.sites || []).length} 个</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">🔧 解析器数量</span>
+                        <span class="info-value">${(config.parses || []).length} 个</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">📡 直播源数量</span>
+                        <span class="info-value">${(config.lives || []).length} 个</span>
+                    </div>
+                `;
+                document.getElementById('info-basic').innerHTML = basicHtml;
+
+                // 显示站点列表
+                const sitesList = document.getElementById('sites-list');
+                sitesList.innerHTML = '';
+                (config.sites || []).forEach((site, i) => {
+                    const div = document.createElement('div');
+                    div.className = 'site-item';
+                    div.innerHTML = `
+                        <span class="site-num">${i + 1}</span>
+                        <span class="site-name">${site.name || 'N/A'}</span>
+                        <span class="site-key">${site.key || 'N/A'}</span>
+                    `;
+                    sitesList.appendChild(div);
+                });
+
+                document.getElementById('result-info').classList.add('show');
+                showToast('解析成功！');
+            } catch (e) {
+                showToast('解析失败: ' + e.message, 'error');
+                console.error(e);
+            }
+        }
+
+        function clearInfo() {
+            document.getElementById('input-info').value = '';
+            document.getElementById('info-basic').innerHTML = '';
+            document.getElementById('sites-list').innerHTML = '';
+            document.getElementById('result-info').classList.remove('show');
+            document.getElementById('file-info').value = '';
+        }
+
+        // ==================== 下载功能 ====================
+
+        function downloadResult(type) {
+            const content = document.getElementById('output-' + type).value;
+            if (!content) return;
+
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = type === 'decrypt' ? 'decrypted_config.json' : 'encrypted_config.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            showToast('下载成功！');
+        }
+    </script>
+</body>
+</html>
