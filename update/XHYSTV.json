@@ -1,5 +1,5 @@
 {
-  "code": "260626",
-  "name": "260626",
-  "desc": "1: 修bug\n2: 新增弹幕搜索扩展入口\n3: 优化详情封面布局\n4: 播放header增强\n5: exo调整\n6: 尝试解决部分模拟器主页报错的问题\n7: 修正一处哔哩播放问题\n8: 修正js导致的闪退\n9: 修正启动闪退\n10: 部分播放地址播放失败时的兜底播放\n11: 修直播菜单闪退\n12: js优化\n13: 修正特定格式播放失败的bug\n14: 优化jar加载\n15: py优化;支持站点timeout参数\n"
+  "code": "260627",
+  "name": "260627",
+  "desc": "1: # Conflicts:\n2: #	app/src/main/java/com/github/tvbox/osc/api/ApiConfig.java\n3: 优化配置加载\n4: 优化关闭小窗预览时的播放逻辑\n5: 解决详情回搜索时偶发的闪退\n6: 优化jar和py加载\n"
 }
