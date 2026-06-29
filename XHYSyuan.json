@@ -7,7 +7,7 @@
 		{"key":"天天","name":"⛅天天","type":3,"api":"csp_TTian","searchable":1,"quickSearch":1,"filterable":1,"ext":"7lj763gg0939791h1l3888jig44gi291li"},
 		{"key":"金牌","name":"🥇金牌","type":3,"api":"csp_Jpys","searchable":1,"quickSearch":1,"filterable":1,"ext":"7lj763gg402i7942463j9j9jh8579590k3hjii5gi4i73l2k5l"},
 		{"key":"首发","name":"🚀首发","type":3,"api":"csp_Qiji","ext":"7lj763gg402i7942483l849kk10ljji4g6li98059ijj72225j5255l2k95g5i1h1g985ggj905j86ig3604gi80lgl30jk3hk637h53ghk49hgj689125k7738h7947igg3k5h3gk6j12718k402802hlkh6k527581gk4936hkj49i8i9g2hh53l320l3i3197"},
-		//{"key":"Guazi","name":"🍉瓜子[优]","type":3,"api":"csp_Guazi","searchable":1,"quickSearch":1,"filterable":1,"jar":"./jar/xisohi.jar"},
+		{"key":"Guazi","name":"🍉瓜子[优]","type":3,"api":"csp_Guazi","searchable":1,"quickSearch":1,"filterable":1,"jar":"./jar/xisohi.jar"},
 		{"key": "WexYueYue","name": "💥闪电💥","type": 3,"api": "csp_WexYueYueGuard", "searchable": 1,"changeable": 1,"jar":"./jar/wangerxiao.txt"},
 		{"key": "WexYiYs", "name": "💥伊影💥", "type": 3, "api": "csp_WexYiYsGuard", "searchable": 1, "changeable": 1,"jar":"./jar/wangerxiao.txt"},
 		{"key": "WexReBo", "name": "💥热播💥", "type": 3, "api": "csp_WexReBoGuard", "searchable": 1, "changeable": 1,"jar":"./jar/wangerxiao.txt"},
