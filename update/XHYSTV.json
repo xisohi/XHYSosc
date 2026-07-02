@@ -1,5 +1,5 @@
 {
-  "code": "260703",
+  "code": "260702",
   "name": "260702",
-  "desc": "1: Update Updater.java\n2: 更新优化\n3: 自动选择最快代理\n4: 手动切换机制（保留轮询降级）\n"
+  "desc": "1: Update Github.java\n2: 添加代理UA\n3: 提高代理成功率\n"
 }
