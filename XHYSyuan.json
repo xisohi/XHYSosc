@@ -82,7 +82,7 @@
 		"cache.ott.hnbblive.itv.cmvideo.cn=base-v4-free-mghy.e.cdn.chinamobile.com"
 	],
 	"lives": [
-		{"name": "live","type": 0,"url": "https://xhys.lcjly.cn/tv/live.txt","playerType": 1,"ua": "okHttp/Mod-1.5.0.0","epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}","logo": "https://chinaiptv.pages.dev/logo/{name}.png"},
+		{"name": "live","type": 0,"url": "https://iptv.xisohi.dpdns.org/TV/live.txt","playerType": 1,"ua": "okHttp/Mod-1.1.0","epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}","logo": "https://chinaiptv.pages.dev/logo/{name}.png"},
 		{"name": "安徽移动","type": 0,"url": "https://iptv.xisohi.dpdns.org/Unicast/anhui/mobile.txt","playerType": 1,"ua": "okHttp/Mod-1.1.0","epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}","logo": "https://chinaiptv.pages.dev/logo/{name}.png"},
 		{"name": "安徽电信[组播]","type": 0,"url": "https://iptv.xisohi.dpdns.org/Multicast/anhui/telecom.txt","playerType": 1,"ua": "okHttp/Mod-1.1.0","epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}","logo": "https://chinaiptv.pages.dev/logo/{name}.png"},
 		{"name": "安徽联通","type": 0,"url": "https://iptv.xisohi.dpdns.org/Unicast/anhui/unicom.txt","playerType": 1,"ua": "okHttp/Mod-1.1.0","epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}","logo": "https://chinaiptv.pages.dev/logo/{name}.png"},
