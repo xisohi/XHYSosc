@@ -7,20 +7,21 @@
 ## 版本说明
 
 
-|       名称       | 类型                                |                                                                   说明                                                                   |
-|:--------------:|-----------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------:|
-|       电视       | leanback                          |                                                                                                                                        |
-|       手机       | mobile                            |                                                                                                                                        |
-|       爬蟲       | java<br/>python                   |                                         java = jar + js 爬蟲     <br/>python = jar + js + py 爬蟲                                          |
-|      处理器       | armeabi_v7a<br/>arm64_v8a<br/>X86 |                                          第七代及以上的 ARM 处理器<br/>第8代、64位ARM处理器，目前手机大多数是此架构<br/>平板                                          |
-|       专版       | hisense<br/>generic               |                                                            海信电视专用<br/>通用版本                                                             |
-|     XHYSTV     |                                   |                                                              Android 4.X                                                               |
-|      XHYS      |                                   |                                                              Android 5.X                                                               |
-|    ghys_v7a    |                                   |                                                              Android 5.X                                                               |
-| XHTV-arm64_v8a |                                   |                                                              Android 6.X                                                               |
-|      lkys      |                                   |                                                              Android 7.X                                                               |
-|     fongmi     |                                   |                                                              Android 7.X                                                               |
-|      配置文件      | .json                             | searchable:搜索开关	（0:关闭 1:启用）    <br/>quickSearch:快速搜索（0:禁用 1:启用） <br/>filterable:首页可选（0:否 1:是） <br/>playerType:播放器类型（ 0:系统 1:IJK 2:EXO） |
+|       名称       | 类型                                |                                                                                                             说明                                                                                                              |
+|:--------------:|-----------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|       电视       | leanback                          |                                                                                                                                                                                                                             |
+|       手机       | mobile                            |                                                                                                                                                                                                                             |
+|       爬蟲       | java<br/>python                   |                                                                                    java = jar + js 爬蟲     <br/>python = jar + js + py 爬蟲                                                                                    |
+|      处理器       | armeabi_v7a<br/>arm64_v8a<br/>X86 |                                                                                    第七代及以上的 ARM 处理器<br/>第8代、64位ARM处理器，目前手机大多数是此架构<br/>平板                                                                                     |
+|       专版       | hisense<br/>generic               |                                                                                                       海信电视专用<br/>通用版本                                                                                                       |
+|     XHYSTV     |                                   |                                                                                                         Android 4.X                                                                                                         |
+|      XHYS      |                                   |                                                                                                         Android 5.X                                                                                                         |
+|    ghys_v7a    |                                   |                                                                                                         Android 5.X                                                                                                         |
+| XHTV-arm64_v8a |                                   |                                                                                                         Android 6.X                                                                                                         |
+|      lkys      |                                   |                                                                                                         Android 7.X                                                                                                         |
+|     fongmi     |                                   |                                                                                                         Android 7.X                                                                                                         |
+|      配置文件      | .json                             |                                           searchable:搜索开关	（0:关闭 1:启用）    <br/>quickSearch:快速搜索（0:禁用 1:启用） <br/>filterable:首页可选（0:否 1:是） <br/>playerType:播放器类型（ 0:系统 1:IJK 2:EXO）                                            |
+|    live配置文件    |                             |  name:线路名称    <br/>type:【0:普通 M3U/TXT 3:使用爬虫（支持 .py/.js）】 <br/>url:直播源地址（M3U/TXT 链接） <br/>epg:EPG 节目单地址  <br/>playerType:播放器类型（ 0:系统 1:IJK 2:EXO） <br/>timeout:超时时间（秒，5-30） <br/>ua:请求头 <br/> header:请求头  |
 
 
 ## Credits
