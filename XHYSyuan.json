@@ -20,10 +20,12 @@
 		{"key":"低端","name":"📺低端","type":3,"api":"csp_XYQHiker","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/低端影视.json"},
 		{"key":"Youtube","name":"⚡Youtube","type":3,"api":"csp_Youtube","searchable":1,"changeable":1,"style":{"type":"rect","ratio":1.433},"ext":{"commonConfig":"./json/peizhi.json","json":"./json/youtube.json"}},
 		//{"key":"csp_Gz360","name":"🍉瓜子[优]","type":3,"api":"csp_Gz360","searchable":1,"quickSearch":1,"filterable":1,"jar":"./jar/Gz360.jar"},
+		{"key": "捡的音乐","name": "🐬爱听音乐","type": 3,"api": "csp_Music1","searchable": 1,"quickSearch": 1,"ext": "./json/Music1.json","jar": "./jar/so.jar","filterable": 1},
 		{"key": "nmvm","name": "🐬农民影视.py","type": 3,"api": "./py/农民影视.py","searchable":1,"quickSearch":1,"filterable":1,"jar":"./jar/spider.jar"},
 		{"key": "GZ","name": "🐬瓜子APP.py","type": 3,"api": "./py/瓜子APP.py","searchable":1,"quickSearch":1,"filterable":1,"jar":"./jar/spider.jar"},
-
+		{"key": "JP","name": "🐬金牌APP.py","type": 3,"api": "./py/金牌APP.py","searchable":1,"quickSearch":1,"filterable":1,"jar":"./jar/spider.jar"},
 		{"key": "txvm","name": "🐬腾讯视频.py","type": 3,"api": "./py/腾讯视频.py","searchable":1,"quickSearch":1,"filterable":1,"jar":"./jar/spider.jar"},
+		{"key": "rb","name": "🐬热播APP.py","type": 3,"api": "./py/热播APP.py","searchable":1,"quickSearch":1,"filterable":1,"jar":"./jar/spider.jar"},
 		{"key": "hipy_金牌影视[优]","name": "金牌影视[优]","type": 3,"api": "./js/lib/drpy2.min.js","ext":"./js/金牌影视.js","searchable": 1,"quickSearch": 0,"filterable": 1},
 		{"key": "hipy_优酷[官]","name": "优酷[官]","type": 3,"api": "./js/lib/drpy2.min.js","ext":"./js/优酷[官].js","searchable": 1,"quickSearch": 1,"filterable": 1},
 		{"key": "hipy_奇珍异兽[官]","name": "爱奇艺[官]","type": 3,"api": "./js/lib/drpy2.min.js","ext":"./js/奇珍异兽[官].js","searchable": 1,"quickSearch": 1,"filterable": 1},

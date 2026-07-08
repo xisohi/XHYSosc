@@ -11,7 +11,7 @@
 | 王二小 |               |            http://tvbox.王小二放牛娃.top            | 公众号【王二小放牛娃】 |
 | 小米  |               |                                               |  |
 | 肥猫  |               |                                               |               公众号【我不是肥猫】    |
-| 菜妮丝 |               |                                               |                  |
+| 海豚 |  spider.jar   |                                               |         https://github.com/FGBLH/HKL         |
 | 欧克  |    ok.jar     | https://ok321.top/ok<br/>https://ok321.top/tv |                                       |
 
 
