@@ -3,6 +3,7 @@
 	"wallpaper": "http://lcjly.cn/tupian",
 	"sites": [
 		{"key":"农民","name":"👩‍🌾农民影视","type":3,"api":"csp_XYQHiker","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/农民影视.json"},
+		{"key": "nmvm","name": "🐬农民影视.py","type": 3,"api": "https://ghfast.top/https://raw.githubusercontent.com/FGBLH/HKL/refs/heads/main/py/农民影视.py"},
 		{"key":"csp_GuaZi","name":"🍉瓜子","type":3,"api":"csp_GuaZi","searchable":1,"changeable":0,"ext":{"commonConfig":"./json/peizhi.json"}},
 		{"key":"天天","name":"⛅天天","type":3,"api":"csp_TTian","searchable":1,"quickSearch":1,"filterable":1,"ext":"7lj763gg0939791h1l3888jig44gi291li"},
 		{"key":"金牌","name":"🥇金牌","type":3,"api":"csp_Jpys","searchable":1,"quickSearch":1,"filterable":1,"ext":"7lj763gg402i7942463j9j9jh8579590k3hjii5gi4i73l2k5l"},
