@@ -2,7 +2,7 @@ name: 星辉影视TV
 # 代码来自https://github.com/o0HalfLife0o/TVBoxOSC
 on:
   schedule:
-    - cron: 0 11 * * *
+    - cron: 0 8 * * *
   workflow_dispatch:
     inputs:
       rebuild:

@@ -1,5 +1,5 @@
 name: XHYSTV
-# 代码来自https://github.com/o0HalfLife0o/TVBoxOSC
+# 代码来自https://github.com/j4Uq/TVBoxOSC
 on:
   schedule:
     - cron: 0 11 * * *

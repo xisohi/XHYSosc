@@ -2,7 +2,7 @@ name: 星辉直播
 
 on:
   schedule:
-    - cron: 0 7 * * *
+    - cron: 0 5 * * *
   workflow_dispatch:
     inputs:
       rebuild:

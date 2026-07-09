@@ -2,7 +2,7 @@ name: 光辉影视
 # 代码来自https://github.com/xinyi1984/TVBox-TV
 on:
   schedule:
-    - cron: 0 3 * * *
+    - cron: 0 2 * * *
   workflow_dispatch:
     inputs:
       rebuild:
