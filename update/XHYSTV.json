@@ -1,5 +1,5 @@
 {
-  "code": "260710",
-  "name": "260710",
-  "desc": "1: 优化m3u文本解析\n2: 分类顶部下拉刷新\n3: 优化js加载\n4: 优化python加载\n"
+  "code": "260713",
+  "name": "260713",
+  "desc": "1: Update HomeActivity.java\n2: Update Github.java\n"
 }
