@@ -60,7 +60,7 @@ def load_categories_from_template():
     categories = {}
     current_category = None
 
-    template_path = tv/moban.txt"
+    template_path = "tv/moban.txt"
     if not os.path.exists(template_path):
         print(f"错误：未找到模板文件 {template_path}")
         return categories
@@ -87,7 +87,7 @@ def load_categories_from_template():
 def load_channel_mapping():
     """加载频道名称映射表，并对key进行标准化"""
     mapping = {}
-    mapping_path = tv/channel_mapping.txt"
+    mapping_path = "tv/channel_mapping.txt"
     if not os.path.exists(mapping_path):
         return mapping
 
