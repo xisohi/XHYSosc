@@ -2,7 +2,7 @@ name: Live streaming source
 
 on:
   schedule:
-    - cron: "0 3 * * *"  
+    - cron: "0 3 * * *"
   workflow_dispatch:
 
 jobs:
@@ -20,11 +20,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r ./tv/requirements.txt
+          pip install requests
 
       - name: Run Python script
         run: |
-          python ./tv/sort_channels.py
+          python tv/sort_channels.py
 
       - name: Commit and push sorted file
         run: |
@@ -43,5 +43,5 @@ jobs:
         with:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
-          retain_days: 0
+          retain_days: 1
           keep_minimum_runs: 1

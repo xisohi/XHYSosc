@@ -14,6 +14,11 @@
 		{"key": "JP","name": "🐬金牌APP.py","type": 3,"api": "./py/金牌APP.py","searchable":1,"quickSearch":1,"filterable":1,"jar":"./jar/spider.jar"},
 		{"key": "txvm","name": "🐬腾讯视频.py","type": 3,"api": "./py/腾讯视频.py","searchable":1,"quickSearch":1,"filterable":1,"jar":"./jar/spider.jar"},
 		{"key": "rb","name": "🐬热播APP.py","type": 3,"api": "./py/热播APP.py","searchable":1,"quickSearch":1,"filterable":1,"jar":"./jar/spider.jar"},
+		{"key": "yl","name": "🐬永乐视频.py[追剧]","type": 3,"api": "./py/永乐视频.py","searchable":1,"quickSearch":1,"filterable":1,"jar":"./jar/spider.jar"},
+		{"key": "mtyy","name": "🐬麦田影院.py[追剧]","type": 3,"api": "./py/麦田影院.py","searchable":1,"quickSearch":1,"filterable":1,"jar":"./jar/spider.jar"},
+		{"key": "xhvm","name": "🐬骚火影视.py[追剧]","type": 3,"api": "./py/骚火影视.py","searchable":1,"quickSearch":1,"filterable":1,"jar":"./jar/spider.jar"},
+		{"key": "ayf","name": "🐬爱壹帆影视.py[追剧]","type": 3,"api": "./py/爱壹帆.py","searchable":1,"quickSearch":1,"filterable":1,"jar":"./jar/spider.jar"},
+
 		{"key": "WexYueYue","name": "💥闪电💥","type": 3,"api": "csp_WexYueYueGuard", "searchable": 1,"changeable": 1,"jar":"./jar/wangerxiao.txt"},
 		{"key": "WexYiYs", "name": "💥伊影💥", "type": 3, "api": "csp_WexYiYsGuard", "searchable": 1, "changeable": 1,"jar":"./jar/wangerxiao.txt"},
 		{"key": "WexReBo", "name": "💥热播💥", "type": 3, "api": "csp_WexReBoGuard", "searchable": 1, "changeable": 1,"jar":"./jar/wangerxiao.txt"},

@@ -1,0 +1,16 @@
+# 直播源地址列表
+# 每行一个URL，以#开头的行是注释
+
+# 范明明IPv6源
+https://live.fanmingming.com/tv/m3u/ipv6.m3u
+
+# 其他备用源（取消注释即可启用）
+#https://live.ottiptv.cc/iptv.m3u?userid=423579792&sign=1b9178f4a3fd4e0dc2a385881904a9c386395595d36b90d423e45f229d17e15f6ecd846bcccc97d223b5f580369a9b4cc49617734e42ee735e107e554d04bd2eec14386a398b&auth_token=acb0c268be4342419aa3ba49796b45e0
+
+#4GTV
+http://4gtv.cnlive.club/4gtv.m3u
+
+#APTV
+https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u
+
+# 更多源可以继续添加...
