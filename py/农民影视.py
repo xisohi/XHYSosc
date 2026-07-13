@@ -95,10 +95,10 @@ class Spider(Spider):
             else:
                 cateId = tid
                 url = f"{self.host}/vod-list-id-{cateId}-pg-{pg}.html"
-
+                
             data = self.fetch(url, headers=self.headers).text
             doc = pq(data)
-
+            
             videos = []
             for item in doc('.globalPicList li').items():
                 pic_url = item('img').attr('data-echo') or item('img').attr('data-src') or item('img').attr('src')
@@ -111,7 +111,7 @@ class Spider(Spider):
                     'vod_pic': pic_url,
                     'vod_remarks': item('.sBottom').text()
                 })
-
+            
             result['list'] = videos
             result['page'] = pg
             result['pagecount'] = 9999
@@ -132,16 +132,16 @@ class Spider(Spider):
             url = ids[0]
             data = self.fetch(url, headers=self.headers).text
             doc = pq(data)
-
+            
             # 获取播放线路和剧集
             play_from = []
             play_url = []
-
+            
             tab_box = doc('#leftTabBox')
             if tab_box:
                 for tab in tab_box('ul li').items():
                     play_from.append(tab.text())
-
+                
                 play_lists = []
                 for num_list in tab_box('.numList').items():
                     episodes = []
@@ -149,9 +149,9 @@ class Spider(Spider):
                     for ep in list(num_list('li').items())[::-1]:  # 反转列表顺序
                         episodes.append(f"{ep('a').text()}${self.host}{ep('a').attr('href')}")
                     play_lists.append('#'.join(episodes))
-
+                
                 play_url = play_lists
-
+            
             # 获取详情信息
             vod = {
                 'vod_name': doc('h1 a').text(),
@@ -180,7 +180,7 @@ class Spider(Spider):
             }
             html = self.post(url, data=data, headers=headers).text
             doc = pq(html)
-
+            
             videos = []
             for item in doc('#data_list li').items():
                 pic_url = item('.lazyload').attr('data-src')
@@ -193,7 +193,7 @@ class Spider(Spider):
                     'vod_pic': pic_url,
                     'vod_remarks': item('.sDes').eq(-1).text()
                 })
-
+            
             result['list'] = videos
             result['page'] = pg
         except Exception as e:
@@ -209,14 +209,14 @@ class Spider(Spider):
                 ids = id.split('@')
                 if not ids[0]:
                     raise Exception('未找到播放地址')
-
+                
                 js_url = f"{self.host}/player/{ids[0]}.js"
                 js_data = self.fetch(js_url, headers=self.headers).text
                 jxurl = re.search(r'http.*?url=', js_data).group()
-
+                
                 data = self.fetch(f"{jxurl}{ids[1]}", headers=self.headers).text
                 matches = re.findall(r'http.*?url=', data)
-
+                
                 if matches:
                     url = []
                     for i, x in enumerate(matches):
@@ -225,14 +225,14 @@ class Spider(Spider):
                         url.extend([f'线路{i + 1}', purl])
                 else:
                     url = re.search(r"url='(.*?)'", data).group(1)
-
+                
                 if not url:
                     raise Exception('未找到播放地址')
-
+                
                 p = 0
             else:
                 p, url = 1, id
-
+            
             result['parse'] = p
             result['url'] = url
             result['header'] = self.headers
