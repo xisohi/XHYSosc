@@ -1,5 +1,5 @@
 {
-  "code": "260713",
-  "name": "260713",
-  "desc": "1: Update HomeActivity.java\n2: Update Github.java\n"
+  "code": "260715",
+  "name": "260715",
+  "desc": "1: # Conflicts:\n2: #	app/src/main/java/com/github/tvbox/osc/ui/fragment/ModelSettingFragment.java\n3: 弹幕修正\n4: 详情超时调整\n5: 小修\n6: 修正详情焦点乱闪\n7: 播放屏显常驻\n8: 支持分辨率切换\n9: 短视频竖屏播放时可上下滑动切换上一集下一集\n10: 播放流程优化\n11: 解决部分设备推送无反应\n12: 后台预热逻辑优化\n13: 优化投屏header的传递方式\n14: 优化切换配置时的清缓存逻辑\n15: 升级quikjs到新架构\n16: 投屏原始地址\n17: 播放菜单微调\n18: push_agent兜底\n19: 修正部分投屏设备不能拉起播放器的bug\n20: 优化局域网dlna搜索逻辑\n21: 优化局域网tvbox搜索逻辑\n22: 样式\n23: 增加投屏功能\n"
 }
