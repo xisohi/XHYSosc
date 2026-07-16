@@ -150,7 +150,7 @@ jobs:
           # 直接复制所有APK，保留原名
           find ~ -name "XHYSTV-*.apk" -exec cp {} apk/ \;
 
-      - name: Release Note
+      - name: 📊 生成构建摘要
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
@@ -163,7 +163,7 @@ jobs:
             git log --pretty=format:%B ${{ env.commitS }}...${lastCommit:0:7} |sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' |cat -n |sort -k2,2 -k1,1n |uniq -f1 |sort -k1,1n |cut -f2- >> apk/${{ matrix.userName }}-Release.log
           fi
 
-      - name: Build Upgrade log
+      - name: 📊 生成更新摘要
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
