@@ -1,0 +1,212 @@
+name: 🏗️ 自动编译 JAR 虫包并部署
+
+on:
+  schedule:
+    - cron: '0 8 * * *'  # 每天 UTC 8:00 自动运行
+  workflow_dispatch:      # 支持手动触发
+    inputs:
+      rebuild:
+        description: '忽略构建记录以重新构建'
+        required: false
+        type: boolean
+      donotpublish:
+        description: '构建后不提交发布新版'
+        required: false
+        type: boolean
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - userName: xisohi
+            repoName: VodSpider
+            branchName: main
+            javaVer: 8  # 使用 Java 8 编译
+
+    steps:
+      # 1. 检出当前仓库 (XHYSosc) 用于后续提交
+      - name: 📥 检出 XHYSosc 仓库
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          path: XHYSosc_repo
+
+      # 2. 设置 JDK
+      - name: ☕ 设置 JDK ${{ matrix.javaVer }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ matrix.javaVer }}
+          distribution: 'adopt'
+
+      # 3. 检查源仓库是否有新提交
+      - name: 🔍 检查 VodSpider 仓库的新提交
+        id: check_commit
+        run: |
+          repoUrl="https://github.com/${{ matrix.userName }}/${{ matrix.repoName }}"
+          echo "repoUrl=$repoUrl" >> $GITHUB_ENV
+          
+          # 获取最新 commit SHA
+          commit=$(curl -sL "https://api.github.com/repos/${{ matrix.userName }}/${{ matrix.repoName }}/commits/${{ matrix.branchName }}" | jq -r '.sha')
+          if [ $? -ne 0 ] || [ -z "$commit" ] || [ "$commit" == "null" ]; then
+            echo "❌ 获取最新 commit 失败"
+            exit 1
+          fi
+          echo "latest_commit=$commit" >> $GITHUB_ENV
+          echo "commit_short=${commit:0:7}" >> $GITHUB_ENV
+          
+          # 检查是否已构建过此 commit（通过检查本地记录）
+          commitFile="XHYSosc_repo/.last_build_commit"
+          if [ -f "$commitFile" ] && [ "$(cat $commitFile)" == "$commit" ]; then
+            echo "✅ 已构建过此 commit: $commit，跳过构建"
+            echo "skip_build=true" >> $GITHUB_OUTPUT
+          else
+            echo "🆕 发现新 commit: $commit，开始构建"
+            echo "skip_build=false" >> $GITHUB_OUTPUT
+          fi
+
+      # 4. 检出 VodSpider 源码 (仅当有新 commit 或强制重建)
+      - name: 📥 检出 VodSpider 源码
+        if: steps.check_commit.outputs.skip_build == 'false' || github.event.inputs.rebuild == 'true'
+        run: |
+          git clone ${{ env.repoUrl }} VodSpider_src
+          cd VodSpider_src
+          git checkout ${{ env.latest_commit }}
+          # 获取构建标签
+          tag=$(git log --date=format:'%y%m%d' --pretty=format:%cd -1)
+          echo "build_tag=$tag" >> $GITHUB_ENV
+          echo "📌 构建标签: $tag"
+
+      # 5. 赋予 gradlew 执行权限
+      - name: 🔧 赋予 gradlew 执行权限
+        if: steps.check_commit.outputs.skip_build == 'false' || github.event.inputs.rebuild == 'true'
+        run: |
+          chmod +x ./VodSpider_src/gradlew
+
+      # 6. 编译项目并生成 JAR (修复: 使用 Gradle 任务代替 .bat 脚本)
+      - name: 🏗️ 编译项目并生成 JAR
+        id: build_jar
+        if: steps.check_commit.outputs.skip_build == 'false' || github.event.inputs.rebuild == 'true'
+        run: |
+          cd VodSpider_src
+          
+          # 使用 Gradle 编译
+          ./gradlew assembleRelease --no-daemon
+          
+          # 尝试通过 Gradle 任务生成 JAR (如果有 jar 模块)
+          if ./gradlew tasks --all 2>/dev/null | grep -q ":jar:assemble"; then
+            echo "📦 发现 jar 模块，执行 :jar:assemble"
+            ./gradlew :jar:assemble --no-daemon
+          fi
+          
+          # 如果 custom_spider.jar 不在 jar 目录，尝试从标准输出目录查找
+          if [ ! -f "jar/custom_spider.jar" ]; then
+            echo "⚠️ 未在 jar/ 目录找到 custom_spider.jar，尝试从 build 目录查找..."
+            # 查找可能生成的 JAR 文件
+            found_jar=$(find . -name "custom_spider.jar" -path "*/build/*" | head -n 1)
+            if [ -n "$found_jar" ]; then
+              mkdir -p jar
+              cp "$found_jar" jar/custom_spider.jar
+              echo "✅ 已从 $found_jar 复制到 jar/custom_spider.jar"
+            fi
+          fi
+          
+          # 最终检查
+          if [ ! -f "jar/custom_spider.jar" ]; then
+            echo "❌ 未找到 custom_spider.jar，构建失败"
+            exit 1
+          fi
+
+      # 7. 检查生成的 JAR 文件
+      - name: 📦 检查生成的 JAR 文件
+        id: check_jar
+        if: steps.check_commit.outputs.skip_build == 'false' || github.event.inputs.rebuild == 'true'
+        run: |
+          JAR_PATH="./VodSpider_src/jar/custom_spider.jar"
+          MD5_PATH="./VodSpider_src/jar/custom_spider.jar.md5"
+          
+          if [ -f "$JAR_PATH" ]; then
+            echo "✅ 找到 custom_spider.jar"
+            ls -lh "$JAR_PATH"
+            echo "jar_exists=true" >> $GITHUB_OUTPUT
+          
+            # 如果 MD5 不存在，自动生成
+            if [ ! -f "$MD5_PATH" ]; then
+              echo "⚠️ 未找到 MD5 文件，自动生成"
+              md5sum "$JAR_PATH" | awk '{print $1}' > "$MD5_PATH"
+            fi
+          else
+            echo "❌ 未找到 custom_spider.jar"
+            echo "jar_exists=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+      # 8. 复制文件到 XHYSosc 仓库的 jar 目录
+      - name: 📋 复制文件到 XHYSosc 仓库
+        if: steps.check_jar.outputs.jar_exists == 'true' && (steps.check_commit.outputs.skip_build == 'false' || github.event.inputs.rebuild == 'true')
+        run: |
+          # 确保目标 jar 目录存在
+          mkdir -p XHYSosc_repo/jar
+          
+          # 复制 JAR 和 MD5 文件
+          cp ./VodSpider_src/jar/custom_spider.jar ./XHYSosc_repo/jar/
+          cp ./VodSpider_src/jar/custom_spider.jar.md5 ./XHYSosc_repo/jar/
+          
+          # 保存构建记录
+          echo "${{ env.latest_commit }}" > ./XHYSosc_repo/.last_build_commit
+          echo "${{ env.build_tag }}" > ./XHYSosc_repo/.last_build_tag
+          
+          echo "📦 文件已复制到 jar 目录"
+
+      # 9. 提交并推送到 XHYSosc 仓库 (修复: 支持 donotpublish 参数)
+      - name: 📝 提交并推送更新到 XHYSosc
+        if: |
+          steps.check_jar.outputs.jar_exists == 'true' &&
+          (steps.check_commit.outputs.skip_build == 'false' || github.event.inputs.rebuild == 'true') &&
+          github.event.inputs.donotpublish != 'true'
+        run: |
+          cd XHYSosc_repo
+          
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # 检查是否有变更
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "📭 没有新的变更需要提交"
+          else
+            git add jar/custom_spider.jar jar/custom_spider.jar.md5 .last_build_commit .last_build_tag
+          
+            commit_msg="🤖 自动更新 JAR 包 [skip ci]
+          
+            - 构建来源: ${{ matrix.userName }}/${{ matrix.repoName }}
+            - 提交: ${{ env.commit_short }}
+            - 构建标签: ${{ env.build_tag }}
+            - 触发时间: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          
+            git commit -m "$commit_msg"
+            git push origin main
+            echo "✅ 已成功推送到 XHYSosc 仓库"
+          fi
+
+      # 10. 生成构建摘要
+      - name: 📊 生成构建摘要
+        if: always()
+        run: |
+          echo "## 🎯 构建与部署报告" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| 项目 | 详情 |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|------|" >> $GITHUB_STEP_SUMMARY
+          echo "| 源仓库 | ${{ matrix.userName }}/${{ matrix.repoName }}" >> $GITHUB_STEP_SUMMARY
+          echo "| 分支 | ${{ matrix.branchName }}" >> $GITHUB_STEP_SUMMARY
+          echo "| Commit | ${{ env.commit_short }}" >> $GITHUB_STEP_SUMMARY
+          echo "| 构建标签 | ${{ env.build_tag }}" >> $GITHUB_STEP_SUMMARY
+          echo "| Java 版本 | ${{ matrix.javaVer }}" >> $GITHUB_STEP_SUMMARY
+          echo "| JAR 文件 | [custom_spider.jar](https://github.com/${{ github.repository }}/blob/main/jar/custom_spider.jar)" >> $GITHUB_STEP_SUMMARY
+          echo "| MD5 文件 | [custom_spider.jar.md5](https://github.com/${{ github.repository }}/blob/main/jar/custom_spider.jar.md5)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📝 说明" >> $GITHUB_STEP_SUMMARY
+          echo "- 该 JAR 包由 GitHub Actions 自动编译生成" >> $GITHUB_STEP_SUMMARY
+          echo "- 支持 Android 4.4+ 设备" >> $GITHUB_STEP_SUMMARY
+          echo "- 包含完整的加密逻辑和 Token 管理" >> $GITHUB_STEP_SUMMARY
