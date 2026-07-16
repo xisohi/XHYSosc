@@ -1,4 +1,4 @@
-name: 星辉影视TV
+name: 🏗️ 星辉影视TV
 # 代码来自https://github.com/o0HalfLife0o/TVBoxOSC
 on:
   schedule:
@@ -35,13 +35,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up JDK ${{ matrix.java_ver }}
+      - name: ☕ 设置 JDK ${{ matrix.java_ver }}
         uses: actions/setup-java@v4
         with:
           java-version: ${{ matrix.java_ver }}  # 使用定义的 Java 版本
           distribution: 'adopt'  # 或 'zulu'，根据需要选择
 
-      - name: Check New Commit
+      - name: 🔍 检查新提交
         run: |
           upStream="https://github.com/${{  matrix.userName }}/${{ matrix.repoName }}"
           echo "upStream=$upStream" >> $GITHUB_ENV
@@ -55,7 +55,7 @@ jobs:
             echo "commitS=${commit:0:7}" >> $GITHUB_ENV
           fi
 
-      - name: Checkout Source Code
+      - name: 📥 检出 Source 源码
         if: ${{ env.commit }}
         run: |
           git clone ${{ env.upStream }} XHYSosc
@@ -134,7 +134,7 @@ jobs:
         if: ${{ env.commit }}
         uses: gradle/gradle-build-action@v2
 
-      - name: Build With Gradle
+      - name: 🏗️ 编译项目
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
