@@ -18,7 +18,12 @@
 		{"key": "mtyy","name": "🐬麦田影院.py[追剧]","type": 3,"api": "./py/麦田影院.py","searchable":1,"quickSearch":1,"filterable":1,"jar":"./jar/spider.jar"},
 		{"key": "xhvm","name": "🐬骚火影视.py[追剧]","type": 3,"api": "./py/骚火影视.py","searchable":1,"quickSearch":1,"filterable":1,"jar":"./jar/spider.jar"},
 		{"key": "ayf","name": "🐬爱壹帆影视.py[追剧]","type": 3,"api": "./py/爱壹帆.py","searchable":1,"quickSearch":1,"filterable":1,"jar":"./jar/spider.jar"},
-
+		{"key": "456dy","name": "🐬456电影网.py","type": 3,"api": "./py/456电影网.py"},
+		{"key": "ddvm","name": "🐬低端影视.py","type": 3,"api": "./py/低端影视.py"},
+		{"key": "8tdy","name": "🐬八天电影.py","type": 3,"api": "./py/八天电影.py"},
+		{"key": "wstv","name": "🐬威视TV.py","type": 3,"api": "./py/威视TV.py"},
+		{"key": "ysxq","name": "🐬映像星球.py(关梯)","type": 3,"api": "./py/映像星球.py"},
+		{"key": "cbh","name": "🐬茶杯狐.py(关梯)","type": 3,"api": "./py/茶杯狐.py"},
 		{"key": "WexYueYue","name": "💥闪电💥","type": 3,"api": "csp_WexYueYueGuard", "searchable": 1,"changeable": 1,"jar":"./jar/wangerxiao.txt"},
 		{"key": "WexYiYs", "name": "💥伊影💥", "type": 3, "api": "csp_WexYiYsGuard", "searchable": 1, "changeable": 1,"jar":"./jar/wangerxiao.txt"},
 		{"key": "WexReBo", "name": "💥热播💥", "type": 3, "api": "csp_WexReBoGuard", "searchable": 1, "changeable": 1,"jar":"./jar/wangerxiao.txt"},
