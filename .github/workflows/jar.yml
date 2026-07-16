@@ -24,7 +24,7 @@ jobs:
           - userName: xisohi
             repoName: VodSpider
             branchName: main
-            javaVer: 8  # 使用 Java 8 编译
+            javaVer: 17  # 使用 Java 17 编译
 
     steps:
       # 1. 检出当前仓库 (XHYSosc) 用于后续提交
