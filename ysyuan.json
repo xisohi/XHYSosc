@@ -1,5 +1,5 @@
 {
-	"spider": "./jar/custom_spider.jar;md5;ba944a94d0ff995f7c67aa46e3983e87",
+	"spider": "./jar/custom_spider.jar;md5;e58f62011b2418215a2604f6491098e0",
 	"wallpaper": "http://lcjly.cn/tupian",
 	"sites": [
 		{"key": "Douban","name": "豆瓣 | 仅推荐","type": 3,"api": "csp_Douban","searchable": 0,"filterable": 1},
