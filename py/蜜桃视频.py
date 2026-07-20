@@ -114,17 +114,32 @@ class Spider(BaseSpider):
         except Exception:
             pass
 
-    def _test_site_speed(self, site, results):
+    def _resolve_host(self, portal):
+        """
+        解析入口域名，返回当前真实 API 站点。
+        站点采用「随机重定向页」(Random Redirect Page) 做防封:
+        入口域名返回一段含 targetSites 数组的 HTML/JS (常见 HTTP 状态码 888),
+        真实站点会随时间轮换。此处解析 targetSites 取出当前真实站点。
+        若入口本身即为真实站点 (返回 SPA 页且无 targetSites)，则直接返回。
+        """
         try:
-            start = time.time()
-            r = requests.get(site['host'], headers=self.headers, timeout=TIMEOUT, verify=False)
-            elapsed = time.time() - start
+            r = requests.get(portal, headers=self.headers, timeout=TIMEOUT,
+                             verify=False, allow_redirects=True)
+            text = r.text or ''
+            # 随机重定向页 → 解析 targetSites 数组
+            if 'targetSites' in text:
+                m = re.search(r'targetSites\s*=\s*\[(.*?)\]', text, re.S)
+                if m:
+                    urls = re.findall(r'https?://[^\s"\',\]]+', m.group(1))
+                    if urls:
+                        return urls[0].rstrip('/')
+                return ''
+            # 非重定向页且可访问 → 入口本身即真实站点
             if r.status_code == 200:
-                with self._lock:
-                    results[site['name']] = elapsed
+                return portal.rstrip('/')
         except Exception:
-            with self._lock:
-                results[site['name']] = 999
+            pass
+        return ''
 
     def _select_best_site(self):
         if self._speed_test_done:
@@ -135,22 +150,20 @@ class Spider(BaseSpider):
             self._speed_test_done = True
             return
 
-        results = {}
-        threads = []
+        # 依次解析各入口域名，取第一个解析出的真实站点
+        # 注意: 真实站点在高负载时根 GET 可能返回 429/502，
+        # 故只要能从 targetSites 解析出站点即信任，不再额外探测可用性，避免误判回退到已失效入口
+        resolved = ''
         for s in SITES:
-            t = threading.Thread(target=self._test_site_speed, args=(s, results))
-            t.daemon = True
-            t.start()
-            threads.append(t)
-        for t in threads:
-            t.join(1.5)
+            h = self._resolve_host(s['host'])
+            if h:
+                resolved = h
+                break
 
-        valid_sites = [s for s in SITES if results.get(s['name'], 999) < TIMEOUT]
-        best = min(valid_sites, key=lambda x: results[x['name']])['host'] if valid_sites else SITES[0]['host']
-
-        self.host = best
+        self.host = resolved or SITES[0]['host']
         self._speed_test_done = True
-        self._save_cached_site(best)
+        if resolved:
+            self._save_cached_site(resolved)
 
     # ============================================================
     # 会话缓存（持久化到文件，避免重复 init 触发 429 限流）
@@ -449,7 +462,8 @@ class Spider(BaseSpider):
     # ============================================================
     # T3 首页统一入口: 同时返回分类列表 + 首页视频数据
     # ============================================================
-    _CATEGORY_BLACKLIST = {'成人游戏', '漫画', '小说', '蜜穴女友', '一键脱衣', '春药商城', '同城交友', '吃瓜', '成人漫画'}
+    # 女优/专题/ 由下方特殊分类 (actor/topic) 单独处理，此处过滤掉 typeTitleList 中的同名项，避免重复且第一份无数据
+    _CATEGORY_BLACKLIST = {'成人游戏', '漫画', '小说', '蜜穴女友', '一键脱衣', '春药商城', '同城交友', '吃瓜', '成人漫画', '女优', '专题'}
 
     def homeContent(self, filter):
         self._select_best_site()
@@ -871,9 +885,11 @@ class Spider(BaseSpider):
     # 解析视频条目
     # ============================================================
     def _parse_video(self, item):
-        # 过滤广告 (contentType=3, 带 jumpScheme 跳转链接)
-        if item.get('contentType') != 1:
+        # 仅过滤真正的广告: contentType=3 且带 jumpScheme 跳转链接
+        # 注意: 部分真实影片 contentType 也会是 3, 不能一刀切过滤, 否则女优影片被吞
+        if item.get('contentType') == 3 and item.get('jumpScheme'):
             return None
+
 
         vid = str(item.get('contentId') or item.get('id') or item.get('videoId') or '')
         title = item.get('title') or item.get('name') or item.get('videoTitle') or ''
@@ -909,19 +925,25 @@ class Spider(BaseSpider):
         if not detail:
             return {'list': []}
 
-        # 兼容多种字段名
-        title = (detail.get('title') or detail.get('name') or
-                 detail.get('videoTitle') or '未知标题')
-        pic = (detail.get('cover') or detail.get('coverUrl') or
-               detail.get('img') or detail.get('imageUrl') or '')
-        desc = detail.get('description') or detail.get('desc') or detail.get('intro') or ''
-        duration = detail.get('duration', 0)
-        actor = detail.get('actor') or detail.get('actors') or ''
+        # 真实标题/封面/简介/时长/演员 均在嵌套的 videoDetail 中, 顶层仅有播放地址
+        vd = detail.get('videoDetail') or {}
 
-        # 播放地址: videoUrl / playUrl / m3u8
-        play_url = (detail.get('videoUrl') or detail.get('playUrl') or
-                    detail.get('url') or detail.get('m3u8Url') or
-                    detail.get('sl') or '')
+        # 兼容多种字段名 (优先 videoDetail, 回退顶层)
+        title = (vd.get('title') or detail.get('title') or detail.get('name') or
+                 detail.get('videoTitle') or '未知标题')
+        pic = (vd.get('img') or vd.get('cover') or vd.get('coverUrl') or
+               detail.get('img') or detail.get('cover') or
+               detail.get('coverUrl') or detail.get('imageUrl') or '')
+        desc = (vd.get('description') or vd.get('desc') or
+                detail.get('description') or detail.get('desc') or detail.get('intro') or '')
+        duration = vd.get('duration') or detail.get('duration', 0)
+        actor = (vd.get('author') or vd.get('actor') or vd.get('actors') or
+                 detail.get('actor') or detail.get('actors') or '')
+
+        # 播放地址在顶层: playUrl(m3u8) / downUrl(mp4)
+        play_url = (detail.get('playUrl') or detail.get('videoUrl') or
+                    detail.get('downUrl') or detail.get('url') or
+                    detail.get('m3u8Url') or detail.get('sl') or '')
 
         vod_play_url = '播放$' + str(did)
         if play_url:
@@ -1017,9 +1039,9 @@ class Spider(BaseSpider):
             return {'parse': 0, 'url': '', 'jx': 0}
 
         detail = resp.get('data', {})
-        play_url = (detail.get('videoUrl') or detail.get('playUrl') or
-                    detail.get('url') or detail.get('m3u8Url') or
-                    detail.get('sl') or '')
+        play_url = (detail.get('playUrl') or detail.get('videoUrl') or
+                    detail.get('downUrl') or detail.get('url') or
+                    detail.get('m3u8Url') or detail.get('sl') or '')
 
         return {
             'parse': 0,
