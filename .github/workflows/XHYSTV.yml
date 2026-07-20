@@ -195,43 +195,10 @@ jobs:
         run: |
           rm -rf apk/
           mkdir -p apk/
-
-          echo "=== 查找所有 APK 文件 ==="
-          # 查找所有 release APK（排除 debug）
           find app/build/outputs/apk -path "*/release/*.apk" -exec cp -v {} apk/ \;
-
-          # 如果没找到，查找所有 APK
-          if [ -z "$(ls -A apk/ 2>/dev/null)" ]; then
-            echo "未找到 release APK，查找所有 APK..."
-            find app/build/outputs/apk -name "*.apk" -exec cp -v {} apk/ \;
-          fi
-
-          # 显示结果
-          echo ""
           echo "=== APK 目录内容 ==="
           ls -la apk/
-
-          # 统计数量
-          count=$(ls -1 apk/*.apk 2>/dev/null | wc -l)
-          echo ""
-          echo "共找到 $count 个 APK 文件"
-
-          if [ "$count" -eq 0 ]; then
-            echo "错误: 没有找到 APK 文件!"
-            echo "检查目录结构:"
-            find app/build/outputs/apk -type f 2>/dev/null || echo "目录不存在"
-            exit 1
-          fi
-
-      # 步骤15：整理构建产物
-      - name: Prepare App11
-        if: ${{ env.commit }}
-        working-directory: XHYSosc
-        run: |
-          rm -rf apk/  # 清理旧的apk目录
-          mkdir -p apk/  # 创建新的apk目录
-          # 查找所有编译好的APK并复制到apk目录
-          find ~ -name "XHYSTV-*.apk" -exec cp {} apk/ \;
+       
 
       # 步骤16：生成构建摘要（更新日志）
       - name: 📊 生成构建摘要
