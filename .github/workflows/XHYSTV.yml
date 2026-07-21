@@ -1,4 +1,4 @@
-name: 🏗️ 星辉影视TV
+name: 📽 星辉影视TV
 # 代码来自https://github.com/o0HalfLife0o/TVBoxOSC
 
 # 工作流触发条件配置
@@ -90,7 +90,7 @@ jobs:
           echo "tag=$(git log --date=format:'%y%m%d' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
 
       # 步骤5：修改构建配置
-      - name: Extra Modify
+      - name: ✎ Extra Modify
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
@@ -105,7 +105,7 @@ jobs:
           fi
 
       # 步骤6：压缩源代码
-      - name: Compress Source Code
+      - name: 📚️ Compress Source Code
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
@@ -113,7 +113,7 @@ jobs:
           tar -cJf sourceCode-${{ env.commitS }}.tar.xz --exclude=.git --exclude=.github *
 
       # 步骤7：设置应用版本号
-      - name: Set versionCode and versionName
+      - name: © Set versionCode and versionName
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
@@ -193,17 +193,9 @@ jobs:
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
-          rm -rf apk/  # 清理旧的apk目录
-          mkdir -p apk/  # 创建新的apk目录
+          rm -rf apk/
+          mkdir -p apk/
           find app/build/outputs/apk -path "*/release/*.apk" -exec cp -v {} apk/ \;
-          ls -la apk/
-          echo ""
-          echo "=== APK 文件完整路径 ==="
-          echo "工作空间根目录: ${{ github.workspace }}"
-          echo "APK 目录: ${{ github.workspace }}/XHYSosc/apk/"
-          ls -la ${{ github.workspace }}/XHYSosc/apk/
-          echo ""
-          echo "共 $(ls -1 apk/*.apk 2>/dev/null | wc -l) 个 APK 文件"
 
       # 步骤16：生成构建摘要（更新日志）
       - name: 📊 生成构建摘要
