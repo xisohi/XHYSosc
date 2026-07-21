@@ -35,10 +35,10 @@ jobs:
       fail-fast: false  # 即使某个任务失败也继续执行其他任务
       matrix:
         include:
-          - userName: xisohi      # GitHub用户名
-            repoName: XHYSTV      # 仓库名称
-            branchName: main      # 分支名称
-            java_ver: 17          # 使用的Java版本
+          - userName: xisohi
+            repoName: XHYSTV
+            branchName: main
+            java_ver: 17
 
     # 构建步骤
     steps:
@@ -46,14 +46,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # 获取完整的提交历史
+          fetch-depth: 0
 
       # 步骤2：配置Java开发环境
       - name: ☕ 设置 JDK ${{ matrix.java_ver }}
         uses: actions/setup-java@v4
         with:
-          java-version: ${{ matrix.java_ver }}  # 使用指定的Java版本
-          distribution: 'adopt'  # 使用AdoptOpenJDK发行版
+          java-version: ${{ matrix.java_ver }}
+          distribution: 'adopt'
 
       # 步骤3：检查源仓库是否有新提交
       - name: 🔍 检查新提交
@@ -79,7 +79,7 @@ jobs:
 
       # 步骤4：检出源代码（仅在有新提交时执行）
       - name: 📥 检出 Source 源码
-        if: ${{ env.commit }}  # 条件执行：只有存在新提交时才执行
+        if: ${{ env.commit }}
         run: |
           # 克隆源仓库到XHYSosc目录
           git clone ${{ env.upStream }} XHYSosc
@@ -92,7 +92,7 @@ jobs:
       # 步骤5：修改构建配置
       - name: Extra Modify
         if: ${{ env.commit }}
-        working-directory: XHYSosc  # 在源码目录中执行
+        working-directory: XHYSosc
         run: |
           echo 'crosswalk源，防挂'
           # 检查build.gradle中是否已有crosswalk配置
@@ -127,7 +127,7 @@ jobs:
         if: ${{ env.commit }}
         uses: actions/setup-python@v5
         with:
-          python-version: '3.8'  # 使用Python 3.8
+          python-version: '3.8'
 
       # 步骤9：安装Python依赖
       - name: Install Python dependencies
@@ -268,21 +268,21 @@ jobs:
         uses: ncipollo/release-action@v1
         if: ${{ env.commit }}
         with:
-          name: ${{ matrix.repoName }}  # Release名称
-          tag: ${{ matrix.repoName }}   # Git标签
-          bodyFile: XHYSosc/apk/${{ matrix.userName }}-Release.log  # Release说明文件
-          allowUpdates: true            # 允许更新已有Release
-          removeArtifacts: true         # 删除旧的附件
+          name: ${{ matrix.repoName }}
+          tag: ${{ matrix.repoName }}
+          bodyFile: XHYSosc/apk/${{ matrix.userName }}-Release.log
+          allowUpdates: true
+          removeArtifacts: true
           artifacts: |
-            XHYSosc/apk/*.apk           # 上传APK文件
-            XHYSosc/sourceCode-${{ env.commitS }}.*  # 上传源代码压缩包
+            XHYSosc/apk/*.apk
+            XHYSosc/sourceCode-${{ env.commitS }}.*
 
       # 步骤22：推送更新到仓库（更新README和JSON配置）
       - name: Push to master
         if: ${{ env.commit }}
         run: |
           rm -rf XHYSosc  # 清理源码目录
-          sed -i '/url =/d' ./.git/config  # 删除旧的远程URL配置
+          sed -i '/url =/d' ./.git/config
           
           # 配置Git用户信息
           git config --local user.name "github-actions[bot]"
@@ -309,7 +309,7 @@ jobs:
 
   # 清理任务：删除旧的workflow运行记录
   clean:
-    needs: build  # 依赖build任务完成
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Delete older workflow runs and artifacts
@@ -317,5 +317,5 @@ jobs:
         with:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
-          retain_days: 0          # 不保留任何历史记录
-          keep_minimum_runs: 1    # 至少保留最新的1次运行记录
+          retain_days: 0
+          keep_minimum_runs: 1
