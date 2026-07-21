@@ -197,7 +197,13 @@ jobs:
           mkdir -p apk/  # 创建新的apk目录
           find app/build/outputs/apk -path "*/release/*.apk" -exec cp -v {} apk/ \;
           ls -la apk/
-       
+          echo ""
+    echo "=== APK 文件完整路径 ==="
+    echo "工作空间根目录: ${{ github.workspace }}"
+    echo "APK 目录: ${{ github.workspace }}/XHYSosc/apk/"
+    ls -la ${{ github.workspace }}/XHYSosc/apk/
+    echo ""
+    echo "共 $(ls -1 apk/*.apk 2>/dev/null | wc -l) 个 APK 文件"
 
       # 步骤16：生成构建摘要（更新日志）
       - name: 📊 生成构建摘要
