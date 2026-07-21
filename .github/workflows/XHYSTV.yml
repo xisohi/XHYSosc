@@ -193,10 +193,9 @@ jobs:
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
-          rm -rf apk/
-          mkdir -p apk/
+          rm -rf apk/  # 清理旧的apk目录
+          mkdir -p apk/  # 创建新的apk目录
           find app/build/outputs/apk -path "*/release/*.apk" -exec cp -v {} apk/ \;
-          echo "=== APK 目录内容 ==="
           ls -la apk/
        
 
