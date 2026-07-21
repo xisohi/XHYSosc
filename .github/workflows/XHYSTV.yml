@@ -245,7 +245,7 @@ jobs:
         with:
           name: ${{ matrix.userName }}-${{ matrix.repoName }}
           path: |
-            XHYSosc/apk/*  # 上传所有APK文件和日志
+            XHYSosc/apk/*
 
       # 步骤19：判断是否发布（如果选择了不发布则清除commit变量）
       - name: Whether Or Not to Publish
