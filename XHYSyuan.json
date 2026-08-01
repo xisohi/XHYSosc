@@ -1,11 +1,12 @@
 {
-	"spider": "./jar/custom_spider.jar;md5;1c787b7a6aa92cc7d565312da157790e",
+	"spider": "./jar/custom_spider.jar;md5;d82c6d02d964df75c1e3eeabc9bdd6bc",
 	"wallpaper": "http://lcjly.cn/tupian",
 	"sites": [
-		{"key": "Guazi","name": "瓜子","type": 3,"api": "csp_Guazi","searchable": 1,"filterable": 1},
-		{"key": "JinPai","name": "金牌","type": 3,"api": "csp_JinPai","searchable": 1,"filterable": 1},
-		{"key": "TvDy","name": "电影天堂 | 影视","type": 3,"api": "csp_TvDy","searchable": 1,"filterable": 1},
-		{"key": "Xb6v","name": "新版6V | 视频","type": 3,"api": "csp_Xb6v","searchable": 1,"filterable": 1},
+		{"key": "NongMin","name": "👩‍🌾农民","type": 3,"api": "csp_NongMin","searchable": 1,"filterable": 1},
+		{"key": "Guazi","name": "🍉瓜子","type": 3,"api": "csp_Guazi","searchable": 1,"filterable": 1},
+		{"key": "JinPai","name": "🥇金牌","type": 3,"api": "csp_JinPai","searchable": 1,"filterable": 1},
+		{"key": "TvDy","name": "电影天堂","type": 3,"api": "csp_TvDy","searchable": 1,"filterable": 1},
+		{"key": "Xb6v","name": "🧲新版6V","type": 3,"api": "csp_Xb6v","searchable": 1,"filterable": 1},
 
 		{"key": "nmvm","name": "🐬农民影视┃py","type": 3,"api": "./py/农民影视.py","searchable":1,"quickSearch":1,"filterable":1},
 		{"key": "GZ","name": "🐬瓜子APP┃py","type": 3,"api": "./py/瓜子APP.py","searchable":1,"quickSearch":1,"filterable":1},
