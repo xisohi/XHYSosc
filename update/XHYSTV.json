@@ -1,5 +1,5 @@
 {
-  "code": "260720",
-  "name": "260720",
-  "desc": "1: 添加存储空间检查\n2: 显示下载速度和剩余时间\n3: 调整缓冲大小为32K\n"
+  "code": "260804",
+  "name": "260804",
+  "desc": "1: # Conflicts:\n2: #	app/src/main/res/drawable-hdpi/app_icon.png\n3: #	app/src/main/res/drawable-xhdpi/app_icon.png\n4: #	app/src/main/res/drawable-xxhdpi/app_icon.png\n5: #	app/src/main/res/drawable-xxxhdpi/app_icon.png\n6: 直播界面微调\n7: 修直播配置切换时偶发bug\n8: 直播回看逻辑优化\n9: 屏显进度时间显示优化\n10: 修正继续搜索时的计数问题\n11: 时间统一24小时制\n12: 修正打包后分类无数据\n13: 修正首页推荐布局异常\n14: 修正播放菜单偶发跳变\n15: 增加同名历史合并开关\n16: 优化切源时的集数匹配\n17: 历史记录同剧名只保留最新站点数据\n18: 修正配置解析相对路径的一处bug\n19: 分类海报不再进搜索,直接进详情兜底\n20: 详情无数据时自动切换站源\n21: 更换logo\n22: 优化配置解析兼容性\n23: fix偶发样式异常\n24: 修正后台返回播放\n25: 弹幕兜底增强\n26: 详情返回时先返回线路焦点\n"
 }
