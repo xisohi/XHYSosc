@@ -38,7 +38,6 @@ jobs:
           - userName: xisohi
             repoName: XHYSTV
             branchName: main
-            java_ver: 17
 
     # 构建步骤
     steps:
@@ -48,14 +47,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      # 步骤2：配置Java开发环境
-      - name: ☕ 设置 JDK ${{ matrix.java_ver }}
-        uses: actions/setup-java@v4
-        with:
-          java-version: ${{ matrix.java_ver }}
-          distribution: 'adopt'
-
-      # 步骤3：检查源仓库是否有新提交
+      # 步骤2：检查源仓库是否有新提交
       - name: 🔍 检查新提交
         run: |
           # 构建源仓库的URL
@@ -77,7 +69,7 @@ jobs:
             echo "commitS=${commit:0:7}" >> $GITHUB_ENV  # 取前7位作为短哈希
           fi
 
-      # 步骤4：检出源代码（仅在有新提交时执行）
+      # 步骤3：检出源代码（仅在有新提交时执行）
       - name: 📥 检出 Source 源码
         if: ${{ env.commit }}
         run: |
@@ -89,7 +81,7 @@ jobs:
           # 生成版本标签（基于提交日期，格式：年+月+日）
           echo "tag=$(git log --date=format:'%y%m%d' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
 
-      # 步骤5：修改构建配置
+      # 步骤4：修改构建配置
       - name: ✎ Extra Modify
         if: ${{ env.commit }}
         working-directory: XHYSosc
@@ -104,7 +96,7 @@ jobs:
             sed -i "/jitpack.io/a\        maven { url 'https://o0halflife0o.github.io/crosswalk/releases/crosswalk/android/maven2' }" build.gradle
           fi
 
-      # 步骤6：压缩源代码
+      # 步骤5：压缩源代码
       - name: 📚️ Compress Source Code
         if: ${{ env.commit }}
         working-directory: XHYSosc
@@ -112,7 +104,7 @@ jobs:
           # 使用tar压缩（排除.git和.github目录）
           tar -cJf sourceCode-${{ env.commitS }}.tar.xz --exclude=.git --exclude=.github *
 
-      # 步骤7：设置应用版本号
+      # 步骤6：设置应用版本号
       - name: © Set versionCode and versionName
         if: ${{ env.commit }}
         working-directory: XHYSosc
@@ -122,36 +114,29 @@ jobs:
           # 设置版本名称
           sed -i "s/versionName '[^']*'/versionName '${{ env.tag }}'/g" app/build.gradle
 
-      # 步骤8：配置Python环境
+      # 步骤7：配置Python环境
       - name: Setup Python
         if: ${{ env.commit }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
           python-version: '3.8'
 
-      # 步骤9：安装Python依赖
-      - name: Install Python dependencies
-        if: ${{ env.commit }}
-        run: |
-          python -m pip install --upgrade pip
-          # 安装项目所需的Python库
-          pip install lxml ujson pyquery requests jsonpath cachetools pycryptodome beautifulsoup4
-
-      # 步骤10：修改pyramid模块的构建配置
+      # 步骤9：修改pyramid模块的构建配置
       - name: Modify pyramid——build.gradle
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
-          # 删除Windows路径的Python配置（适配Linux环境）
+          # 替换Windows路径为系统Python路径
           sed -i '/buildPython("D:\/Programs\/Python\/Python38\/python.exe")/d' pyramid/build.gradle
+          sed -i '$ s/^#//' ./gradle.properties
 
-      # 步骤11：配置本地属性文件
+      # 步骤10：配置本地属性文件
       - name: Setup Python local.properties
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: echo "" > local.properties
 
-      # 步骤12：配置APK签名
+      # 步骤11：配置APK签名
       - name: Release Apk Sign
         if: ${{ env.commit }}
         working-directory: XHYSosc
@@ -174,10 +159,15 @@ jobs:
           sed -i '$a\RELEASE_STORE_PASSWORD=xh8621989'       ./gradle.properties
           sed -i '$a\RELEASE_KEY_PASSWORD=xh8621989'         ./gradle.properties
 
+      # 步骤12：配置Java开发环境
+      - uses: actions/setup-java@v4
+        if: ${{ matrix.java_ver }}
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java_ver }}
       # 步骤13：配置Gradle构建工具
-      - name: Setup Gradle
+      - uses: gradle/actions/setup-gradle@v4
         if: ${{ env.commit }}
-        uses: gradle/gradle-build-action@v2
 
       # 步骤14：编译项目（核心构建步骤）
       - name: 🏗️ 编译项目
