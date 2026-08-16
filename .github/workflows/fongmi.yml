@@ -55,7 +55,7 @@ jobs:
           cd XHYSosc
           git checkout ${{ env.commit }}
           # 克隆 media 到项目根目录（与 app/ 同级）
-          git clone -b release-1.11.0-fongmi --depth 1 https://github.com/fongmi/media.git media
+          git clone -b release-1.11.0-fongmi --depth 1 https://github.com/xisohi/media.git media
           echo "tag=$(git log --date=format:'%y%m%d' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
 
       - name: Fix missing proguard-rules.txt
