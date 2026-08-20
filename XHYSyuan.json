@@ -12,6 +12,8 @@
 		{"key": "GZ","name": "🐬瓜子APP┃py","type": 3,"api": "./py/瓜子APP.py","searchable":1,"quickSearch":1,"filterable":1},
 		{"key": "JP","name": "🐬金牌APP┃py","type": 3,"api": "./py/金牌APP.py","searchable":1,"quickSearch":1,"filterable":1},
 		{"key": "txvm","name": "🐬腾讯视频┃py","type": 3,"api": "./py/腾讯视频.py","searchable":1,"quickSearch":1,"filterable":1},
+		{"key": "枫叶4K", "name": "🐬枫叶4K┃py", "type": 3, "api": "./py/枫叶4K.py","searchable":1,"quickSearch":1,"filterable":1},
+		{"key": "枫叶影院", "name": "🐬枫叶影院┃py", "type": 3, "api": "./py/枫叶影院.py","searchable":1,"quickSearch":1,"filterable":1, "changeable": 0},
 		{"key": "rb","name": "🐬热播APP┃py","type": 3,"api": "./py/热播APP.py","searchable":1,"quickSearch":1,"filterable":1},
 		{"key": "yl","name": "🐬永乐视频┃py","type": 3,"api": "./py/永乐视频.py","searchable":1,"quickSearch":1,"filterable":1},
 		{"key": "mtyy","name": "🐬麦田影院┃py","type": 3,"api": "./py/麦田影院.py","searchable":1,"quickSearch":1,"filterable":1},
