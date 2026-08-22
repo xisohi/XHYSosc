@@ -1,5 +1,5 @@
 {
-  "code": "260812",
-  "name": "260812",
-  "desc": "1:修复已知BUG\n2: 优化直播切台\n3: 上,下一集长按选集;\n4: 遥控菜单键选集;\n5: 尺寸,倍速,弹幕支持长按\n6: 支持在线搜索弹幕\n7: 字幕微调\n8: 主页ui微调\n9: exo增加FFmpeg组件\n10: 优化字幕搜索;\n11: exo支持内置字幕;\n12: 支持视轨选择;\n13: 修正jar一处加载bug\n"
+  "code": "260822",
+  "name": "260822",
+  "desc": "1: # Conflicts:\n2: #	app/src/main/java/com/github/tvbox/osc/base/App.java\n3: 搜索智能排序\n4: 去广告增强\n5: py兼容性增强\n6: 详情展示优化html标签过滤\n7: 样式微调\n8: 详情预览时-遥控菜单键快速切源\n9: 恢复分类页msearch:支持\n"
 }
