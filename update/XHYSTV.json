@@ -1,5 +1,5 @@
 {
   "code": "260822",
   "name": "260822",
-  "desc": "1: # Conflicts:\n2: #	app/src/main/java/com/github/tvbox/osc/base/App.java\n3: 搜索智能排序\n4: 去广告增强\n5: py兼容性增强\n6: 详情展示优化html标签过滤\n7: 样式微调\n8: 详情预览时-遥控菜单键快速切源\n9: 恢复分类页msearch:支持\n"
+  "desc": "1: Update Updater.java\n"
 }
