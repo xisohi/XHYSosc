@@ -13,7 +13,7 @@
 		{"key": "JP","name": "🐬金牌APP┃py","type": 3,"api": "./py/金牌APP.py","searchable":1,"quickSearch":1,"filterable":1},
 		{"key": "txvm","name": "🐬腾讯视频┃py","type": 3,"api": "./py/腾讯视频.py","searchable":1,"quickSearch":1,"filterable":1},
 		{"key": "枫叶4K", "name": "🐬枫叶4K┃py", "type": 3, "api": "./py/枫叶4K.py","searchable":1,"quickSearch":1,"filterable":1},
-		{"key": "枫叶影院", "name": "🐬枫叶影院┃py", "type": 3, "api": "./py/枫叶影院.py","searchable":1,"quickSearch":1,"filterable":1, "changeable": 0},
+		{"key": "枫叶影院", "name": "🐬枫叶影院┃py", "type": 3, "api": "./py/枫叶影院🍀TG @hshsjk9.py","searchable":1,"quickSearch":1,"filterable":1, "changeable": 0},
 		{"key": "rb","name": "🐬热播APP┃py","type": 3,"api": "./py/热播APP.py","searchable":1,"quickSearch":1,"filterable":1},
 		{"key": "yl","name": "🐬永乐视频┃py","type": 3,"api": "./py/永乐视频.py","searchable":1,"quickSearch":1,"filterable":1},
 		{"key": "mtyy","name": "🐬麦田影院┃py","type": 3,"api": "./py/麦田影院.py","searchable":1,"quickSearch":1,"filterable":1},
@@ -61,7 +61,9 @@
 		{"key": "hipy_有声听书网[听]","name": "有声听书网[听]","type": 3,"api": "./js/lib/drpy2.min.js","ext":"./js/有声听书网[听].js","searchable": 1,"quickSearch": 0,"filterable": 1},
 		{"key":"农民","name":"👩‍🌾农民影视","type":3,"api":"csp_XYQHiker","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/农民影视.json","jar":"./jar/Yoursmile.jar"},
 		{"key":"csp_Jianpian","name":"🧲荐片[优]","type":3,"api":"csp_Jianpian","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/jianpian.json","jar":"./jar/Yoursmile.jar"},
-		{"key": "捡的音乐","name": "🐬爱听音乐","type": 3,"api": "csp_Music1","searchable": 1,"quickSearch": 1,"ext": "./json/Music1.json","jar": "./jar/so.jar","filterable": 1}
+		{"key": "kwms", "name": "酷我音乐[音乐]", "type": 3, "api": "./py/酷我音乐.py"},
+		{"key": "千千音乐", "name": "千千音乐[音乐]", "type": 3, "api": "./py/千千音乐🍀TG @hshsjk9.py"},
+		{"key": "捡的音乐","name": "爱听音乐","type": 3,"api": "csp_Music1","searchable": 1,"quickSearch": 1,"ext": "./json/Music1.json","jar": "./jar/so.jar","filterable": 1}
 	],
     "parses": [
 		{"name":"🌐Ⓤ","type":0,"url":"","header":{"User-Agent":"Mozilla/5.0"}},
