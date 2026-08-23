@@ -1,5 +1,5 @@
 {
   "code": "260822",
-  "name": "260823",
-  "desc": "1: Update Updater.java\n"
+  "name": "260822",
+  "desc": "1: Update Github.java\n2: 修复已知BUG\n3: 安卓5以上系统，请安装python版本\n4: 修复冷启动更新的BUG\n5: 代理测速使用24小\n"
 }
