@@ -3,7 +3,7 @@
   "plugins":[
     {"name": "网易音乐","url": "https://xhys.xisohi.dpdns.org/MusicFree/网易音乐.js","version": "v2025.09.14"},
     {"name": "酷我", "url": "https://xhys.xisohi.dpdns.org/MusicFree/酷我.js", "version": "1.0.0"},
-    {"name": "酷狗音乐", "url": "http://51.195.241.253:8080/https://raw.githubusercontent.com/ThomasBy2025/musicfree/refs/heads/main/plugins/kg.js", "version": "2025.09.14"},
+    {"name": "酷狗音乐", "url": "http://51.195.241.253:8080/https://raw.githubusercontent.com/ThomasBy2025/musicfree/refs/heads/main/plugins/kg.js", "version": "2025.10.01"},
     {"name": "酷狗", "url": "https://xhys.xisohi.dpdns.org/MusicFree/酷狗.js", "version": ".0.0.1"},
     {"name": "腾讯音乐", "url": "https://xhys.xisohi.dpdns.org/MusicFree/腾讯音乐.js", "version": "2025.09.13"},
     {"name": "汽水音乐", "url": "https://xhys.xisohi.dpdns.org/MusicFree/汽水音乐.js", "version": "0.1.5"},
