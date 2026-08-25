@@ -1,5 +1,5 @@
 {
-  "code": "260824",
-  "name": "260824",
-  "desc": "1: Update Github.java\n"
+  "code": "260825",
+  "name": "260825",
+  "desc": "1: Update Updater.java\n2: # Conflicts:\n3: #	app/src/main/java/com/github/tvbox/osc/base/App.java\n4: 弹幕在线搜索弹框焦点修正\n5: 直播菜单自动隐藏逻辑优化\n6: 调整默认播放器为exo\n7: 修正一处surface渲染的bug\n8: 搜索微调\n9: 详情加载优化\n10: 修正渲染方式变更未及时生效的bug\n11: 历史和收藏长按进搜索\n12: 详情为空兜底逻辑优化\n13: 修正多jar配置搜索偶发崩溃\n14: 解决个别站点分类无数据\n"
 }
