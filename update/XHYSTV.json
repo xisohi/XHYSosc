@@ -1,5 +1,5 @@
 {
-  "code": "260826",
+  "code": "260825",
   "name": "260825",
-  "desc": "1: 修复致命时序 bug\n2: 完整处理 HTTP‑416 异常\n3: 测速逻辑改造\n"
+  "desc": "1: Update Updater.java\n"
 }
