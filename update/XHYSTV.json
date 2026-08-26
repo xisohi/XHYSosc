@@ -1,5 +1,5 @@
 {
-  "code": "250826",
-  "name": "260825",
-  "desc": "1: Update Updater.java\n"
+  "code": "260826",
+  "name": "260826",
+  "desc": "1: Update Updater.java\n2: 修复安卓5升级下载目录的BUG\n"
 }
