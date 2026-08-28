@@ -53,13 +53,17 @@ jobs:
             echo "commitS=${commit:0:7}" >> $GITHUB_ENV  # 取前7位作为短哈希
           fi
 
-      - name: Checkout Source Code
+      - name: 📥 检出 Source 源码
         if: ${{ env.commit }}
         run: |
-          git clone --depth 1 --branch master ${{ env.upStream }} MusicFree
-          echo "tag=$(date +'%y%m%d')" >> $GITHUB_ENV
-          echo "dateStr=$(date -u +'%Y-%m-%d %H:%M UTC')" >> $GITHUB_ENV
-
+          # 克隆源仓库到XHYSosc目录
+          git clone ${{ env.upStream }} XHYSosc
+          cd XHYSosc
+          # 切换到指定的提交版本
+          git checkout ${{ env.commit }}
+          # 生成版本标签（基于提交日期，格式：年+月+日）
+          echo "tag=$(git log --date=format:'%y%m%d' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
+            
       - name: Setup Node
         if: ${{ env.commit }}
         uses: actions/setup-node@v4
