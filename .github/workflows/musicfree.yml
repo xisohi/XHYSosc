@@ -1,0 +1,178 @@
+name: 🎵 MusicFree
+
+on:
+  schedule:
+    # 每天 01:30 UTC（北京时间 09:30），与 fongmi(01:00) 错开
+    - cron: 30 1 * * *
+  workflow_dispatch:
+    inputs:
+      rebuild:
+        description: '忽略构建记录以重新构建'
+        required: false
+        type: boolean
+      donotpublish:
+        description: '构建后不提交发布新版'
+        required: false
+        type: boolean
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - userName: xisohi
+            repoName: MusicFree
+            branchName: master
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🔍 检查新提交
+        run: |
+          # 构建源仓库的URL
+          upStream="https://github.com/${{  matrix.userName }}/${{ matrix.repoName }}"
+          echo "upStream=$upStream" >> $GITHUB_ENV
+
+          # 通过GitHub API获取最新提交的SHA值
+          commit=$(curl -sL "https://api.github.com/repos/${{  matrix.userName }}/${{ matrix.repoName }}/commits/${{ matrix.branchName }}" | jq -r '.sha')
+
+          # 检查API调用是否成功
+          if [ $? -ne 0 ]; then
+            echo "Failed to get commit from API"
+            exit 1
+          fi
+
+          # 检查该提交是否已经在README.md中记录过
+          if [ -z "$commit" ] || ! grep -q "$commit" README.md; then
+            echo "commit=$commit" >> $GITHUB_ENV
+            echo "commitS=${commit:0:7}" >> $GITHUB_ENV  # 取前7位作为短哈希
+          fi
+
+      - name: Checkout Source Code
+        if: ${{ env.commit }}
+        run: |
+          git clone --depth 1 --branch master ${{ env.upStream }} MusicFree
+          echo "tag=$(date +'%y%m%d')" >> $GITHUB_ENV
+          echo "dateStr=$(date -u +'%Y-%m-%d %H:%M UTC')" >> $GITHUB_ENV
+
+      - name: Setup Node
+        if: ${{ env.commit }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: MusicFree/package-lock.json
+
+      - name: Install Dependencies
+        if: ${{ env.commit }}
+        working-directory: MusicFree
+        run: |
+          npm install --no-audit --no-fund
+
+      - name: Setup Java
+        if: ${{ env.commit }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Accept Android SDK Licenses
+        if: ${{ env.commit }}
+        run: |
+          # ubuntu-latest 预装 Android SDK，接受 licenses 以便 gradle 自动下载缺失组件
+          yes | sdkmanager --licenses > /dev/null 2>&1 || true
+
+      - name: Generate Signing Config
+        if: ${{ env.commit }}
+        working-directory: MusicFree/android
+        run: |
+          # 优先使用 GitHub Secrets 配置的正式签名
+          if [ -n "${{ secrets.MUSICFREE_KEYSTORE_BASE64 }}" ]; then
+          echo "${{ secrets.MUSICFREE_KEYSTORE_BASE64 }}" | base64 -d > musicfree.jks
+          cat > keystore.properties <<'EOF'
+          RELEASE_STORE_FILE=../musicfree.jks
+          RELEASE_STORE_PASSWORD=${{ secrets.MUSICFREE_KEYSTORE_PASSWORD }}
+          RELEASE_KEY_ALIAS=${{ secrets.MUSICFREE_KEYSTORE_KEY_ALIAS }}
+          RELEASE_KEY_PASSWORD=${{ secrets.MUSICFREE_KEYSTORE_KEY_PASSWORD }}
+          EOF
+          else
+          # 未配置正式签名时，使用仓库内置 debug.keystore 签名，APK 可直接安装
+          # 注意：app/build.gradle 中 file() 相对 app/ 模块目录，debug.keystore 位于 app/ 下
+          cat > keystore.properties <<'EOF'
+          RELEASE_STORE_FILE=debug.keystore
+          RELEASE_STORE_PASSWORD=android
+          RELEASE_KEY_ALIAS=androiddebugkey
+          RELEASE_KEY_PASSWORD=android
+          EOF
+          fi
+
+      - name: Build With Gradle
+        if: ${{ env.commit }}
+        working-directory: MusicFree/android
+        run: |
+          # 提升编译内存，避免大项目 OOM（仅修改 CI 临时副本）
+          sed -i 's/org.gradle.jvmargs=.*/org.gradle.jvmargs=-Xmx3g -XX:MaxMetaspaceSize=1g/' gradle.properties
+          chmod +x gradlew
+          ./gradlew :app:assembleRelease --no-daemon --build-cache
+
+      - name: Collect APK
+        if: ${{ env.commit }}
+        working-directory: MusicFree
+        run: |
+          mkdir -p apk
+          cp android/app/build/outputs/apk/release/*.apk apk/ 2>/dev/null || true
+          ls -lh apk/
+          echo "versionName=$(grep -oP '\"version\": \"\K[^\"]+' package.json)" >> $GITHUB_ENV
+
+      - name: Upload App To Artifact
+        if: ${{ env.commit }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: MusicFree-${{ env.commitS }}
+          path: |
+            MusicFree/apk/*
+
+      - name: Whether Or Not to Publish
+        if: ${{ inputs.donotpublish && env.commit }}
+        run: |
+          echo "commit=" >> $GITHUB_ENV
+
+      - name: Release and Upload Assets
+        uses: ncipollo/release-action@main
+        if: ${{ env.commit }}
+        with:
+          name: musicfree
+          tag: musicfree
+          body: |
+            MusicFree Release Build
+            - version: ${{ env.versionName }}
+            - commit: ${{ env.commit }}
+            - build date: ${{ env.dateStr }}
+          allowUpdates: true
+          removeArtifacts: true
+          artifacts: |
+            MusicFree/apk/*.apk
+
+      - name: Push to master
+        if: ${{ env.commit }}
+        run: |
+          rm -rf MusicFree
+          sed -i '/url =/d' ./.git/config
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote set-url --add origin "https://${{ github.actor }}:${{ secrets.GIT_TOKEN }}@github.com/${{ github.repository }}"
+          git pull --rebase
+          if grep -q "xisohi/MusicFree" README.md; then
+            sed -i "/xisohi\/MusicFree/s#Updated: [a-zA-Z0-9]*#Updated: ${{ env.commit }}#" README.md
+          else
+            echo "- [MusicFree](https://github.com/xisohi/MusicFree) Updated: ${{ env.commit }}" >> README.md
+          fi
+          sed -i "s/update at .*/update at $(date '+%Y-%m-%d %H:%M:%S')/" README.md
+          git add --all
+          git commit -m "${{ env.commit }}" || true
+          git push -u -f origin master
