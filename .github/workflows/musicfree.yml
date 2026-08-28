@@ -63,18 +63,19 @@ jobs:
           git checkout ${{ env.commit }}
           # 生成版本标签（基于提交日期，格式：年+月+日）
           echo "tag=$(git log --date=format:'%y%m%d' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
-            
+          echo "dateStr=$(date -u +'%Y-%m-%d %H:%M UTC')" >> $GITHUB_ENV
+
       - name: Setup Node
         if: ${{ env.commit }}
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: MusicFree/package-lock.json
+          cache-dependency-path: XHYSosc/package-lock.json
 
       - name: Install Dependencies
         if: ${{ env.commit }}
-        working-directory: MusicFree
+        working-directory: XHYSosc
         run: |
           npm install --no-audit --no-fund
 
@@ -93,7 +94,7 @@ jobs:
 
       - name: Generate Signing Config
         if: ${{ env.commit }}
-        working-directory: MusicFree/android
+        working-directory: XHYSosc/android
         run: |
           # 优先使用 GitHub Secrets 配置的正式签名
           if [ -n "${{ secrets.MUSICFREE_KEYSTORE_BASE64 }}" ]; then
@@ -117,7 +118,7 @@ jobs:
 
       - name: Build With Gradle
         if: ${{ env.commit }}
-        working-directory: MusicFree/android
+        working-directory: XHYSosc/android
         run: |
           # 提升编译内存，避免大项目 OOM（仅修改 CI 临时副本）
           sed -i 's/org.gradle.jvmargs=.*/org.gradle.jvmargs=-Xmx3g -XX:MaxMetaspaceSize=1g/' gradle.properties
@@ -126,7 +127,7 @@ jobs:
 
       - name: Collect APK
         if: ${{ env.commit }}
-        working-directory: MusicFree
+        working-directory: XHYSosc
         run: |
           mkdir -p apk
           cp android/app/build/outputs/apk/release/*.apk apk/ 2>/dev/null || true
@@ -139,7 +140,7 @@ jobs:
         with:
           name: MusicFree-${{ env.commitS }}
           path: |
-            MusicFree/apk/*
+            XHYSosc/apk/*
 
       - name: Whether Or Not to Publish
         if: ${{ inputs.donotpublish && env.commit }}
@@ -160,12 +161,12 @@ jobs:
           allowUpdates: true
           removeArtifacts: true
           artifacts: |
-            MusicFree/apk/*.apk
+            XHYSosc/apk/*.apk
 
       - name: Push to master
         if: ${{ env.commit }}
         run: |
-          rm -rf MusicFree
+          rm -rf XHYSosc
           sed -i '/url =/d' ./.git/config
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
