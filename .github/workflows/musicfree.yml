@@ -120,6 +120,8 @@ jobs:
         if: ${{ env.commit }}
         working-directory: XHYSosc/android
         run: |
+          # CI 上禁用阿里云 maven 镜像（国外网络访问 aliyun 易 502），改用官方 google()/mavenCentral()
+          sed -i "/aliyun/d" build.gradle
           # 提升编译内存，避免大项目 OOM（仅修改 CI 临时副本）
           sed -i 's/org.gradle.jvmargs=.*/org.gradle.jvmargs=-Xmx3g -XX:MaxMetaspaceSize=1g/' gradle.properties
           chmod +x gradlew
