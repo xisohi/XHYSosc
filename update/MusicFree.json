@@ -1,6 +1,6 @@
 {
   "version": "260830",
-  "changeLog": "1: 内置音源\\n2: 适配横屏首页布局\\n",
+  "changeLog": "1: Update checkUpdate.ts\\n",
   "download": [
     "https://gh.acmsz.top/https://github.com/xisohi/XHYSosc/releases/download/musicfree/app-universal-release.apk",
     "https://github.catvod.com/https://github.com/xisohi/XHYSosc/releases/download/musicfree/app-universal-release.apk"
