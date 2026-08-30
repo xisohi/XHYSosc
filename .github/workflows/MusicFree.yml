@@ -24,7 +24,7 @@ jobs:
         include:
           - userName: xisohi
             repoName: MusicFree
-            branchName: master
+            branchName: masterr
 
     steps:
       - name: Checkout
