@@ -142,7 +142,7 @@ jobs:
         if: ${{ env.commit }}
         working-directory: XHYSosc
         run: |
-          lastCommit=$(grep "${{ matrix.userName }}\/${{ matrix.repoName }}" ${{ github.workspace }}/README.md |grep -o '[a-z0-9]\{40\}' || true)
+          lastCommit=$(grep "${{ matrix.userName }}\/${{ matrix.repoName }}\/tree\/${{ matrix.branchName }}" ${{ github.workspace }}/README.md |grep -o '[a-z0-9]\{40\}' || true)
           export LESSCHARSET=utf-8
           # 生成上次构建到本次构建之间的提交日志
           if [ -z "$lastCommit" ] || [ "${{ env.commit }}" == "${lastCommit}" ]; then
@@ -177,6 +177,9 @@ jobs:
             - version: ${{ env.versionName }}
             - commit: ${{ env.commit }}
             - build date: ${{ env.dateStr }}
+
+            更新日志：
+            ${{ env.changeLog }}
           allowUpdates: true
           removeArtifacts: true
           artifacts: |
@@ -191,10 +194,10 @@ jobs:
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git remote set-url --add origin "https://${{ github.actor }}:${{ secrets.GIT_TOKEN }}@github.com/${{ github.repository }}"
           git pull --rebase
-          if grep -q "xisohi/MusicFree" README.md; then
-            sed -i "/xisohi\/MusicFree/s#Updated: [a-zA-Z0-9]*#Updated: ${{ env.commit }}#" README.md
+          if grep -q "${{ matrix.userName }}/${{ matrix.repoName }}/tree/${{ matrix.branchName }}" README.md; then
+            sed -i "/${{ matrix.userName }}\/${{ matrix.repoName }}\/tree\/${{ matrix.branchName }}/s#Updated: [a-zA-Z0-9]*#Updated: ${{ env.commit }}#" README.md
           else
-            echo "- [MusicFree](https://github.com/xisohi/MusicFree) Updated: ${{ env.commit }}" >> README.md
+            echo "- [MusicFree/${{ matrix.branchName }}](${{ env.upStream }}/tree/${{ matrix.branchName }}) Updated: ${{ env.commit }}" >> README.md
           fi
           sed -i "s/update at .*/update at $(date '+%Y-%m-%d %H:%M:%S')/" README.md
           # 更新应用更新配置文件（版本号 + 更新日志）
