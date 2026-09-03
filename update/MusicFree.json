@@ -1,6 +1,6 @@
 {
-  "version": "260830",
-  "changeLog": "1: 本地音乐：搜索到歌词后保存到歌曲同文件夹（同名 .lrc）\\n2: 修复重复生成歌词的bug\\n",
+  "version": "260901",
+  "changeLog": "1: Update bootstrap.ts\\n",
   "download": [
     "https://gh.acmsz.top/https://github.com/xisohi/XHYSosc/releases/download/musicfree/app-universal-release.apk",
     "https://github.catvod.com/https://github.com/xisohi/XHYSosc/releases/download/musicfree/app-universal-release.apk"
