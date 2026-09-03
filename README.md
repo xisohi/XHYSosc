@@ -31,10 +31,12 @@ This repo relies on the following third-party projects:
 ![Build](https://shields.io/github/actions/workflow/status/xisohi/XHYSosc/XHYSTV.yml?branch=master&logo=github&label=XHYSTV)
 ![Build](https://shields.io/github/actions/workflow/status/xisohi/XHYSosc/XHYS.yml?branch=master&logo=github&label=XHYS)
 ![Build](https://shields.io/github/actions/workflow/status/xisohi/XHYSosc/lkys.yml?branch=master&logo=github&label=LKYS)
-![Build](https://shields.io/github/actions/workflow/status/xisohi/XHYSosc/XHlive.yml?branch=master&logo=github&label=XHlive)
-![Build](https://shields.io/github/actions/workflow/status/xisohi/XHYSosc/XHlive-kitkat.yml?branch=master&logo=github&label=XHlive-kitkat)
 ![Build](https://shields.io/github/actions/workflow/status/xisohi/XHYSosc/fongmi.yml?branch=master&logo=github&label=XHTV-FM)
 ![Build](https://shields.io/github/actions/workflow/status/xisohi/XHYSosc/ghys.yml?branch=master&logo=github&label=GHYS)
+![Build](https://shields.io/github/actions/workflow/status/xisohi/XHYSosc/XHlive.yml?branch=master&logo=github&label=XHlive)
+![Build](https://shields.io/github/actions/workflow/status/xisohi/XHYSosc/XHlive-kitkat.yml?branch=master&logo=github&label=XHlive-kitkat)
+![Build](https://shields.io/github/actions/workflow/status/xisohi/XHYSosc/MusicFree.yml?branch=master&logo=github&label=MusicFree)
+
 
 
 - [xisohi/XHYSosc](https://github.com/xisohi/XHYSosc)
