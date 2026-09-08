@@ -24,7 +24,7 @@
           include:
             - userName: xisohi
               repoName: CarVoiceAssistant
-              branchName: main
+              branchName: yy
 
       steps:
         - name: Checkout
