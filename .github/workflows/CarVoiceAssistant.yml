@@ -198,11 +198,6 @@
               echo "- [CarVoiceAssistant/${{ matrix.branchName }}](${{ env.upStream }}/tree/${{ matrix.branchName }}) Updated: ${{ env.commit }}" >> README.md
             fi
             sed -i "s/update at .*/update at $(date '+%Y-%m-%d %H:%M:%S')/" README.md
-            # 更新应用更新配置文件（版本号 + 更新日志）
-            if [ -f "update/${{ matrix.repoName }}.json" ]; then
-              jq --arg version "${{ env.tag }}" --arg changelog "${{ env.changeLog }}" '.version = $version | .changeLog = $changelog' update/${{ matrix.repoName }}.json > tmp.json && mv tmp.json update/${{ matrix.repoName }}.json
-              cat update/${{ matrix.repoName }}.json
-            fi
             git add --all
             git commit -m "${{ env.commit }}" || true
             git push -u -f origin master
