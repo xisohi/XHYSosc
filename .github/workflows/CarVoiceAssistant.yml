@@ -1,203 +1,188 @@
-  name: CarVoiceAssistant
+name: CarVoiceAssistant
 
-  on:
-    schedule:
-      # 每天 01:30 UTC（北京时间 09:30）自动构建
-      - cron: 30 1 * * *
-    workflow_dispatch:
-      inputs:
-        rebuild:
-          description: '忽略构建记录以重新构建'
-          required: false
-          type: boolean
-        donotpublish:
-          description: '构建后不发布新版'
-          required: false
-          type: boolean
+on:
+  schedule:
+    # 每天 01:30 UTC（北京时间 09:30）自动构建
+    - cron: 30 1 * * *
+  workflow_dispatch:
+    inputs:
+      rebuild:
+        description: '忽略构建记录以重新构建'
+        required: false
+        type: boolean
+      donotpublish:
+        description: '构建后不发布新版'
+        required: false
+        type: boolean
 
-  jobs:
-    build:
-      runs-on: ubuntu-latest
-      strategy:
-        fail-fast: false
-        matrix:
-          include:
-            - userName: xisohi
-              repoName: CarVoiceAssistant
-              branchName: yy
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - userName: xisohi
+            repoName: CarVoiceAssistant
+            branchName: yy
 
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v4
-          with:
-            fetch-depth: 0
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-        - name: 🔍 检查新提交
-          run: |
-            # 构建源仓库的URL
-            upStream="https://github.com/${{ matrix.userName }}/${{ matrix.repoName }}"
-            echo "upStream=$upStream" >> $GITHUB_ENV
+      - name: 🔍 检查新提交
+        run: |
+          # 构建源仓库的URL
+          upStream="https://github.com/${{ matrix.userName }}/${{ matrix.repoName }}"
+          echo "upStream=$upStream" >> $GITHUB_ENV
+          
+          # 通过GitHub API获取最新提交的SHA值
+          commit=$(curl -sL "https://api.github.com/repos/${{ matrix.userName }}/${{ matrix.repoName }}/commits/${{ matrix.branchName }}" | jq -r '.sha')
+          
+          # 检查API调用是否成功
+          if [ $? -ne 0 ]; then
+            echo "Failed to get commit from API"
+            exit 1
+          fi
+          
+          # 手动触发且选择了rebuild时，强制构建
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ] && [ "${{ inputs.rebuild }}" == "true" ]; then
+            echo "强制重新构建"
+            echo "commit=$commit" >> $GITHUB_ENV
+            echo "commitS=${commit:0:7}" >> $GITHUB_ENV
+          # 检查该提交是否已经在README.md中记录过
+          elif [ -z "$commit" ] || ! grep -q "$commit" README.md; then
+            echo "commit=$commit" >> $GITHUB_ENV
+            echo "commitS=${commit:0:7}" >> $GITHUB_ENV
+          else
+            echo "无新提交，跳过构建"
+          fi
+
+      - name: 📥 检出源码
+        if: ${{ env.commit }}
+        run: |
+          # 克隆源仓库
+          git clone ${{ env.upStream }} source
+          cd source
+          # 切换到指定的提交版本
+          git checkout ${{ env.commit }}
+          # 生成版本标签（基于提交日期，格式：年+月+日）
+          echo "tag=$(git log --date=format:'%y%m%d' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
+          echo "dateStr=$(date -u +'%Y-%m-%d %H:%M UTC')" >> $GITHUB_ENV
+
+      - name: Setup Java
+        if: ${{ env.commit }}
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Accept Android SDK Licenses
+        if: ${{ env.commit }}
+        run: |
+          # ubuntu-latest 预装 Android SDK，接受 licenses 以便 gradle 自动下载缺失组件
+          yes | sdkmanager --licenses > /dev/null 2>&1 || true
+
+      - name: Generate Signing Config
+        if: ${{ env.commit }}
+        working-directory: source
+        run: |
+          # 使用与 fongmi.yml 相同的正式签名 Secrets，保证签名永久一致
+          echo "${{ secrets.KEYSTORE }}" | base64 -d > app/cva.jks
+          cat > keystore.properties <<'EOF'
+          RELEASE_STORE_FILE=cva.jks
+          RELEASE_STORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}
+          RELEASE_KEY_ALIAS=${{ secrets.ALIAS }}
+          RELEASE_KEY_PASSWORD=${{ secrets.ALIAS_PASSWORD }}
+          EOF
+          echo "使用正式签名（与 fongmi 共用同一套证书）"
+
+      - name: Build With Gradle
+        if: ${{ env.commit }}
+        working-directory: source
+        run: |
+          # 修改版本号（Kotlin DSL 格式）
+          sed -i "s/versionCode = .*/versionCode = $(date +%s)/" app/build.gradle.kts
+          sed -i "s/versionName = \".*\"/versionName = \"${{ env.tag }}\"/" app/build.gradle.kts
+          # 调整 JVM 内存参数
+          sed -i 's/org.gradle.jvmargs=.*/org.gradle.jvmargs=-Xmx3g -XX:MaxMetaspaceSize=1g/' gradle.properties
+          chmod +x gradlew
+          ./gradlew :app:assembleRelease --no-daemon --build-cache
+
+      - name: Collect APK
+        if: ${{ env.commit }}
+        working-directory: source
+        run: |
+          mkdir -p apk
+          cp app/build/outputs/apk/release/*.apk apk/ 2>/dev/null || true
+          ls -lh apk/
+          echo "versionName=${{ env.tag }}" >> $GITHUB_ENV
+
+      - name: 📊 生成更新摘要
+        if: ${{ env.commit }}
+        working-directory: source
+        run: |
+          lastCommit=$(grep "${{ matrix.userName }}\/${{ matrix.repoName }}\/tree\/${{ matrix.branchName }}" ${{ github.workspace }}/README.md | grep -o '[a-z0-9]\{40\}' || true)
+          export LESSCHARSET=utf-8
+          # 生成上次构建到本次构建之间的提交日志
+          if [ -z "$lastCommit" ] || [ "${{ env.commit }}" == "${lastCommit}" ]; then
+            git log --pretty=format:%B ${{ env.commitS }} -1 | sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' | cat -n | sort -k2,2 -k1,1n | uniq -f1 | sort -k1,1n | cut -f2- > apk/${{ matrix.repoName }}.log
+          else
+            git log --pretty=format:%B ${lastCommit:0:7}...${{ env.commitS }} | sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' | cat -n | sort -k2,2 -k1,1n | uniq -f1 | sort -k1,1n | cut -f2- > apk/${{ matrix.repoName }}.log
+          fi
+          # 生成 changeLog 环境变量
+          echo "changeLog=$(awk 'BEGIN{ORS="\\\\n"}{print NR ": " $0}' apk/${{ matrix.repoName }}.log)" >> $GITHUB_ENV
+          cat apk/${{ matrix.repoName }}.log
+
+      - name: Upload App To Artifact
+        if: ${{ env.commit }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: CarVoiceAssistant-${{ env.commitS }}
+          path: |
+            source/apk/*
+
+      - name: Whether Or Not to Publish
+        if: ${{ inputs.donotpublish && env.commit }}
+        run: |
+          echo "commit=" >> $GITHUB_ENV
+
+      - name: Release and Upload Assets
+        uses: ncipollo/release-action@main
+        if: ${{ env.commit }}
+        with:
+          name: CarVoiceAssistant
+          tag: CarVoiceAssistant
+          body: |
+            CarVoiceAssistant Release Build
+            - version: ${{ env.versionName }}
+            - commit: ${{ env.commit }}
+            - build date: ${{ env.dateStr }}
             
-            # 通过GitHub API获取最新提交的SHA值
-            commit=$(curl -sL "https://api.github.com/repos/${{ matrix.userName }}/${{ matrix.repoName }}/commits/${{ matrix.branchName }}" | jq -r '.sha')
-            
-            # 检查API调用是否成功
-            if [ $? -ne 0 ]; then
-              echo "Failed to get commit from API"
-              exit 1
-            fi
-            
-            # 手动触发且选择了rebuild时，强制构建
-            if [ "${{ github.event_name }}" == "workflow_dispatch" ] && [ "${{ inputs.rebuild }}" == "true" ]; then
-              echo "强制重新构建"
-              echo "commit=$commit" >> $GITHUB_ENV
-              echo "commitS=${commit:0:7}" >> $GITHUB_ENV
-            # 检查该提交是否已经在README.md中记录过
-            elif [ -z "$commit" ] || ! grep -q "$commit" README.md; then
-              echo "commit=$commit" >> $GITHUB_ENV
-              echo "commitS=${commit:0:7}" >> $GITHUB_ENV
-            else
-              echo "无新提交，跳过构建"
-            fi
+            更新日志：
+            ${{ env.changeLog }}
+          allowUpdates: true
+          removeArtifacts: true
+          artifacts: |
+            source/apk/*.apk
 
-        - name: 📥 检出源码
-          if: ${{ env.commit }}
-          run: |
-            # 克隆源仓库
-            git clone ${{ env.upStream }} source
-            cd source
-            # 切换到指定的提交版本
-            git checkout ${{ env.commit }}
-            # 生成版本标签（基于提交日期，格式：年+月+日）
-            echo "tag=$(git log --date=format:'%y%m%d' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
-            echo "dateStr=$(date -u +'%Y-%m-%d %H:%M UTC')" >> $GITHUB_ENV
-
-        - name: Setup Java
-          if: ${{ env.commit }}
-          uses: actions/setup-java@v4
-          with:
-            distribution: 'temurin'
-            java-version: '17'
-
-        - name: Accept Android SDK Licenses
-          if: ${{ env.commit }}
-          run: |
-            # ubuntu-latest 预装 Android SDK，接受 licenses 以便 gradle 自动下载缺失组件
-            yes | sdkmanager --licenses > /dev/null 2>&1 || true
-
-        - name: Generate Signing Config
-          if: ${{ env.commit }}
-          working-directory: source
-          run: |
-            # 优先使用 GitHub Secrets 配置的正式签名
-            if [ -n "${{ secrets.CVA_KEYSTORE_BASE64 }}" ]; then
-              echo "${{ secrets.CVA_KEYSTORE_BASE64 }}" | base64 -d > app/cva.jks
-              cat > keystore.properties <<'EOF'
-            RELEASE_STORE_FILE=cva.jks
-            RELEASE_STORE_PASSWORD=${{ secrets.CVA_KEYSTORE_PASSWORD }}
-            RELEASE_KEY_ALIAS=${{ secrets.CVA_KEYSTORE_KEY_ALIAS }}
-            RELEASE_KEY_PASSWORD=${{ secrets.CVA_KEYSTORE_KEY_PASSWORD }}
-            EOF
-              echo "使用正式签名"
-            else
-              # 未配置正式签名时，生成 debug 签名，APK 可直接安装
-              keytool -genkeypair -v -keystore app/debug.keystore \
-                -alias androiddebugkey -keyalg RSA -keysize 2048 -validity 10000 \
-                -storepass android -keypass android \
-                -dname "CN=Android Debug,O=Android,C=US"
-              cat > keystore.properties <<'EOF'
-            RELEASE_STORE_FILE=debug.keystore
-            RELEASE_STORE_PASSWORD=android
-            RELEASE_KEY_ALIAS=androiddebugkey
-            RELEASE_KEY_PASSWORD=android
-            EOF
-              echo "使用 debug 签名（未配置正式签名）"
-            fi
-
-        - name: Build With Gradle
-          if: ${{ env.commit }}
-          working-directory: source
-          run: |
-            # 修改版本号（Kotlin DSL 格式）
-            sed -i "s/versionCode = .*/versionCode = $(date +%s)/" app/build.gradle.kts
-            sed -i "s/versionName = \".*\"/versionName = \"${{ env.tag }}\"/" app/build.gradle.kts
-            # 调整 JVM 内存参数
-            sed -i 's/org.gradle.jvmargs=.*/org.gradle.jvmargs=-Xmx3g -XX:MaxMetaspaceSize=1g/' gradle.properties
-            chmod +x gradlew
-            ./gradlew :app:assembleRelease --no-daemon --build-cache
-
-        - name: Collect APK
-          if: ${{ env.commit }}
-          working-directory: source
-          run: |
-            mkdir -p apk
-            cp app/build/outputs/apk/release/*.apk apk/ 2>/dev/null || true
-            ls -lh apk/
-            echo "versionName=${{ env.tag }}" >> $GITHUB_ENV
-
-        - name: 📊 生成更新摘要
-          if: ${{ env.commit }}
-          working-directory: source
-          run: |
-            lastCommit=$(grep "${{ matrix.userName }}\/${{ matrix.repoName }}\/tree\/${{ matrix.branchName }}" ${{ github.workspace }}/README.md | grep -o '[a-z0-9]\{40\}' || true)
-            export LESSCHARSET=utf-8
-            # 生成上次构建到本次构建之间的提交日志
-            if [ -z "$lastCommit" ] || [ "${{ env.commit }}" == "${lastCommit}" ]; then
-              git log --pretty=format:%B ${{ env.commitS }} -1 | sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' | cat -n | sort -k2,2 -k1,1n | uniq -f1 | sort -k1,1n | cut -f2- > apk/${{ matrix.repoName }}.log
-            else
-              git log --pretty=format:%B ${lastCommit:0:7}...${{ env.commitS }} | sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' | cat -n | sort -k2,2 -k1,1n | uniq -f1 | sort -k1,1n | cut -f2- > apk/${{ matrix.repoName }}.log
-            fi
-            # 生成 changeLog 环境变量
-            echo "changeLog=$(awk 'BEGIN{ORS="\\\\n"}{print NR ": " $0}' apk/${{ matrix.repoName }}.log)" >> $GITHUB_ENV
-            cat apk/${{ matrix.repoName }}.log
-
-        - name: Upload App To Artifact
-          if: ${{ env.commit }}
-          uses: actions/upload-artifact@v4
-          with:
-            name: CarVoiceAssistant-${{ env.commitS }}
-            path: |
-              source/apk/*
-
-        - name: Whether Or Not to Publish
-          if: ${{ inputs.donotpublish && env.commit }}
-          run: |
-            echo "commit=" >> $GITHUB_ENV
-
-        - name: Release and Upload Assets
-          uses: ncipollo/release-action@main
-          if: ${{ env.commit }}
-          with:
-            name: CarVoiceAssistant
-            tag: CarVoiceAssistant
-            body: |
-              CarVoiceAssistant Release Build
-              - version: ${{ env.versionName }}
-              - commit: ${{ env.commit }}
-              - build date: ${{ env.dateStr }}
-              
-              更新日志：
-              ${{ env.changeLog }}
-            allowUpdates: true
-            removeArtifacts: true
-            artifacts: |
-              source/apk/*.apk
-
-        - name: Push to master
-          if: ${{ env.commit }}
-          run: |
-            rm -rf source
-            sed -i '/url =/d' ./.git/config
-            git config --local user.name "github-actions[bot]"
-            git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git remote set-url --add origin "https://${{ github.actor }}:${{ secrets.GIT_TOKEN }}@github.com/${{ github.repository }}"
-            git pull --rebase
-            if grep -q "${{ matrix.userName }}/${{ matrix.repoName }}/tree/${{ matrix.branchName }}" README.md; then
-              sed -i "/${{ matrix.userName }}\/${{ matrix.repoName }}\/tree\/${{ matrix.branchName }}/s#Updated: [a-zA-Z0-9]*#Updated: ${{ env.commit }}#" README.md
-            else
-              echo "- [CarVoiceAssistant/${{ matrix.branchName }}](${{ env.upStream }}/tree/${{ matrix.branchName }}) Updated: ${{ env.commit }}" >> README.md
-            fi
-            sed -i "s/update at .*/update at $(date '+%Y-%m-%d %H:%M:%S')/" README.md
-            git add --all
-            git commit -m "${{ env.commit }}" || true
-            git push -u -f origin master
+      - name: Push to master
+        if: ${{ env.commit }}
+        run: |
+          rm -rf source
+          sed -i '/url =/d' ./.git/config
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote set-url --add origin "https://${{ github.actor }}:${{ secrets.GIT_TOKEN }}@github.com/${{ github.repository }}"
+          git pull --rebase
+          if grep -q "${{ matrix.userName }}/${{ matrix.repoName }}/tree/${{ matrix.branchName }}" README.md; then
+            sed -i "/${{ matrix.userName }}\/${{ matrix.repoName }}\/tree\/${{ matrix.branchName }}/s#Updated: [a-zA-Z0-9]*#Updated: ${{ env.commit }}#" README.md
+          else
+            echo "- [CarVoiceAssistant/${{ matrix.branchName }}](${{ env.upStream }}/tree/${{ matrix.branchName }}) Updated: ${{ env.commit }}" >> README.md
+          fi
+          sed -i "s/update at .*/update at $(date '+%Y-%m-%d %H:%M:%S')/" README.md
+          git add --all
+          git commit -m "${{ env.commit }}" || true
+          git push -u -f origin master
