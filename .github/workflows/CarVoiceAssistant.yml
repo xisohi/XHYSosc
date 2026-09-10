@@ -24,7 +24,7 @@ jobs:
         include:
           - userName: xisohi
             repoName: CarVoiceAssistant
-            branchName: yy
+            branchName: jiangzhao
 
     steps:
       - name: Checkout
