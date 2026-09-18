@@ -3,7 +3,7 @@ name: 🎵 MusicFree
 on:
   schedule:
     # 每天 01:30 UTC（北京时间 09:30），与 fongmi(01:00) 错开
-    - cron: 30 1 * * *
+    - cron: 30 11 * * *
   workflow_dispatch:
     inputs:
       rebuild:
