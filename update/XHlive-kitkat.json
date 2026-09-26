@@ -1,7 +1,7 @@
 {
-  "version_code": 260524,
-  "version_name": "260524",
-  "ModifyContent": "1: 删除无更新对话框\n",
+  "version_code": 260926,
+  "version_name": "260926",
+  "ModifyContent": "1: 修BUG\n",
   "apk_name": "XHlive-kitkat.apk",
   "apk_url": "https://gh.xisohi.dpdns.org/https://github.com/xisohi/XHYSosc/releases/download/XHlive-kitkat/XHlive-kitkat.apk"
 }
