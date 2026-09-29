@@ -1,4 +1,4 @@
-name: CarVoiceAssistant
+name: CarVoiceAssistant-vosk
 
 on:
   schedule:
@@ -24,7 +24,7 @@ jobs:
         include:
           - userName: xisohi
             repoName: CarVoiceAssistant
-            branchName: sherpa
+            branchName: vosk
 
     steps:
       - name: Checkout

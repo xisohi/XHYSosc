@@ -99,32 +99,6 @@ jobs:
           EOF
           echo "使用正式签名（与 fongmi 共用同一套证书）"
 
-      - name: Download local AARs
-        if: ${{ env.commit }}
-        working-directory: source
-        run: |
-          mkdir -p app/libs
-          cd app/libs
-
-          # sherpa-onnx 1.13.7（官方 GitHub Release）
-          curl -fL --retry 3 -o sherpa-onnx-1.13.7.aar \
-            https://github.com/k2-fsa/sherpa-onnx/releases/download/v1.13.7/sherpa-onnx-1.13.7.aar
-
-          # onnxruntime 1.27.1（NuGet 包里的 Android 原生库）
-          curl -fL --retry 3 -o onnxruntime.nupkg \
-            https://www.nuget.org/api/v2/package/Microsoft.ML.OnnxRuntime/1.27.1
-          unzip -o onnxruntime.nupkg -d ort
-          cp ort/runtimes/android/native/onnxruntime.aar onnxruntime-android-1.27.1.aar
-          rm -rf ort onnxruntime.nupkg
-
-          # 百度语音 SDK（按你实际的下载源改）
-          curl -fL --retry 3 -o baidu-speech.aar \
-            https://lcjly.cn/car/libs/baidu-speech.aar
-
-          # 验证：必须是 ZIP（AAR 就是 ZIP），不能是 HTML
-          file *.aar
-          unzip -l sherpa-onnx-1.13.7.aar | head -5
-
       - name: Build With Gradle
         if: ${{ env.commit }}
         working-directory: source
