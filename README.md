@@ -52,3 +52,4 @@ This repo relies on the following third-party projects:
 - [xisohi/MusicFreetree/tree/masterr](https://github.com/xisohi/MusicFree/tree/masterr) (Updated: 69971a23dd8159226ed0e50bbea80fd306cc34c2)
 - [xisohi/CarVoiceAssistant/tree/yy](https://github.com/xisohi/CarVoiceAssistant/tree/yy) (Updated: 5040f474a468a296ceb7bdafde12b6056e29db5e)
 - [CarVoiceAssistant/sherpa](https://github.com/xisohi/CarVoiceAssistant/tree/sherpa) Updated: b96e5211745ec080fc5838cd8cafe762a78677ad
+- [CarVoiceAssistant/vosk](https://github.com/xisohi/CarVoiceAssistant/tree/vosk) Updated: 88fe5759a51319104c65ad640886b70a5348afae
