@@ -71,7 +71,7 @@ https://raw.githubusercontent.com/xisohi/XHYSosc/master/MusicFree/<文件名>
 
 几点说明：
 
-- 四个 `xinghai-music-source-*` 是 **MusicFree 版**（和 `../XHmusic/` 里的洛雪版星海不是同一个文件），文件名带作者后缀 `toskysun` 的是二改分发版。
+- 四个 `xinghai-music-source-*` 是 **MusicFree 版**，文件名带作者后缀 `toskysun` 的是二改分发版。
 - 混淆插件（`酷狗1.js`、`汽水音乐.js`）的平台名和版本是从 `module.exports` 里读出来的，不是看文件名猜的。想自己改功能请拿 `酷我.js` 或星海系列当底版。
 - `xinghai-music-source-wy-v1.8.js` 的版本号以导出值 `1.7` 为准，文件名/注释里的 1.8 是上游没同步；`xinghai-radio-browser.infov0.2.js` 同理，文件名写 `v0.2`、实际导出 `0.0.2`。
 - `酷狗.js` 与 `酷狗1.js` 是两个不同插件（一个 Thomas喲 的 2025.10.01 版，一个 xixi 的 0.0.1 版），可以同时装、按需切换。
@@ -125,7 +125,6 @@ MusicFree 的音质只有四档，各插件自行映射到平台自己的档位�
 
 几个约定：
 
-- **全部走本仓库直链**，不再引用 `51.195.241.253:8080` 那种第三方代理，也不再依赖 upstream 的 `raw.githubusercontent.com`（原来的 `酷狗音乐` 条目就是代理，已换成本地 `酷狗.js`）。
 - `星海音乐源wy` 的 `version` 写 `1.7`（插件导出值），文件名 `…-wy-v1.8.js` 是上游没同步的旧标注；`开心汽水` 与 `酷狗` 两条分别对应混淆插件的真实平台名。
 - 新增或替换插件时，`name` / `url` / `version` 三处一起改，避免客户端因版本比对失败反复提示更新。
 
