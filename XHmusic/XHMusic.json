@@ -1,7 +1,0 @@
-{
-  "desc":"",
-  "plugins":[
-    {"name": "星海音乐源","url": "https://xhys.xisohi.dpdns.org/XHmusic/星海音乐源 v2.3.17.js","version": "v2.3.17"},
-    {"name": "墨澜音乐源", "url": "https://xhys.xisohi.dpdns.org/XHmusic/墨澜音乐源v2.3.5.js", "version": "v2.3.5"}
-  ]
-}
