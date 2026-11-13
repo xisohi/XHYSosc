@@ -13,11 +13,8 @@
 - [音源清单](#音源清单)
 - [平台代号与音质档位](#平台代号与音质档位)
 - [需要自己填的配置](#需要自己填的配置)
-- [XHMusic.json 说明](#xhmusicjson-说明)
 - [常见问题](#常见问题)
-- [新增 / 更新音源流程](#新增--更新音源流程)
 - [免责声明](#免责声明)
-- [Credits](#credits)
 
 ## 快速开始
 
@@ -42,17 +39,17 @@ https://raw.githubusercontent.com/xisohi/XHYSosc/master/XHmusic/<文件名>
 
 ## 音源清单
 
-| 文件 | 音源名称 | 版本 | 作者 | 支持平台 | 音质上限 | 备注 |
-|:--|:--|:--|:--|:--|:--|:--|
-| `HelloWorld音源.js` | 𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ | 260925 | hello world | kw / kg / tx / wy / mg（另含本地音乐） | 128k → flac，部分后端可到 master / atmos | 内置多后端池（海棠 musicserver、酷我 mobi 直连），默认 20 分钟缓存；顶部 `RACE_APIS` 控制并发竞速，`TIMEOUT` 可调 |
-| `HYWmusic_公益版V1.2.0.js` | HYWmusic_公益版 | v1.2.0 | Ryn | kw / tx / wy / mg / qs / bili / ytb / xm / kg | 128k / 320k / flac / flac24bit | 统一走 `API_BASE`（103.79.184.97）+ `CARD_KEY`，MIT 协议，带自动更新检查 |
+| 文件 | 出处                     | 版本 | 作者 | 支持平台 | 音质上限 | 备注 |
+|:--|:-----------------------|:--|:--|:--|:--|:--|
+| `HelloWorld音源.js` | 𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ        | 260925 | hello world | kw / kg / tx / wy / mg（另含本地音乐） | 128k → flac，部分后端可到 master / atmos | 内置多后端池（海棠 musicserver、酷我 mobi 直连），默认 20 分钟缓存；顶部 `RACE_APIS` 控制并发竞速，`TIMEOUT` 可调 |
+| `HYWmusic_公益版V1.2.0.js` | https://github.com/Macrohard0001/HYWmusic_source           | v1.2.0 | Ryn | kw / tx / wy / mg / qs / bili / ytb / xm / kg | 128k / 320k / flac / flac24bit | 统一走 `API_BASE`（103.79.184.97）+ `CARD_KEY`，MIT 协议，带自动更新检查 |
 | `回避聚合V0.0.1.js` | 回避聚合 (HuiBi Aggregate) | 0.0.1 | 回避 | tx / wy / kw / kg / mg | tx、wy、kg 可到 master，tx 另有 atmos / atmos_plus | LRU 缓存 + 并发/顺序 fallback；音质智能降级；可选填酷我代理解密与 ChKSz apikey |
-| `墨澜音乐源v2.3.6.js` | 墨澜聚合音源 | 2.3.6 | 白姬9527 | qq / wy / kw / kg / mg + 汽水音乐 | 全平台 flac，qq/wy/kw/kg/mg 支持母带 | 2026-11-06 修复 QQ；脚本已混淆；可填 `tx_cookie` / `wy_cookie`（默认 `null`） |
-| `安妮独家音源 v5.js` | 安妮独家音源 | v5 | 公益 API 收集整理 by 电狗（QQ 群 912385038） | kg / tx / kw / wy | kg：到 master / atmos；wy：到 jymaster / sky / jyeffect；tx：到 flac24bit / hires；kw：到 flac24bit | 后端为海棠 `musicserver` 公益接口，源码可读，适合作为二改底版 |
-| `星海音乐源 v2.3.19.js` | 星海音乐源 | v3.2.19 | 万去了了 / 科学大魔王 | wy / tx / kw / kg / mg / qs | wy、tx、kg 到 master / atmos，kw 已收敛到 flac，mg 到 flac，qs 到 hires | 2026-11-12 更换域名修复部分地区 DNS 解析错误；`actions` 含 `musicUrl` / `lyric` / `pic`；可选填卡密、ChKSz apikey、酷我代理解密 |
-| `独家音源-v7.js` | 独家音源 | 7 | w | 未标注（脚本混淆，以加载后客户端显示为准） | 未标注 | 配置由服务端下发（`SERVER_SCRIPT_CONFIG`）；更新关注微信公众号「洛雪科技」 |
-| `裤佬SVIP音源(二改整合版) v3.0.0.js` | 👖裤佬SVIP音源（二改整合版） | v3.0.0 | 裤佬 / 安妮 / 星海 | wy / tx / kw / kg / mg | wy 到 jymaster / sky / jyeffect，tx 到 master，kw、kg 到 hires，mg 到 flac24bit | 基于安妮 v4 + 星海 v3.2.12 重构；`actions` 含 `search` / `musicUrl` / `lyric` / `pic`；可选填 `CHKSZ_APIKEY` 与 `KW_DECRYPT_PROXY` |
-| `长青SVIP音源.js` | 长青SVIP音源 | 1.3.0 | SVIP | kg / tx / kw / wy / mg | 未标注（脚本混淆） | 带 `update_url` 更新清单；更新关注微信公众号「元力菌」 |
+| `墨澜音乐源v2.3.6.js` | https://github.com/baiji6/molanyinyueyuan                | 2.3.6 | 白姬9527 | qq / wy / kw / kg / mg + 汽水音乐 | 全平台 flac，qq/wy/kw/kg/mg 支持母带 | 2026-11-06 修复 QQ；脚本已混淆；可填 `tx_cookie` / `wy_cookie`（默认 `null`） |
+| `安妮独家音源 v5.js` | 安妮独家音源                 | v5 | 公益 API 收集整理 by 电狗（QQ 群 912385038） | kg / tx / kw / wy | kg：到 master / atmos；wy：到 jymaster / sky / jyeffect；tx：到 flac24bit / hires；kw：到 flac24bit | 后端为海棠 `musicserver` 公益接口，源码可读，适合作为二改底版 |
+| `星海音乐源 v2.3.19.js` | https://zrcdy.dpdns.org/lx/vers.php                 | v3.2.19 | 万去了了 / 科学大魔王 | wy / tx / kw / kg / mg / qs | wy、tx、kg 到 master / atmos，kw 已收敛到 flac，mg 到 flac，qs 到 hires | 2026-11-12 更换域名修复部分地区 DNS 解析错误；`actions` 含 `musicUrl` / `lyric` / `pic`；可选填卡密、ChKSz apikey、酷我代理解密 |
+| `独家音源-v7.js` | 独家音源                   | 7 | w | 未标注（脚本混淆，以加载后客户端显示为准） | 未标注 | 配置由服务端下发（`SERVER_SCRIPT_CONFIG`）；更新关注微信公众号「洛雪科技」 |
+| `裤佬SVIP音源(二改整合版) v3.0.0.js` | 👖裤佬SVIP音源（二改整合版）      | v3.0.0 | 裤佬 / 安妮 / 星海 | wy / tx / kw / kg / mg | wy 到 jymaster / sky / jyeffect，tx 到 master，kw、kg 到 hires，mg 到 flac24bit | 基于安妮 v4 + 星海 v3.2.12 重构；`actions` 含 `search` / `musicUrl` / `lyric` / `pic`；可选填 `CHKSZ_APIKEY` 与 `KW_DECRYPT_PROXY` |
+| `长青SVIP音源.js` | https://13413.kstore.vip/lxmusic/changqing.json              | 1.3.0 | SVIP | kg / tx / kw / wy / mg | 未标注（脚本混淆） | 带 `update_url` 更新清单；更新关注微信公众号「元力菌」 |
 
 
 ## 平台代号与音质档位
@@ -127,19 +124,3 @@ https://raw.githubusercontent.com/xisohi/XHYSosc/master/XHmusic/<文件名>
 - 脚本会向第三方服务器请求音频直链，音频内容版权归各唱片公司及音乐平台所有，请支持正版。
 - 使用第三方音源可能触及平台用户协议（如会员权益限制），由此产生的账号风险与后果由使用者自行承担；请勿用于任何商业用途。
 - 若原作者不希望被收录，请提 Issue，会尽快移除。
-
-## Credits
-
-| 音源 | 作者 / 出处 |
-|:--|:--|
-| HelloWorld | hello world |
-| HYWmusic_公益版 | Ryn · <https://github.com/Macrohard0001/HYWmusic_source> |
-| 回避聚合 | 回避 |
-| 墨澜聚合音源 | 白姬9527 · <https://github.com/baiji6/molanyinyueyuan> |
-| 安妮独家音源 | 电狗（公益 API 收集整理） |
-| 星海音乐源 | 万去了了 / 科学大魔王 · <https://zddyr.top/> |
-| 独家音源 | w · 微信公众号「洛雪科技」 |
-| 裤佬SVIP音源 | 裤佬 / 安妮 / 星海 · <https://Jsnzkpg.github.io> |
-| 长青SVIP音源 | SVIP · 微信公众号「元力菌」 |
-
-相关目录：[`../MusicFree/`](../MusicFree/README.md)（MusicFree 插件合集）。
