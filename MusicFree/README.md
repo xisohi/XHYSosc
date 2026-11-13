@@ -9,6 +9,7 @@
 
 - [快速开始](#快速开始)
 - [插件清单](#插件清单)
+- [后端与风险](#后端与风险)
 - [音质档位](#音质档位)
 - [XHMusic.json 说明](#xhmusicjson-说明)
 - [常见问题](#常见问题)
@@ -64,16 +65,37 @@ https://raw.githubusercontent.com/xisohi/XHYSosc/master/MusicFree/<文件名>
 | `bilibili.js` | bilibili | 0.3.0 | 猫头猫 | music / album / artist | 官方插件；把**公开**收藏夹当歌单导入（H5/PC 复制收藏夹链接或填 ID），非公开收藏夹导不进来 |
 | `xinghai-music-source-wy-v1.8.js` | 星海音乐源wy | 1.7（文件头部写 1.8） | 万去了了 | music / album / artist / sheet / lyric | 星海系列的网易云分支；填 `music_u` cookie 走 eapi，留空走公开接口；支持单曲/歌单导入 |
 | `xinghai-music-source-kg-toskysun-v0.0.6.js` | 星海kg | 0.0.6 | 万去了了 | music / album / artist / sheet | 酷狗分支；支持 `kugou.com/special/detail/xxx` 歌单链接导入；0.0.6 补了 atmos / dolby / tape 音质直通 |
+| `xinghai-music-source-kw-toskysun-v1.1.4.js` | 星海音乐源kuwo | 1.1.4 | 万去了了 | music / album / sheet / artist / lyric | 酷我分支；搜索、歌单、歌词走 `kuwo.cn` 官方接口，播放直链走自建后端；功能与官方酷我插件重合，可互为备份 |
 | `xinghai-music-source-qs-v1.2.1.js` | 星海音乐源-汽水 | 1.2.1 | 万去了了 | music | 汽水分支；播放、逐字歌词、榜单、评论；已针对新版运行环境修掉 `require is not defined` |
 | `xinghai-radio-browser.infov0.2.js` | RadioBrowser | 0.0.2 | 星海 & 万去了了 | music | 不是音乐平台，是**全球电台**：走 `radio-browser.info` 镜像，支持中文台名翻译；用户变量可设流格式（1=MP3 / 2=AAC / 3=HLS）和「连续失败 N 首自动停止」 |
 
 几点说明：
 
-- 三个 `xinghai-music-source-*` 是 **MusicFree 版**（和 `../XHmusic/` 里的洛雪版星海不是同一个文件），文件名带作者后缀 `toskysun` 的是二改分发版。
+- 四个 `xinghai-music-source-*` 是 **MusicFree 版**（和 `../XHmusic/` 里的洛雪版星海不是同一个文件），文件名带作者后缀 `toskysun` 的是二改分发版。
 - 混淆插件（`酷狗1.js`、`汽水音乐.js`）的平台名和版本是从 `module.exports` 里读出来的，不是看文件名猜的。想自己改功能请拿 `酷我.js` 或星海系列当底版。
 - `xinghai-music-source-wy-v1.8.js` 的版本号以导出值 `1.7` 为准，文件名/注释里的 1.8 是上游没同步；`xinghai-radio-browser.infov0.2.js` 同理，文件名写 `v0.2`、实际导出 `0.0.2`。
 - `酷狗.js` 与 `酷狗1.js` 是两个不同插件（一个 Thomas喲 的 2025.10.01 版，一个 xixi 的 0.0.1 版），可以同时装、按需切换。
 - `RadioBrowser` 是电台源，搜索/播放逻辑与专辑歌手那套不同：搜索结果的「歌手」是电台国家/语种，播放的是直播流，拖动进度条无效属正常。
+
+## 后端与风险
+
+14 个插件背后其实只有 6 套后端，同域名的会一起失效，装多个同源插件并不会更稳：
+
+| 后端 | 域名 | 依赖插件 |
+|:--|:--|:--|
+| 星海自建 | `yy.zddyr.top`(6) / `zrcdy.dpdns.org`(5) / `gc.kxwa.top` | 星海 kw/wy/kg/qs/radio |
+| 海棠 | `music.haitangw.cc`、`musicapi.haitangw.net` | 网易、腾讯、酷狗 |
+| ikun 卡密 | `api.ikunshare.com` | 网易、腾讯、酷狗 |
+| 元力 | `13413.kstore.vip` | 网易、腾讯、酷狗 |
+| 免费聚合 | `lxmusicapi.onrender.com` | 网易、腾讯、酷狗（免费实例会休眠，首播超时多半是它） |
+| 平台官方 | `*.kuwo.cn`、`*.kugou.com`、`music.163.com`、`y.qq.com`、`missevan.com`、`bilibili.com` | 酷我、千千、猫耳FM、bilibili |
+
+需要知道的几点：
+
+- **内置共享凭证**：`网易音乐.js` 兜底写死 `MUSIC_U=0034B44F…`，`腾讯音乐.js` 兜底写死 `qm_keyst=Q_H_L_5FBM…`。不填自己的 cookie 时所有人生成的是同一个账号的登录态，有风控/封号风险，而这份凭证还公开在仓库里。建议填自己的，或把兜底值清空。
+- **两个不可审的**：`酷狗1.js`、`汽水音乐.js`（jsjiami 混淆）。`酷狗1.js` 的 `srcUrl` 指向 `js.258008.xyz`，另连 `ksdjskdsd1123.nnice.cn`；`汽水音乐.js` 连 `srcUrl` 都是混淆字符串，读不出更新源。这两个的「提示更新」等于从随机域名拉新脚本，供应链面最大，建议不装或关掉自动更新。
+- **远端更新面**：14 个里 13 个带 `srcUrl`（只有星海 kg 的 `UPDATE_URL` 为空），意味着作者服务器随时能向客户端推新代码。只从本仓库更新能规避一半。
+- **能审、走官方接口的**：`酷我.js`、`千千.js`、`猫耳FM.js`、`bilibili.js`、`RadioBrowser`、星海系列（`music_u` 只发 `music.163.com`，第三方 `apiwy.php` 只收 song id，不发 cookie）。想稳就留这几个 + 1 个聚合同路。
 
 ## 音质档位
 
@@ -92,25 +114,20 @@ MusicFree 的音质只有四档，各插件自行映射到平台自己的档位�
 
 ## XHMusic.json 说明
 
-订阅 / 索引清单，当前 9 条：
+订阅 / 索引清单，当前 **14 条 = 本目录全部插件**，`name` 取插件导出的 `platform`，`version` 取导出值（不是文件名）：
 
-| 条目 | URL 指向 | 标注版本 | 实际 |
-|:--|:--|:--|:--|
-| 网易音乐 | 本目录 `网易音乐.js` | v2025.09.14 | 一致 |
-| 酷我 | 本目录 `酷我.js` | 1.0.0 | 一致 |
-| 酷狗音乐 | 第三方代理（`51.195.241.253:8080` → raw.githubusercontent 的 `kg.js`） | 2025.10.01 | 与本地 `酷狗.js` 同上游，属重复条目 |
-| 酷狗 | 本目录 `酷狗.js` | `.0.0.1` | **版本标注错**：`.0.0.1` 是 `酷狗1.js` 的版本，`酷狗.js` 实际是 2025.10.01 |
-| 腾讯音乐 | 本目录 `腾讯音乐.js` | 2025.09.13 | 一致 |
-| 汽水音乐 | 本目录 `汽水音乐.js` | 0.1.5 | 一致 |
-| 千千 | 本目录 `千千.js` | 0.1.3 | 一致 |
-| 猫耳FM | 本目录 `猫耳FM.js` | 0.1.4 | 一致 |
-| bilibili | 本目录 `bilibili.js` | 0.3.0 | 一致 |
+| 条目 | 文件 | 版本 |
+|:--|:--|:--|
+| 网易音乐 / 腾讯音乐 / 酷狗音乐 / 开心汽水 | `网易音乐.js` / `腾讯音乐.js` / `酷狗.js` / `汽水音乐.js` | 2025.09.14 / 2025.09.13 / 2025.10.01 / 0.1.5 |
+| 酷我 / 千千 / 猫耳FM / bilibili / 酷狗 | `酷我.js` / `千千.js` / `猫耳FM.js` / `bilibili.js` / `酷狗1.js` | 1.0.0 / 0.1.3 / 0.1.4 / 0.3.0 / 0.0.1 |
+| 星海音乐源kuwo / wy / kg / -汽水 | `xinghai-music-source-kw-toskysun-v1.1.4.js` / `-wy-v1.8.js` / `-kg-toskysun-v0.0.6.js` / `-qs-v1.2.1.js` | 1.1.4 / 1.7 / 0.0.6 / 1.2.1 |
+| RadioBrowser | `xinghai-radio-browser.infov0.2.js` | 0.0.2 |
 
-三个问题值得处理：
+几个约定：
 
-1. **漏收**：`酷狗1.js`、三个 `xinghai-music-source-*`、`xinghai-radio-browser.infov0.2.js` 都没有条目，订阅导入时拿不到。
-2. **`酷狗音乐` 走第三方代理**：`http://51.195.241.253:8080/` 是给 raw.githubusercontent 做中转的，代理一挂整条就装不上；本地已有同版本 `酷狗.js`，建议直接换成自己的直链。
-3. **版本字段与实际不符**：见上表 `酷狗` 一行。
+- **全部走本仓库直链**，不再引用 `51.195.241.253:8080` 那种第三方代理，也不再依赖 upstream 的 `raw.githubusercontent.com`（原来的 `酷狗音乐` 条目就是代理，已换成本地 `酷狗.js`）。
+- `星海音乐源wy` 的 `version` 写 `1.7`（插件导出值），文件名 `…-wy-v1.8.js` 是上游没同步的旧标注；`开心汽水` 与 `酷狗` 两条分别对应混淆插件的真实平台名。
+- 新增或替换插件时，`name` / `url` / `version` 三处一起改，避免客户端因版本比对失败反复提示更新。
 
 ## 常见问题
 
@@ -161,6 +178,6 @@ MusicFree 的音质只有四档，各插件自行映射到平台自己的档位�
 | 酷我 | 玥然OvO · <https://raw.gitcode.com/Crystim/mfp> |
 | 汽水音乐（开心汽水） | 鸿蒙 · <https://gitee.com/hongmengv5/musicfree> |
 | 酷狗（0.0.1） | xixi |
-| 星海系列（wy / kg / qs） | 万去了了 · <https://zddyr.top/> |
+| 星海系列（kw / wy / kg / qs）+ RadioBrowser | 万去了了 · <https://zddyr.top/> |
 
 相关目录：[`../XHmusic/`](../XHmusic/README.md)（洛雪音源合集）。

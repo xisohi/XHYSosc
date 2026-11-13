@@ -13,6 +13,7 @@
 - [音源清单](#音源清单)
 - [平台代号与音质档位](#平台代号与音质档位)
 - [需要自己填的配置](#需要自己填的配置)
+- [后端与风险](#后端与风险)
 - [常见问题](#常见问题)
 - [免责声明](#免责声明)
 
@@ -49,7 +50,7 @@ https://raw.githubusercontent.com/xisohi/XHYSosc/master/XHmusic/<文件名>
 | `星海音乐源 v2.3.19.js` | https://zrcdy.dpdns.org/lx/vers.php                 | 万去了了 / 科学大魔王 | wy / tx / kw / kg / mg / qs | wy、tx、kg 到 master / atmos，kw 已收敛到 flac，mg 到 flac，qs 到 hires | 2026-11-12 更换域名修复部分地区 DNS 解析错误；`actions` 含 `musicUrl` / `lyric` / `pic`；可选填卡密、ChKSz apikey、酷我代理解密 |
 | `独家音源-v7.js` | 独家音源                   | w | 未标注（脚本混淆，以加载后客户端显示为准） | 未标注 | 配置由服务端下发（`SERVER_SCRIPT_CONFIG`）；更新关注微信公众号「洛雪科技」 |
 | `裤佬SVIP音源(二改整合版) v3.0.0.js` | 👖裤佬SVIP音源（二改整合版）      | 裤佬 / 安妮 / 星海 | wy / tx / kw / kg / mg | wy 到 jymaster / sky / jyeffect，tx 到 master，kw、kg 到 hires，mg 到 flac24bit | 基于安妮 v4 + 星海 v3.2.12 重构；`actions` 含 `search` / `musicUrl` / `lyric` / `pic`；可选填 `CHKSZ_APIKEY` 与 `KW_DECRYPT_PROXY` |
-| `长青SVIP音源.js` | https://13413.kstore.vip/lxmusic/changqing.json              | SVIP | kg / tx / kw / wy / mg | 未标注（脚本混淆） | 带 `update_url` 更新清单；更新关注微信公众号「元力菌」 |
+| `长青SVIP音源v1.3.0.js` | https://13413.kstore.vip/lxmusic/changqing.json              | SVIP | kg / tx / kw / wy / mg | 未标注（脚本混淆） | 带 `update_url` 更新清单；更新关注微信公众号「元力菌」 |
 
 
 ## 平台代号与音质档位
@@ -88,15 +89,32 @@ https://raw.githubusercontent.com/xisohi/XHYSosc/master/XHmusic/<文件名>
 
 | 文件 | 配置项 | 作用 |
 |:--|:--|:--|
-| `星海音乐源 v2.3.17.js` | `KW_DECRYPT_PROXY.url`、`allowEncryptedLossless` | 酷我加密无损走代理解密；留空则跳过 |
-| `星海音乐源 v2.3.17.js` | ChKSz apikey | 启用 ChKSz 后端，部分平台高音质依赖它 |
+| `星海音乐源 v2.3.19.js` | `KW_DECRYPT_PROXY.url`、`allowEncryptedLossless` | 酷我加密无损走代理解密；留空则跳过 |
+| `星海音乐源 v2.3.19.js` | 卡密、`CHKSZ_CONFIG.apikey` | 卡密解锁「仅认证可用」的接口（如 QQ），apikey 启用 ChKSz 后端 |
 | `回避聚合V0.0.1.js` | `CHKSZ_CONFIG.apikey`、`KW_DECRYPT_PROXY` | 同上 |
 | `裤佬SVIP音源(二改整合版) v3.0.0.js` | `CHKSZ_APIKEY`、`KW_DECRYPT_PROXY` | 同上，留空自动跳过该后端 |
 | `墨澜音乐源v2.3.6.js` | `@tx_cookie` / `@wy_cookie` | 携带登录态，提升 VIP 曲目可用率（默认 `null`） |
 | `HYWmusic_公益版V1.2.0.js` | `API_BASE`、`CARD_KEY` | 服务端地址与卡密，**不要**改成 `localhost`，否则必然失败 |
 | `HelloWorld音源.js` | `RACE_APIS`、`TIMEOUT`、`CACHE_TTL` | 后端并发竞速 / 请求超时 / 缓存时长 |
-| `长青SVIP音源.js`、`独家音源-v7.js` | — | 无可改配置（服务端统一下发） |
+| `长青SVIP音源v1.3.0.js`、`独家音源-v7.js` | — | 无可改配置（服务端统一下发） |
 
+
+## 后端与风险
+
+9 个音源集中在 5 家后端，同后端的会在同一时段一起失效：
+
+| 后端 | 域名 | 依赖音源 |
+|:--|:--|:--|
+| 星海自建 | `yy.zddyr.top`、`zrcdy.dpdns.org`、`gc.kxwa.top` | 星海、HelloWorld、裤佬 |
+| 海棠 | `musicserver.haitangw.cc`、`c.wwwweb.top` | HelloWorld、安妮 |
+| ChKSz | `api.chksz.com` | 回避、裤佬 |
+| HYW 自建 | `103.79.184.97`（写死 IP） | HYWmusic |
+| 元力 / 独家 | `13413.kstore.vip`、`88.lxmusic.xn--fiqs8s` | 长青、独家 |
+
+- **三个不可审**：`墨澜 v2.3.6`（`_0x` 混淆、570 KB；2.3.5 版只有 39 KB 且完全可读，git 历史里还在）、`长青`、`独家`。后者后端写成 punycode 域名（`88.lxmusic.中国`），配置还由服务端下发，可读性被刻意降级。
+- **共享卡密**：`HYWmusic` 把 `CARD_KEY = 6C1F-53W0-GRKI-EVFG` 写死在脚本里，等于所有人共用一份额度，用完了只能等作者换。
+- **可改后端**：`星海`、`HelloWorld`、`安妮`、`回避`、`裤佬` 源码可读，换域名比等作者更新快（通常改一处常量即可）。
+- 星海 2.3.19 把 `kw` 收到 flac：上游没有真母带，选 master 也只是同一个 16bit/44.1kHz 文件。
 
 ## 常见问题
 
