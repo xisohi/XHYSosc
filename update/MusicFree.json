@@ -1,6 +1,6 @@
 {
-  "version": "260921",
-  "changeLog": "1: 增加音乐控制小组件\\n",
+  "version": "261119",
+  "changeLog": "1: 播放页：新增播放器内音量调节（0-100%，持久化保存）\\n2: - 播放页进度条下方新增音量滑块，通过 RNTrackPlayer.setVolume 调整播放器输出音量\\n3: - 音量值持久化到 music.volume，启动时自动恢复\\n4: - 修正临时降低音量：按用户音量比例降低，恢复时回到用户设定值而非固定 100%\\n",
   "download": [
     "https://gh.acmsz.top/https://github.com/xisohi/XHYSosc/releases/download/musicfree/app-universal-release.apk",
     "https://github.catvod.com/https://github.com/xisohi/XHYSosc/releases/download/musicfree/app-universal-release.apk"
