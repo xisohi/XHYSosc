@@ -51,5 +51,5 @@ This repo relies on the following third-party projects:
 - [xisohi/XHlive/tree/kitkat](https://github.com/xisohi/XHlive/tree/kitkat) (Updated: be1c138762d05ed9a51934d08de5304dc6ddd71d)
 - [xisohi/MusicFreetree/tree/masterr](https://github.com/xisohi/MusicFree/tree/masterr) (Updated: a1d05bd6a4e68fb233bac494cac549af3fad4caa)
 - [xisohi/CarVoiceAssistant/tree/yy](https://github.com/xisohi/CarVoiceAssistant/tree/yy) (Updated: 5040f474a468a296ceb7bdafde12b6056e29db5e)
-- [CarVoiceAssistant/sherpa](https://github.com/xisohi/CarVoiceAssistant/tree/sherpa) Updated: 786d5c5148eda0b5c8df8996e1adc92ab5cc0d70
+- [CarVoiceAssistant/sherpa](https://github.com/xisohi/CarVoiceAssistant/tree/sherpa) Updated: 61bd8f78d796d5e0bdbbddb97301c666f557c97b
 - [CarVoiceAssistant/vosk](https://github.com/xisohi/CarVoiceAssistant/tree/vosk) Updated: 88fe5759a51319104c65ad640886b70a5348afae
